@@ -11,10 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.Clases.Hermandad;
+import com.example.ammacias.quizzcofrade.Clases.Paso;
 import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.PasosDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
+
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -97,39 +111,115 @@ public class CategoriaFragmentList extends Fragment {
 
                 if (response.isSuccess()) {
                     Result r = response.body();
+
+                    UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(getActivity());
+
+                    for (Usuario u: r.getUsuario()) {
+                        //Si NO existe
+                        if (usuarioDBDao.load(u.getId())==null){
+
+                            UsuarioDB usuarioDB = new UsuarioDB();
+                            usuarioDB.setId(u.getId());
+                            usuarioDB.setNick(u.getNick());
+
+                            usuarioDBDao.insert(usuarioDB);
+                        }else{
+                            //TODO: Si hay algo diferente en alguna marca del JSON, hago update en local
+                            /*for (MarcaDB a: marcaDBDao.loadAll()) {
+
+                            }*/
+                        }
+                    }
+
+
+                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                    PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
+
+                    for (Hermandad h: r.getHermandad()) {
+                        //Si NO existe
+                        if (hermandadDBDao.load(h.getId())==null){
+
+                            HermandadDB hermandadDB= new HermandadDB();
+                            hermandadDB.setId(h.getId());
+                            hermandadDB.setNombre(h.getNombre());
+                            hermandadDB.setEscudo(h.getEscudo());
+                            hermandadDB.setTunica(h.getTunica());
+                            hermandadDB.setDia(h.getDia());
+                            hermandadDB.setNumNazarenos(h.getNumNazarenos());
+
+                            hermandadDBDao.insert(hermandadDB);
+
+                            //Recorro los pasos para añadirlos
+                            for (Paso p: h.getPaso()) {
+                                if (pasosDBDao.load(p.getId())==null){
+                                    PasosDB pasosDB = new PasosDB();
+
+                                    pasosDB.setId(p.getId());
+                                    pasosDB.setNombreTitular(p.getNombreTitular());
+                                    pasosDB.setFoto(p.getFoto());
+                                    pasosDB.setBanda(p.getBanda());
+                                    pasosDB.setIdHermandad(h.getId());
+
+                                    pasosDBDao.insert(pasosDB);
+                                }
+                            }
+                        }
+                    }
+
+                    UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
+
+                    for (UsuariosHermandades uh: r.getUsuariosHermandades()) {
+                        //Si NO existe
+                        if (usuariosHermandadesDBDao.load(uh.getId())==null){
+
+                            UsuariosHermandadesDB usuariosHermandadesDB= new UsuariosHermandadesDB();
+                            usuariosHermandadesDB.setId(uh.getId());
+                            usuariosHermandadesDB.setIdUsuario(uh.getIdUsuario());
+                            usuariosHermandadesDB.setCategoria(uh.getCategoria());
+                            usuariosHermandadesDB.setIdHermandad(uh.getIdHermandad());
+
+                            usuariosHermandadesDBDao.insert(usuariosHermandadesDB);
+                        }
+                    }
+
+                    // SELECT * FROM Airline WHERE id=1 LIMIT 1
+                    // Devolviendo una única fila
+            /*
+            Airline airline = airlineDao.queryBuilder()
+                    .where(AirlineDao.Properties.Id.eq(1),
+                            AirlineDao.Properties.Nombre.eq(""))
+                    .orderAsc(AirlineDao.Properties.Nombre)
+                    .unique();
+            */
+                    /*categorias.add(usuariosHermandadesDBDao.queryBuilder()
+                            .where(new WhereCondition.StringCondition("1 GROUP BY categoria")).list());
+
+                    categorias.add(usuariosHermandadesDBDao.queryBuilder()
+                            .where(WhereCondition.StringCondition.field.in(fieldValues)).list());
+*/
+                    //List<UsuariosHermandadesDB> a = usuariosHermandadesDBDao.queryBuilder()
+                    //.where(new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Id.gt(0).toString())).list();
+
+                    List<UsuariosHermandadesDB> a = usuariosHermandadesDBDao.loadAll();
+                    for (int i =0; i<a.size();i++){
+                        if(!categorias.contains(a.get(i).getCategoria())){
+                            categorias.add(a.get(i).getCategoria());
+
+                        }
+                    }
+                    System.out.println(categorias);
+
+                    /*return usuariosHermandadesDBDao.queryBuilder().where(
+                            new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Categoria.eq("") " IN "
+                                    + "(SELECT " + UsuariosHermandadesDBDao.Properties.Categoria+ " FROM "
+                                    + UsuariosHermandadesDBDao.TABLENAME)+ " group by categoria")
+                            .list();*/
+
                     for(UsuariosHermandades uh:r.getUsuariosHermandades()){
                         if(!categorias.contains(uh.getCategoria())){
                             categorias.add(uh.getCategoria());
                         }
                     }
-                    System.out.println(categorias);
-
-                   /* MarcaDBDao marcaDBDao = DatabaseConnection.getMarcaDBDao(getActivity());
-                    for (Marca m: r.getMarca()) {
-                        //Si NO existe
-                        if (marcaDBDao.load(m.getId())==null){
-                            System.out.println("YEPA: "+marcaDBDao.load(m.getId()));
-
-                            MarcaDB nuevaMarca = new MarcaDB();
-                            nuevaMarca.setId(m.getId());
-                            nuevaMarca.setNombre(m.getNombre());
-                            nuevaMarca.setNivel(m.getNivel());
-                            nuevaMarca.setFoto(m.getFoto());
-                            nuevaMarca.setAcertado(m.getAcertado());
-
-                            marcaDBDao.insert(nuevaMarca);
-                        }else{
-                            //TODO: Si hay algo diferente en alguna marca del JSON, hago update en local
-                        /*for (MarcaDB a: marcaDBDao.loadAll()) {
-
-                        } //
-                        }
-
-
-                        // SELECT * FROM marca WHERE
-                        // MarcaDB marcaActual = marcadbDao.load(id);
-
-                    }*/
 
                     recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
 

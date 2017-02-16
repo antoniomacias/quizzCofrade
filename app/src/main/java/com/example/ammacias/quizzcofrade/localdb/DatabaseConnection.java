@@ -36,8 +36,8 @@ public class DatabaseConnection {
         return daoSession.getPasosDBDao();
     }
 
-    public static UsuariosHermandadesDao getUsuariosHermandadesDao (Context ctx) {
+    public static UsuariosHermandadesDBDao getUsuariosHermandadesDBDao (Context ctx) {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
-        return daoSession.getUsuariosHermandadesDao();
+        return daoSession.getUsuariosHermandadesDBDao();
     }
 }

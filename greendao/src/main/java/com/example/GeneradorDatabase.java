@@ -35,7 +35,7 @@ public class GeneradorDatabase {
         pasosDB.addLongProperty("idHermandad").notNull();
 
         // Definimos las entidades (tablas) de la base de datos
-        Entity usuariosHermandades = schema.addEntity("UsuariosHermandades");
+        Entity usuariosHermandades = schema.addEntity("UsuariosHermandadesDB");
         usuariosHermandades.addIdProperty().autoincrement().primaryKey();
         usuariosHermandades.addLongProperty("idUsuario").notNull();
         usuariosHermandades.addLongProperty("idHermandad").notNull();
