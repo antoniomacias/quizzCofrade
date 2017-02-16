@@ -26,8 +26,5 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         Toast.makeText(this, "Te queas muerto", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public Call<Result> getDatos() {
-        return null;
-    }
+
 }

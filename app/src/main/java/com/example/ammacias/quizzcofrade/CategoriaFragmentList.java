@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.ammacias.quizzcofrade.Clases.Result;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -81,11 +82,11 @@ public class CategoriaFragmentList extends Fragment {
 
         //RETROFIT
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ICofrade.ENDPOINT)
+                .baseUrl(IRetrofit.ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ICofrade service = retrofit.create(ICofrade.class);
+        IRetrofit service = retrofit.create(IRetrofit.class);
 
         Call<Result> autocompleteList = service.getDatos();
 
