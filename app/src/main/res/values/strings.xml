@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">QuizzCofrade</string>
+    <string name="alert_title_internet">Conexión a Internet</string>
+    <string name="alert_need_internet_to_download">Necesitas estar conectado a Internet para poder hacer uso de la aplicación, seleccione una opción.</string>
+    <string name="dialog_settings_internet">Conectarse</string>
+    <string name="alert_dialog_cancel">Cancelar</string>
 </resources>
