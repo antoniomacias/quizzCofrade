@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade.Reciclaje;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.squareup.picasso.Picasso;
 
@@ -24,11 +26,14 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
     private final List<HermandadDB> mValues;
     private final ICofrade mListener;
     private Context ctx;
+    String cat_elegida;
+
 
     public MyEscudosDBRecyclerViewAdapter(Context ctx, List<HermandadDB> items, ICofrade listener) {
         this.ctx = ctx;
         mValues = items;
         mListener = listener;
+        cat_elegida = ((Application_vars) ctx.getApplicationContext()).getCategoriaElegida();
     }
 
     @Override
@@ -42,12 +47,20 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         // TODO: Pintar con Picasso
-        Picasso.with(ctx)
-                .load((mValues.get(position).getEscudo()))
-                .resize(250, 200)
-                .into(holder.mIdView);
-        //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
-
+        if (cat_elegida.contains("Escudos")) {
+            Picasso.with(ctx)
+                    .load((mValues.get(position).getEscudo()))
+                    .placeholder(R.drawable.loading)
+                    .resize(250, 200)
+                    .into(holder.mIdView);
+            //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
+        }else{
+            Picasso.with(ctx)
+                    .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                    .placeholder(R.drawable.loading)
+                    .resize(250, 200)
+                    .into(holder.mIdView);
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

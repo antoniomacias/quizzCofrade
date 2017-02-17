@@ -44,6 +44,7 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
         // TODO: Pintar con Picasso
         Picasso.with(ctx)
                 .load((mValues.get(position).getFoto()))
+                .placeholder(R.drawable.loading)
                 .resize(250, 200)
                 .into(holder.mIdView);
         //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
