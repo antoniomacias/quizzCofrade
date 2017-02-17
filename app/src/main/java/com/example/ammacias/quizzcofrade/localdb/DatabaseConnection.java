@@ -40,4 +40,8 @@ public class DatabaseConnection {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
         return daoSession.getUsuariosHermandadesDBDao();
     }
+
+    public static void closeConnection(){
+        daoMaster.getDatabase().close();
+    }
 }

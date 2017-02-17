@@ -181,17 +181,7 @@ public class CategoriaFragmentList extends Fragment {
                             usuariosHermandadesDBDao.insert(usuariosHermandadesDB);
                         }
                     }
-
-                    // SELECT * FROM Airline WHERE id=1 LIMIT 1
-                    // Devolviendo una única fila
-            /*
-            Airline airline = airlineDao.queryBuilder()
-                    .where(AirlineDao.Properties.Id.eq(1),
-                            AirlineDao.Properties.Nombre.eq(""))
-                    .orderAsc(AirlineDao.Properties.Nombre)
-                    .unique();
-            */
-                    /*categorias.add(usuariosHermandadesDBDao.queryBuilder()
+ /*                 categorias.add(usuariosHermandadesDBDao.queryBuilder()
                             .where(new WhereCondition.StringCondition("1 GROUP BY categoria")).list());
 
                     categorias.add(usuariosHermandadesDBDao.queryBuilder()
@@ -199,15 +189,6 @@ public class CategoriaFragmentList extends Fragment {
 */
                     //List<UsuariosHermandadesDB> a = usuariosHermandadesDBDao.queryBuilder()
                     //.where(new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Id.gt(0).toString())).list();
-
-                    List<UsuariosHermandadesDB> a = usuariosHermandadesDBDao.loadAll();
-                    for (int i =0; i<a.size();i++){
-                        if(!categorias.contains(a.get(i).getCategoria())){
-                            categorias.add(a.get(i).getCategoria());
-
-                        }
-                    }
-                    System.out.println(categorias);
 
                     /*return usuariosHermandadesDBDao.queryBuilder().where(
                             new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Categoria.eq("") " IN "
@@ -220,6 +201,7 @@ public class CategoriaFragmentList extends Fragment {
                             categorias.add(uh.getCategoria());
                         }
                     }
+                    //System.out.println(categorias);
 
                     recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
 

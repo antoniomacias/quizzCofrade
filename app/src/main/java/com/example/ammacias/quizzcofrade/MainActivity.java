@@ -1,19 +1,14 @@
 package com.example.ammacias.quizzcofrade;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-
 public class MainActivity extends AppCompatActivity implements ICofrade{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +18,14 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickCategoria(String categoria) {
-        Toast.makeText(this, "Te queas muerto", Toast.LENGTH_SHORT).show();
+
+        // TODO: Switch con la categoría
+        ((Application_vars) this.getApplication()).setCategoriaElegida(categoria);
+
+
+        Intent jugar = new Intent(MainActivity.this, JuegoActivity.class);
+        //jugar.putExtra("cat",categoria);
+        startActivity(jugar);
     }
 
 
