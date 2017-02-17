@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
@@ -28,9 +29,8 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link ICofrade}
  * interface.
  */
-public class JuegoFragmentList extends Fragment {
+public class EscudosFragmentList extends Fragment {
 
-    List<String>fotos=new LinkedList<>();
     // TODO: Customize parameters
     private int mColumnCount = 4;
 
@@ -40,7 +40,7 @@ public class JuegoFragmentList extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public JuegoFragmentList() {
+    public EscudosFragmentList() {
     }
 
     @Override
@@ -64,7 +64,7 @@ public class JuegoFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            String cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
+            /*String cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
             switch (cat_elegida){
                 case "Pasos":
                     PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
@@ -88,11 +88,13 @@ public class JuegoFragmentList extends Fragment {
                     break;
                 default:
                     break;
-            }
+            }*/
+
+            HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+            List<HermandadDB> listHermandad = hermandadDBDao.loadAll();
 
 
-
-            recyclerView.setAdapter(new MyJuegoRecyclerViewAdapter(getActivity(), fotos, mListener));
+            recyclerView.setAdapter(new MyEscudosRecyclerViewAdapter(getActivity(), listHermandad, mListener));
         }
         return view;
     }

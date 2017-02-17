@@ -10,13 +10,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ammacias.quizzcofrade.JuegoActivity"
+    tools:context="com.example.ammacias.quizzcofrade.EscudosActivity"
     tools:showIn="@layout/activity_juego">
 
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.ammacias.quizzcofrade.Reciclaje.JuegoFragmentList"
+        android:name="com.example.ammacias.quizzcofrade.Reciclaje.EscudosFragmentList"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

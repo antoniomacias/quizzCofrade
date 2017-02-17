@@ -1,13 +1,16 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Reciclaje;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import android.widget.ImageView;
 
+import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,14 +19,14 @@ import java.util.List;
  * specified {@link ICofrade}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoriaRecyclerViewAdapter.ViewHolder> {
+public class MyEscudosRecyclerViewAdapter extends RecyclerView.Adapter<MyEscudosRecyclerViewAdapter.ViewHolder> {
 
-    private final List<String> mValues;
+    private final List<HermandadDB> mValues;
     private final ICofrade mListener;
     private Context ctx;
 
-    public MyCategoriaRecyclerViewAdapter(Context context, List<String> items, ICofrade listener) {
-        ctx = context;
+    public MyEscudosRecyclerViewAdapter(Context ctx, List<HermandadDB> items, ICofrade listener) {
+        this.ctx = ctx;
         mValues = items;
         mListener = listener;
     }
@@ -31,14 +34,19 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_categoria_item, parent, false);
+                .inflate(R.layout.fragment_juego_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.nombre.setText(mValues.get(position).toString()); //
+        // TODO: Pintar con Picasso
+        Picasso.with(ctx)
+                .load((mValues.get(position).getEscudo()))
+                .resize(250, 200)
+                .into(holder.mIdView);
+        //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +54,7 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onClickCategoria(holder.mItem);
+                    mListener.onClickHermandadDB(holder.mItem);
                 }
             }
         });
@@ -59,13 +67,13 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView nombre;
-        public String mItem;
+        public final ImageView mIdView;
+        public HermandadDB mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            nombre = (TextView) view.findViewById(R.id.nombre);
+            mIdView = (ImageView) view.findViewById(R.id.foto);
         }
 
         @Override

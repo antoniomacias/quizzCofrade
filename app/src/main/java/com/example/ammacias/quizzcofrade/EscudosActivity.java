@@ -1,5 +1,6 @@
 package com.example.ammacias.quizzcofrade;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,8 +11,9 @@ import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 
-public class JuegoActivity extends AppCompatActivity implements ICofrade{
+public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,17 @@ public class JuegoActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickCategoria(String categoria) {}
+    public void onClickCategoria(String categoria) {
+
+    }
+
+    @Override
+    public void onClickHermandadDB(HermandadDB h) {
+        Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
+        System.out.println("ACTI: "+h.getId());
+        i.putExtra("IDHermandad", h.getId());
+        startActivity(i);
+    }
+
+
 }

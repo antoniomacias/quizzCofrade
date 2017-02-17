@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Reciclaje;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
@@ -27,8 +28,6 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
-
-import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.LinkedList;
 import java.util.List;

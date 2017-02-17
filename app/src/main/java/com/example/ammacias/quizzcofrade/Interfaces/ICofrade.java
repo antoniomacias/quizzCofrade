@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade.Interfaces;
 
 import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 
 
 /**
@@ -9,5 +10,5 @@ import com.example.ammacias.quizzcofrade.Clases.Result;
 
 public interface ICofrade {
     void onClickCategoria(String categoria);
-
+    void onClickHermandadDB(HermandadDB h);
 }

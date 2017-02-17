@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -19,14 +17,14 @@ import java.util.List;
  * specified {@link ICofrade}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyJuegoRecyclerViewAdapter extends RecyclerView.Adapter<MyJuegoRecyclerViewAdapter.ViewHolder> {
+public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCategoriaRecyclerViewAdapter.ViewHolder> {
 
     private final List<String> mValues;
     private final ICofrade mListener;
     private Context ctx;
 
-    public MyJuegoRecyclerViewAdapter(Context ctx, List<String> items, ICofrade listener) {
-        this.ctx = ctx;
+    public MyCategoriaRecyclerViewAdapter(Context context, List<String> items, ICofrade listener) {
+        ctx = context;
         mValues = items;
         mListener = listener;
     }
@@ -34,19 +32,14 @@ public class MyJuegoRecyclerViewAdapter extends RecyclerView.Adapter<MyJuegoRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_juego_item, parent, false);
+                .inflate(R.layout.fragment_categoria_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        // TODO: Pintar con Picasso
-        Picasso.with(ctx)
-                .load((mValues.get(position)))
-                .resize(250, 200)
-                .into(holder.mIdView);
-        //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
+        holder.nombre.setText(mValues.get(position).toString()); //
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,13 +60,13 @@ public class MyJuegoRecyclerViewAdapter extends RecyclerView.Adapter<MyJuegoRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final ImageView mIdView;
+        public final TextView nombre;
         public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (ImageView) view.findViewById(R.id.foto);
+            nombre = (TextView) view.findViewById(R.id.nombre);
         }
 
         @Override

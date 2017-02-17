@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.example.ammacias.quizzcofrade.CategoriaFragmentList"
+    tools:context="com.example.ammacias.quizzcofrade.Reciclaje.CategoriaFragmentList"
     tools:listitem="@layout/fragment_categoria_item" />

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 
 public class MainActivity extends AppCompatActivity implements ICofrade{
 
@@ -21,12 +22,33 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
         // TODO: Switch con la categoría
         ((Application_vars) this.getApplication()).setCategoriaElegida(categoria);
-
-
-        Intent jugar = new Intent(MainActivity.this, JuegoActivity.class);
-        //jugar.putExtra("cat",categoria);
-        startActivity(jugar);
+        String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+        Intent i;
+        switch (cat_elegida){
+            case "Pasos":
+                i = new Intent(MainActivity.this, EscudosActivity.class);
+                startActivity(i);
+                break;
+            case "Escudos":
+                i = new Intent(MainActivity.this, EscudosActivity.class);
+                startActivity(i);
+                break;
+            case "Random":
+                i = new Intent(MainActivity.this, EscudosActivity.class);
+                startActivity(i);
+                break;
+            case "Tunicas":
+                i = new Intent(MainActivity.this, EscudosActivity.class);
+                startActivity(i);
+                break;
+            default:
+                break;
+        }
     }
 
+    @Override
+    public void onClickHermandadDB(HermandadDB h) {
+
+    }
 
 }
