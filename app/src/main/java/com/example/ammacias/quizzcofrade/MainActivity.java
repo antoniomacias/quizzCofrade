@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 public class MainActivity extends AppCompatActivity implements ICofrade{
 
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         Intent i;
         switch (cat_elegida){
             case "Pasos":
-                i = new Intent(MainActivity.this, EscudosActivity.class);
+                System.out.println("PasosActivity");
+                i = new Intent(MainActivity.this, PasosActivity.class);
                 startActivity(i);
                 break;
             case "Escudos":
@@ -48,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickHermandadDB(HermandadDB h) {
+
+    }
+
+    @Override
+    public void onClickPasosDB(PasosDB p) {
 
     }
 

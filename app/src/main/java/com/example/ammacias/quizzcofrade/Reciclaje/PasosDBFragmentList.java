@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.PasosDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link ICofrade}
  * interface.
  */
-public class EscudosFragmentList extends Fragment {
+public class PasosDBFragmentList extends Fragment {
 
     // TODO: Customize parameters
     private int mColumnCount = 4;
@@ -35,7 +38,7 @@ public class EscudosFragmentList extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EscudosFragmentList() {
+    public PasosDBFragmentList() {
     }
 
     @Override
@@ -47,7 +50,7 @@ public class EscudosFragmentList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_escudosdb_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_pasosdb_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -59,37 +62,13 @@ public class EscudosFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            /*String cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
-            switch (cat_elegida){
-                case "Pasos":
-                    PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
-                    for(PasosDB p: pasosDBDao.loadAll()){
-                        fotos.add(p.getFoto());
-                    }
-                    break;
-                case "Escudos":
-                    HermandadDBDao hermandadDBDao_escudos = DatabaseConnection.getHermandadDBDao(getActivity());
-                    for(HermandadDB p: hermandadDBDao_escudos.loadAll()){
-                        fotos.add(p.getEscudo());
-                    }
-                    break;
-                case "Random":
-                    break;
-                case "Tunicas":
-                    HermandadDBDao hermandadDBDao_tunicas = DatabaseConnection.getHermandadDBDao(getActivity());
-                    for(HermandadDB p: hermandadDBDao_tunicas.loadAll()){
-                        fotos.add(p.getTunica());
-                    }
-                    break;
-                default:
-                    break;
-            }*/
-
-            HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-            List<HermandadDB> listHermandad = hermandadDBDao.loadAll();
-
-
-            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), listHermandad, mListener));
+            PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
+            List<PasosDB> pasosDBs = pasosDBDao.loadAll();
+            for (PasosDB p:pasosDBs) {
+                System.out.println("ruta: "+p.getFoto());
+                System.out.println("ruta: "+p.getNombreTitular());
+            }
+            recyclerView.setAdapter(new MyPasosDBRecyclerViewAdapter(getActivity(), pasosDBs, mListener));
         }
         return view;
     }
@@ -111,4 +90,5 @@ public class EscudosFragmentList extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 }

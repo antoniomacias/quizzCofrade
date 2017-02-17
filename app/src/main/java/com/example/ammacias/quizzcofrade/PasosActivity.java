@@ -9,17 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
-public class EscudosActivity extends AppCompatActivity implements ICofrade{
+public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_juego);
+        setContentView(R.layout.activity_pasos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,7 +31,6 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
         Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
@@ -45,16 +44,13 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickHermandadDB(HermandadDB h) {
-        Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
-        System.out.println("ACTI: "+h.getId());
-        i.putExtra("IDHermandad", h.getId());
-        startActivity(i);
+
     }
 
     @Override
     public void onClickPasosDB(PasosDB p) {
-
+        Intent i = new Intent(PasosActivity.this, DetalleActivity.class);
+        i.putExtra("IDPaso", p.getId());
+        startActivity(i);
     }
-
-
 }

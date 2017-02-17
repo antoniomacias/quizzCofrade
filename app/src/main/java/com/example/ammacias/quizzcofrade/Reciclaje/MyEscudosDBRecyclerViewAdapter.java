@@ -19,13 +19,13 @@ import java.util.List;
  * specified {@link ICofrade}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyEscudosRecyclerViewAdapter extends RecyclerView.Adapter<MyEscudosRecyclerViewAdapter.ViewHolder> {
+public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscudosDBRecyclerViewAdapter.ViewHolder> {
 
     private final List<HermandadDB> mValues;
     private final ICofrade mListener;
     private Context ctx;
 
-    public MyEscudosRecyclerViewAdapter(Context ctx, List<HermandadDB> items, ICofrade listener) {
+    public MyEscudosDBRecyclerViewAdapter(Context ctx, List<HermandadDB> items, ICofrade listener) {
         this.ctx = ctx;
         mValues = items;
         mListener = listener;
@@ -34,7 +34,7 @@ public class MyEscudosRecyclerViewAdapter extends RecyclerView.Adapter<MyEscudos
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_juego_item, parent, false);
+                .inflate(R.layout.fragment_escudosdb_item, parent, false);
         return new ViewHolder(view);
     }
 

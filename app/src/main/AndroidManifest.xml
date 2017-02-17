@@ -29,7 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ammacias.quizzcofrade.MainActivity" />
         </activity>
-        <activity android:name=".DetalleActivity"></activity>
+        <activity android:name=".DetalleActivity" />
+        <activity
+            android:name=".PasosActivity"
+            android:label="@string/title_activity_pasos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

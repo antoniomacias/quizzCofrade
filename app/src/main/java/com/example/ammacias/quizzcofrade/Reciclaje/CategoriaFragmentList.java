@@ -114,20 +114,12 @@ public class CategoriaFragmentList extends Fragment {
                     UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(getActivity());
 
                     for (Usuario u: r.getUsuario()) {
-                        //Si NO existe
-                        if (usuarioDBDao.load(u.getId())==null){
+                        UsuarioDB usuarioDB = new UsuarioDB();
+                        usuarioDB.setId(u.getId());
+                        usuarioDB.setNick(u.getNick());
 
-                            UsuarioDB usuarioDB = new UsuarioDB();
-                            usuarioDB.setId(u.getId());
-                            usuarioDB.setNick(u.getNick());
+                        usuarioDBDao.insertOrReplace(usuarioDB);
 
-                            usuarioDBDao.insert(usuarioDB);
-                        }else{
-                            //TODO: Si hay algo diferente en alguna marca del JSON, hago update en local
-                            /*for (MarcaDB a: marcaDBDao.loadAll()) {
-
-                            }*/
-                        }
                     }
 
 
@@ -135,9 +127,6 @@ public class CategoriaFragmentList extends Fragment {
                     PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
 
                     for (Hermandad h: r.getHermandad()) {
-                        //Si NO existe
-                        if (hermandadDBDao.load(h.getId())==null){
-
                             HermandadDB hermandadDB= new HermandadDB();
                             hermandadDB.setId(h.getId());
                             hermandadDB.setNombre(h.getNombre());
@@ -146,39 +135,33 @@ public class CategoriaFragmentList extends Fragment {
                             hermandadDB.setDia(h.getDia());
                             hermandadDB.setNumNazarenos(h.getNumNazarenos());
 
-                            hermandadDBDao.insert(hermandadDB);
+                            hermandadDBDao.insertOrReplace(hermandadDB);
 
                             //Recorro los pasos para añadirlos
                             for (Paso p: h.getPaso()) {
-                                if (pasosDBDao.load(p.getId())==null){
-                                    PasosDB pasosDB = new PasosDB();
+                                PasosDB pasosDB = new PasosDB();
 
-                                    pasosDB.setId(p.getId());
-                                    pasosDB.setNombreTitular(p.getNombreTitular());
-                                    pasosDB.setFoto(p.getFoto());
-                                    pasosDB.setBanda(p.getBanda());
-                                    pasosDB.setIdHermandad(h.getId());
+                                pasosDB.setId(p.getId());
+                                pasosDB.setNombreTitular(p.getNombreTitular());
+                                pasosDB.setFoto(p.getFoto());
+                                pasosDB.setBanda(p.getBanda());
+                                pasosDB.setIdHermandad(h.getId());
 
-                                    pasosDBDao.insert(pasosDB);
-                                }
+                                pasosDBDao.insertOrReplace(pasosDB);
                             }
-                        }
                     }
 
                     UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
 
                     for (UsuariosHermandades uh: r.getUsuariosHermandades()) {
-                        //Si NO existe
-                        if (usuariosHermandadesDBDao.load(uh.getId())==null){
 
-                            UsuariosHermandadesDB usuariosHermandadesDB= new UsuariosHermandadesDB();
-                            usuariosHermandadesDB.setId(uh.getId());
-                            usuariosHermandadesDB.setIdUsuario(uh.getIdUsuario());
-                            usuariosHermandadesDB.setCategoria(uh.getCategoria());
-                            usuariosHermandadesDB.setIdHermandad(uh.getIdHermandad());
+                        UsuariosHermandadesDB usuariosHermandadesDB= new UsuariosHermandadesDB();
+                        usuariosHermandadesDB.setId(uh.getId());
+                        usuariosHermandadesDB.setIdUsuario(uh.getIdUsuario());
+                        usuariosHermandadesDB.setCategoria(uh.getCategoria());
+                        usuariosHermandadesDB.setIdHermandad(uh.getIdHermandad());
 
-                            usuariosHermandadesDBDao.insert(usuariosHermandadesDB);
-                        }
+                        usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
                     }
  /*                 categorias.add(usuariosHermandadesDBDao.queryBuilder()
                             .where(new WhereCondition.StringCondition("1 GROUP BY categoria")).list());
