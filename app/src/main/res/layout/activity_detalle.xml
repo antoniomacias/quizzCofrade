@@ -16,8 +16,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_alignParentTop="true"
+        android:id="@+id/fotoDetalle"
+        android:layout_above="@+id/respuesta_escudo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="152dp"
-        android:id="@+id/fotoDetalle" />
+        android:layout_marginBottom="64dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Escribe el nombre de la cofradía"
+        android:ems="16"
+        android:id="@+id/respuesta_escudo"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Anterior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/anterior_escudo"
+        android:layout_below="@+id/respuesta_escudo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="previous_escudo"/>
+
+    <Button
+        android:text="Siguiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/siguiente_escudo"
+        android:layout_below="@+id/respuesta_escudo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="next_escudo"/>
 </RelativeLayout>

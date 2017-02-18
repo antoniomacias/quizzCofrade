@@ -37,4 +37,5 @@ dependencies {
     compile 'org.greenrobot:greendao:3.0.1'
     testCompile 'junit:junit:4.12'
     apt 'org.parceler:parceler:1.1.1'
+    compile 'cn.pedant.sweetalert:library:1.3'
 }

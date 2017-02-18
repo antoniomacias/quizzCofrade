@@ -9,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -85,8 +88,15 @@ public class EscudosFragmentList extends Fragment {
                     break;
             }*/
 
-            HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-            List<HermandadDB> listHermandad = hermandadDBDao.loadAll();
+            // Traigo las hermandades de Application. Si no hay, las cargo de la BD y seteo.
+            List<HermandadDB> listHermandad = ((Application_vars) getActivity().getApplication()).getListHermandadEscudos();
+            if(listHermandad==null){
+                HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                listHermandad = hermandadDBDao.loadAll();
+                Collections.shuffle(listHermandad);
+                ((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
+                Toast.makeText(context, "vale nulo y recargo la lista", Toast.LENGTH_SHORT).show();
+            }
 
 
             recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), listHermandad, mListener));

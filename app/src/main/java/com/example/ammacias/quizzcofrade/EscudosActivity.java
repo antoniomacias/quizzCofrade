@@ -33,28 +33,25 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
-        Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
+        //String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+        //Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
 
     }
 
-    @Override
-    public void onClickCategoria(String categoria) {
-
-    }
 
     @Override
-    public void onClickHermandadDB(HermandadDB h) {
+    public void onClickCategoria(String categoria) {}
+
+    @Override
+    public void onClickHermandadDB(HermandadDB h, int pos) {
         Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
-        System.out.println("ACTI: "+h.getId());
         i.putExtra("IDHermandad", h.getId());
+        i.putExtra("posicion", pos);
         startActivity(i);
     }
 
     @Override
-    public void onClickPasosDB(PasosDB p) {
-
-    }
+    public void onClickPasosDB(PasosDB p) {}
 
 
 }

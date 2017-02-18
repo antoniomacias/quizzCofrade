@@ -43,7 +43,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickHermandadDB(HermandadDB h) {
+    public void onClickHermandadDB(HermandadDB h, int posicionDeLaLista) {
 
     }
 
