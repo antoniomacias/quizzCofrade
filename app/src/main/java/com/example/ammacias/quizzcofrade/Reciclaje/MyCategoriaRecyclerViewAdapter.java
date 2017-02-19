@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
@@ -61,12 +62,14 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView nombre;
+        //public final ImageView imagenCat;
         public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             nombre = (TextView) view.findViewById(R.id.nombre);
+            //imagenCat = (ImageView) view.findViewById(R.id.imagenCat);
         }
 
         @Override
