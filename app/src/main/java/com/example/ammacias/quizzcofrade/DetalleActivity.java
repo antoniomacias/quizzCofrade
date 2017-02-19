@@ -10,16 +10,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
+import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class DetalleActivity extends AppCompatActivity {
 
@@ -68,15 +80,40 @@ public class DetalleActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (respuesta.getText().toString().equalsIgnoreCase(hermandadDBDao.load(id_aux).getNombre())){
                     muestradialogo();
-                    //TODO: Machaco el booleano
+                    //TODO: Inserto en la tabla intermedia
+                    System.out.println("Acertaste y guardo");
 /*                  marcaDB.setAcertado(true);
                     marcaDBDao.update(marcaDB);*/
+
                 }
             }
         });
     }
 
+    private void guardarAcierto(Long ide) {
+        UsuariosHermandadesDBDao usuariosHermandadesDBDao =
+                DatabaseConnection.getUsuariosHermandadesDBDao(DetalleActivity.this);
+
+        // Los valores actuales a insertar => Necesito el usuario
+        UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
+        //UsuarioDB usuarioDB = new UsuarioDB();
+        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleActivity.this);
+        List<UsuarioDB> usuario_actual = usuario.loadAll();
+        if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
+        else System.out.println("¡Hay más de uno! "+usuario_actual.size());
+
+        //usuariosHermandadesDB.setId(uh.getId());
+        usuariosHermandadesDB.setIdUsuario(usuario_actual.get(0).getId());
+        usuariosHermandadesDB.setCategoria(((Application_vars) this.getApplication()).getCategoriaElegida());
+        usuariosHermandadesDB.setIdHermandad(ide);
+
+        usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
+        System.out.println(usuariosHermandadesDBDao.getEntidad(usuariosHermandadesDB));
+    }
+
+
     private void muestradialogo() {
+        guardarAcierto(hermandadDBDao.load(id_aux).getId());
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("¡FLAMA HERMANO!")
                 .setContentText("¿Quieres pasar al siguiente nivel?")

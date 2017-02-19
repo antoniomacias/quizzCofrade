@@ -8,13 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.ammacias.quizzcofrade.EscudosActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link String} and makes a call to the
@@ -48,29 +54,62 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
         holder.mItem = mValues.get(position);
         // TODO: Pintar con Picasso
         if (cat_elegida.contains("Escudos")) {
-            Picasso.with(ctx)
-                    .load((mValues.get(position).getEscudo()))
-                    .placeholder(R.drawable.loading)
-                    .resize(250, 200)
-                    .into(holder.mIdView);
-            //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
-        }else{
-            Picasso.with(ctx)
-                    .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
-                    .placeholder(R.drawable.loading)
-                    .resize(250, 200)
-                    .into(holder.mIdView);
+            System.out.println("Entro a cargar los escudos");
+            if(checkAcertado(mValues.get(position))){
+                Picasso.with(ctx)
+                        .load((mValues.get(position).getEscudo()))
+                        .placeholder(R.drawable.loading)
+                        .resize(250,200)
+                        .transform(new BlurTransformation(ctx, 25, 1))
+                        .into(holder.mIdView);
+            }else{
+                Picasso.with(ctx)
+                        .load((mValues.get(position).getEscudo()))
+                        .placeholder(R.drawable.loading)
+                        .resize(250, 200)
+                        .into(holder.mIdView);
+            }
+        }else{ // if otra categoría q no sea Escudos
+            if(checkAcertado(mValues.get(position))){
+                Picasso.with(ctx)
+                        .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                        .placeholder(R.drawable.loading)
+                        .resize(250,200)
+                        .transform(new BlurTransformation(ctx, 25, 1))
+                        .into(holder.mIdView);
+
+            }else {
+                Picasso.with(ctx)
+                        .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                        .placeholder(R.drawable.loading)
+                        .resize(250, 200)
+                        .into(holder.mIdView);
+            }
         }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
                     mListener.onClickHermandadDB(holder.mItem, position);
                 }
             }
         });
+    }
+
+    private Boolean checkAcertado(HermandadDB hermandadDB) {
+        Boolean res = false;
+        // if HermandadDB está en la tabla intermedia, es porque está acertado y devuelve True
+        UsuariosHermandadesDBDao usuariosHermandadesDBDao =
+                DatabaseConnection.getUsuariosHermandadesDBDao(ctx);
+        List<UsuariosHermandadesDB> lista = usuariosHermandadesDBDao.loadAll();
+        for(UsuariosHermandadesDB uh : lista){
+            /*System.out.println("BUSCO QUE "+hermandadDB.getId()+" == "+uh.getIdHermandad()+" y que "+
+                    cat_elegida+" == "+uh.getCategoria());*/
+            if(uh.getIdHermandad() == hermandadDB.getId() && uh.getCategoria().equals(cat_elegida)){
+                res = true;
+            }
+        }
+        return res;
     }
 
     @Override

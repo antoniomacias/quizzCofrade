@@ -95,7 +95,6 @@ public class EscudosFragmentList extends Fragment {
                 listHermandad = hermandadDBDao.loadAll();
                 Collections.shuffle(listHermandad);
                 ((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
-                Toast.makeText(context, "vale nulo y recargo la lista", Toast.LENGTH_SHORT).show();
             }
 
 
