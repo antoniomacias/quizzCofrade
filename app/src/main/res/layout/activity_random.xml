@@ -11,6 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ammacias.quizzcofrade.RandomActivity">
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         android:layout_above="@+id/respuesta_escudo"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="64dp" />
+
 
     <EditText
         android:layout_width="wrap_content"
@@ -39,4 +41,55 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="next_escudo"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/star"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/respuesta_escudo"
+        android:layout_alignStart="@+id/respuesta_escudo"
+        android:id="@+id/vida1" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/star"
+        android:layout_toRightOf="@+id/vida1"
+        android:id="@+id/vida2" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/star"
+        android:layout_toRightOf="@+id/vida2"
+        android:id="@+id/vida3" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/star"
+        android:layout_toRightOf="@+id/vida3"
+        android:id="@+id/vida4" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/star"
+        android:layout_toRightOf="@+id/vida4"
+        android:id="@+id/vida5" />
+
+    <com.bcgdv.asia.lib.ticktock.TickTockView
+        android:id="@+id/view_ticktock_countdown"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:tickTextSize="20dp"
+        android:layout_alignTop="@+id/vida5"
+        android:layout_alignParentRight="true"
+        app:tickAutoFitText="true"
+        app:tickMiddleColor="#333333"
+        app:tickMoveCounterClockwise="true"
+        app:tickTextColor="#FFF"
+        app:tickDotRadius="6dp"
+        app:tickEmptyRingColor="@android:color/white"
+        app:tickFillRingColor="@color/colorPrimary"
+        app:tickRingThickness="3dp"
+        app:tickCircleDuration="total_time"/>
+
 </RelativeLayout>
