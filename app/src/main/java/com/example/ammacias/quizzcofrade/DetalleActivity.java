@@ -42,6 +42,9 @@ public class DetalleActivity extends AppCompatActivity {
     List<HermandadDB> lista;
     Long id_aux;
     int posicionLista;
+    String cat_elegida = "";
+
+    UsuariosHermandadesDBDao tabla_intermedia=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,17 @@ public class DetalleActivity extends AppCompatActivity {
         lista = new LinkedList<>(((Application_vars) this.getApplication()).getListHermandadEscudos());
 
         id_aux = lista.get(posicionLista).getId();
+        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
-
+        String s=null;
+        if(checkAcertado(id_aux)){
+            for(HermandadDB d: lista){
+                if(d.getId() == id_aux){
+                    s = d.getNombre();
+                }
+            }
+            respuesta.setText(s);
+        }
         jugar(id_aux);
     } // Fin onCreate
 
@@ -80,11 +92,7 @@ public class DetalleActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (respuesta.getText().toString().equalsIgnoreCase(hermandadDBDao.load(id_aux).getNombre())){
                     muestradialogo();
-                    //TODO: Inserto en la tabla intermedia
-                    System.out.println("Acertaste y guardo");
-/*                  marcaDB.setAcertado(true);
-                    marcaDBDao.update(marcaDB);*/
-
+                    //System.out.println("Acertaste y guardo");
                 }
             }
         });
@@ -96,13 +104,11 @@ public class DetalleActivity extends AppCompatActivity {
 
         // Los valores actuales a insertar => Necesito el usuario
         UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
-        //UsuarioDB usuarioDB = new UsuarioDB();
         UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleActivity.this);
         List<UsuarioDB> usuario_actual = usuario.loadAll();
-        if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
-        else System.out.println("¡Hay más de uno! "+usuario_actual.size());
+        /*if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
+        else System.out.println("¡Hay más de uno! "+usuario_actual.size());*/
 
-        //usuariosHermandadesDB.setId(uh.getId());
         usuariosHermandadesDB.setIdUsuario(usuario_actual.get(0).getId());
         usuariosHermandadesDB.setCategoria(((Application_vars) this.getApplication()).getCategoriaElegida());
         usuariosHermandadesDB.setIdHermandad(ide);
@@ -131,8 +137,16 @@ public class DetalleActivity extends AppCompatActivity {
 
     public void next_escudo(View view) {
         posicionLista++;
-        Toast.makeText(this, "Escudo "+posicionLista+" de "+lista.size(), Toast.LENGTH_SHORT).show();
         id_aux = lista.get(posicionLista).getId();
+
+        // Busco si está acertada (Tabla_Intermedia)
+        while(checkAcertado(id_aux)){
+            posicionLista++;
+            id_aux = lista.get(posicionLista).getId();
+        }
+        //posicionLista++;
+
+        Toast.makeText(this, "Escudo "+posicionLista+" de "+lista.size(), Toast.LENGTH_SHORT).show();
 
         if(posicionLista==lista.size()-1){
             Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
@@ -142,11 +156,27 @@ public class DetalleActivity extends AppCompatActivity {
         jugar(id_aux);
     }
 
+    private Boolean checkAcertado(Long id_actual) {
+        System.out.println("Compruebo si acertado");
+        Boolean res = false;
+        tabla_intermedia = DatabaseConnection.getUsuariosHermandadesDBDao(this);
+        List<UsuariosHermandadesDB> registros = tabla_intermedia.loadAll();
+        for(UsuariosHermandadesDB uh : registros){
+            System.out.println("Checkeo: "+uh.getIdHermandad()+"-"+id_actual+"-"+uh.getCategoria()+"-"+cat_elegida);
+            if(uh.getIdHermandad() == id_actual && uh.getCategoria().equals(cat_elegida) /* Sólo hay un usuario && uh.getIdUsuario() ==*/ ){
+                // Si entra es que existe y está acertada
+                res = true;
+                System.out.println(res);
+            }
+        }
+        return res;
+    }
+
     public void previous_escudo(View view) {
         posicionLista--;
         id_aux = lista.get(posicionLista).getId();
 
-        if(posicionLista==0){
+        if(checkAcertado(id_aux) && posicionLista==0){
             Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
             posicionLista=lista.size();
         }
