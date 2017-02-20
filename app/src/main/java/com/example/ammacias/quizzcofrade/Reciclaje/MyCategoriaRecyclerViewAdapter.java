@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.List;
@@ -41,6 +42,33 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.nombre.setText(mValues.get(position).toString()); //
+        switch (mValues.get(position).toString()){
+            case "Tunicas":
+                Picasso.with(ctx)
+                        .load("http://semanasantasegovia.com/wp-content/uploads/2014/08/soy_cofrade1.png")
+                        .resize(250, 200)
+                        .into(holder.imagenCat);
+                break;
+            case "Pasos":
+                Picasso.with(ctx)
+                        .load("http://4.bp.blogspot.com/-Ik1MjNdNMf8/VNpxme9ARqI/AAAAAAAALBc/CcorJJLi7Z4/s1600/logo.png")
+                        .resize(250, 200)
+                        .into(holder.imagenCat);
+                break;
+            case "Escudos":
+                Picasso.with(ctx)
+                        .load("http://www.nasbc.org/AsbccImages/Question.png")
+                        .resize(250, 200)
+                        .into(holder.imagenCat);
+                break;
+            case "Random":
+                Picasso.with(ctx)
+                        .load("http://www.nasbc.org/AsbccImages/Question.png")
+                        .resize(250, 200)
+                        .into(holder.imagenCat);
+                break;
+
+        }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +90,14 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView nombre;
-        //public final ImageView imagenCat;
+        public final ImageView imagenCat;
         public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             nombre = (TextView) view.findViewById(R.id.nombre);
-            //imagenCat = (ImageView) view.findViewById(R.id.imagenCat);
+            imagenCat = (ImageView) view.findViewById(R.id.imagenCat);
         }
 
         @Override

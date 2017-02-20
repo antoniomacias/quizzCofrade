@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
@@ -42,6 +43,7 @@ public class RandomActivity extends AppCompatActivity {
     ImageView vida3;
     ImageView vida4;
     ImageView vida5;
+    TextView aciertosImg;
 
     com.bcgdv.asia.lib.ticktock.TickTockView mCountDown;
 
@@ -50,14 +52,17 @@ public class RandomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random);
 
-        numVidas = 5;
-        numAciertos = 0;
         vida1= (ImageView)findViewById(R.id.vida1);
         vida2= (ImageView)findViewById(R.id.vida2);
         vida3= (ImageView)findViewById(R.id.vida3);
         vida4= (ImageView)findViewById(R.id.vida4);
         vida5= (ImageView)findViewById(R.id.vida5);
+        aciertosImg= (TextView) findViewById(R.id.numAciertos);
 
+
+        numVidas = 5;
+        numAciertos = 0;
+        aciertosImg.setText("0");
 
 
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
@@ -125,6 +130,7 @@ public class RandomActivity extends AppCompatActivity {
         //guardarAcierto(hermandadDBDao.load(id_aux).getId());
         mCountDown.stop();
         numAciertos++;
+        aciertosImg.setText(""+numAciertos);
         bandera = true;
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("¡FLAMA HERMANO!")

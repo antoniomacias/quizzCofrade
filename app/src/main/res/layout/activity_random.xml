@@ -92,4 +92,25 @@
         app:tickRingThickness="3dp"
         app:tickCircleDuration="total_time"/>
 
+    <ImageView
+        android:id="@+id/aciertosImg"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@drawable/twitter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:id="@+id/numAciertos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textSize="30dp"
+        android:textColor="#FFF"
+        android:layout_alignLeft="@id/aciertosImg"
+        android:layout_alignTop="@id/aciertosImg"
+        android:layout_alignRight="@id/aciertosImg"
+        android:layout_alignBottom="@id/aciertosImg"
+        android:gravity="center"
+        />
 </RelativeLayout>

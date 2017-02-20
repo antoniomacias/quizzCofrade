@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                 startActivity(i);
                 break;
             case "Random":
-                i = new Intent(MainActivity.this, EscudosActivity.class);
+                i = new Intent(MainActivity.this, RandomActivity.class);
                 startActivity(i);
                 break;
             case "Tunicas":
