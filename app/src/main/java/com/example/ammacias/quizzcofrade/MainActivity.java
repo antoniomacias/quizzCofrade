@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                 i = new Intent(MainActivity.this, EscudosActivity.class);
                 startActivity(i);
                 break;
+            case "Marcha":
+                i = new Intent(MainActivity.this, MarchaActivity.class);
+                startActivity(i);
+                break;
             default:
                 break;
         }

@@ -1,5 +1,6 @@
 package com.example.ammacias.quizzcofrade.Interfaces;
 
+import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Result;
 
 import retrofit.Call;
@@ -14,4 +15,7 @@ public interface IRetrofit {
 
     @GET("/SS/datos.json")
     Call<Result> getDatos();
+
+    @GET("/SS/marchas.json")
+    Call<Marcha> getMarchas();
 }

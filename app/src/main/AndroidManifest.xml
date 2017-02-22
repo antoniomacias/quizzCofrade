@@ -36,7 +36,8 @@
             android:name=".PasosActivity"
             android:label="@string/title_activity_pasos"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".RandomActivity"></activity>
+        <activity android:name=".RandomActivity" />
+        <activity android:name=".MarchaActivity"></activity>
     </application>
 
 </manifest>

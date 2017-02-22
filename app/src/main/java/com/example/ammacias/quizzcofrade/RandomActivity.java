@@ -19,6 +19,7 @@ import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,7 +46,11 @@ public class RandomActivity extends AppCompatActivity {
     ImageView vida5;
     TextView aciertosImg;
 
+    //CountDown
     com.bcgdv.asia.lib.ticktock.TickTockView mCountDown;
+
+    //Control repeticiones
+    List<String> listAux = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,10 +133,19 @@ public class RandomActivity extends AppCompatActivity {
 
     private void muestradialogo() {
         //guardarAcierto(hermandadDBDao.load(id_aux).getId());
+        //Paramos contador
         mCountDown.stop();
+
+        //Aumentamos aciertes y seteamos el contador de Aciertos
         numAciertos++;
         aciertosImg.setText(""+numAciertos);
+
+        //Guardamos el nombre del Objeto acertado para que no vuelva a repetirse
+        listAux.add(nombreRespuesta);
+
+        //Asignamos que ha sido un acierto para el metodo @next_escudo
         bandera = true;
+
         new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("¡FLAMA HERMANO!")
                 .setContentText("¿Quieres pasar al siguiente nivel?")
@@ -147,7 +161,7 @@ public class RandomActivity extends AppCompatActivity {
     }
 
     public void next_escudo(View view) {
-        //Reseteanis el campo
+        //Reseteamos el campo
         respuesta.setText("");
 
         if (bandera == true);
@@ -165,7 +179,12 @@ public class RandomActivity extends AppCompatActivity {
             //Si es 2 -> Tunica
             int aux = (int) (Math.random() * 3);
             if (aux == 0) {
+                //Generamos random
                 int randomInt = (int) (Math.random() * listaH.size());
+                //Cercioramos que no se haya acertado anteriormente
+                while (listAux.contains(listaH.get(randomInt).getNombre())){
+                    randomInt = (int) (Math.random() * listaH.size());
+                }
                 Picasso.with(this)
                         .load(listaH.get(randomInt).getEscudo())
                         .resize(250, 200)
@@ -174,6 +193,9 @@ public class RandomActivity extends AppCompatActivity {
                 System.out.println(nombreRespuesta);
             } else if (aux == 1) {
                 int randomInt = (int) (Math.random() * listaP.size());
+                while (listAux.contains(listaP.get(randomInt).getNombreTitular())){
+                    randomInt = (int) (Math.random() * listaP.size());
+                }
                 Picasso.with(this)
                         .load(listaP.get(randomInt).getFoto())
                         .resize(250, 200)
@@ -181,6 +203,10 @@ public class RandomActivity extends AppCompatActivity {
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 System.out.println(nombreRespuesta);
             } else {
+                int randomInt = (int) (Math.random() * listaH.size());
+                while (listAux.contains(listaH.get(randomInt).getNombre())){
+                    randomInt = (int) (Math.random() * listaH.size());
+                }
                 Picasso.with(this)
                         .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
                         .resize(250, 200)
