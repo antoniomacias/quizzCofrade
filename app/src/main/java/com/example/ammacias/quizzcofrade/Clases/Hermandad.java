@@ -31,18 +31,21 @@ public class Hermandad {
     @SerializedName("Paso")
     @Expose
     private List<Paso> paso = null;
+    @SerializedName("anyoFundacion")
+    @Expose
+    private String anyoFundacion;
 
     public Hermandad() {
     }
 
-    public Hermandad(Long id, String nombre, String escudo, String tunica, String dia, Integer numNazarenos, List<Paso> paso) {
+    public Hermandad(Long id, String nombre, String escudo, String tunica, String dia, Integer numNazarenos, String anyoFundacion) {
         this.id = id;
         this.nombre = nombre;
         this.escudo = escudo;
         this.tunica = tunica;
         this.dia = dia;
         this.numNazarenos = numNazarenos;
-        this.paso = paso;
+        this.anyoFundacion = anyoFundacion;
     }
 
     public Long getId() {
@@ -93,6 +96,10 @@ public class Hermandad {
         this.numNazarenos = numNazarenos;
     }
 
+    public String getAnyoFundacion() { return anyoFundacion; }
+
+    public void setAnyoFundacion(String anyoFundacion) { this.anyoFundacion = anyoFundacion; }
+
     public List<Paso> getPaso() {
         return paso;
     }
@@ -100,6 +107,7 @@ public class Hermandad {
     public void setPaso(List<Paso> paso) {
         this.paso = paso;
     }
+
 
     @Override
     public String toString() {
@@ -110,7 +118,6 @@ public class Hermandad {
                 ", tunica='" + tunica + '\'' +
                 ", dia='" + dia + '\'' +
                 ", numNazarenos=" + numNazarenos +
-                ", paso=" + paso +
                 '}';
     }
 }

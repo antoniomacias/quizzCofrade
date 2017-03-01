@@ -11,29 +11,30 @@ public class Paso {
     @SerializedName("id")
     @Expose
     private Long id;
+    @SerializedName("idHermandad")
+    @Expose
+    private Long idHermandad;
     @SerializedName("nombreTitular")
     @Expose
     private String nombreTitular;
     @SerializedName("foto")
     @Expose
     private String foto;
+    @SerializedName("color_cirio")
+    @Expose
+    private String colorCirio;
     @SerializedName("banda")
     @Expose
     private String banda;
-    @SerializedName("idHermandad")
+    @SerializedName("capataz")
     @Expose
-    private Integer idHermandad;
-
-    public Paso() {
-    }
-
-    public Paso(Long id, String nombreTitular, String foto, String banda, Integer idHermandad) {
-        this.id = id;
-        this.nombreTitular = nombreTitular;
-        this.foto = foto;
-        this.banda = banda;
-        this.idHermandad = idHermandad;
-    }
+    private String capataz;
+    @SerializedName("numCostaleros")
+    @Expose
+    private Integer numCostaleros;
+    @SerializedName("llamador")
+    @Expose
+    private String llamador;
 
     public Long getId() {
         return id;
@@ -41,6 +42,14 @@ public class Paso {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdHermandad() {
+        return idHermandad;
+    }
+
+    public void setIdHermandad(Long idHermandad) {
+        this.idHermandad = idHermandad;
     }
 
     public String getNombreTitular() {
@@ -59,6 +68,14 @@ public class Paso {
         this.foto = foto;
     }
 
+    public String getColorCirio() {
+        return colorCirio;
+    }
+
+    public void setColorCirio(String colorCirio) {
+        this.colorCirio = colorCirio;
+    }
+
     public String getBanda() {
         return banda;
     }
@@ -67,22 +84,42 @@ public class Paso {
         this.banda = banda;
     }
 
-    public Integer getIdHermandad() {
-        return idHermandad;
+    public String getCapataz() {
+        return capataz;
     }
 
-    public void setIdHermandad(Integer idHermandad) {
-        this.idHermandad = idHermandad;
+    public void setCapataz(String capataz) {
+        this.capataz = capataz;
+    }
+
+    public Integer getNumCostaleros() {
+        return numCostaleros;
+    }
+
+    public void setNumCostaleros(Integer numCostaleros) {
+        this.numCostaleros = numCostaleros;
+    }
+
+    public String getLlamador() {
+        return llamador;
+    }
+
+    public void setLlamador(String llamador) {
+        this.llamador = llamador;
     }
 
     @Override
     public String toString() {
         return "Paso{" +
                 "id=" + id +
-                ", nombreTitular='" + nombreTitular + '\'' +
-                ", foto='" + foto + '\'' +
-                ", banda='" + banda + '\'' +
                 ", idHermandad=" + idHermandad +
+                ", nombreTitular='" + nombreTitular + '\'' +
+                ", foto=" + foto +
+                ", colorCirio='" + colorCirio + '\'' +
+                ", banda='" + banda + '\'' +
+                ", capataz='" + capataz + '\'' +
+                ", numCostaleros=" + numCostaleros +
+                ", llamador='" + llamador + '\'' +
                 '}';
     }
 }

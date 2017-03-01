@@ -67,13 +67,4 @@ public class UsuariosHermandadesDB {
         this.categoria = categoria;
     }
 
-    @Override
-    public String toString() {
-        return "UsuariosHermandadesDB{" +
-                "id=" + id +
-                ", idUsuario=" + idUsuario +
-                ", idHermandad=" + idHermandad +
-                ", categoria='" + categoria + '\'' +
-                '}';
-    }
 }

@@ -25,14 +25,19 @@ public class GeneradorDatabase {
         hermandadDB.addStringProperty("tunica").notNull();
         hermandadDB.addStringProperty("dia").notNull();
         hermandadDB.addIntProperty("numNazarenos").notNull();
+        hermandadDB.addStringProperty("anyoFundacion").notNull();
 
         // Definimos las entidades (tablas) de la base de datos
         Entity pasosDB = schema.addEntity("PasosDB");
         pasosDB.addIdProperty().autoincrement().primaryKey();
+        pasosDB.addLongProperty("idHermandad").notNull();
         pasosDB.addStringProperty("nombreTitular").notNull();
         pasosDB.addStringProperty("foto").notNull();
+        pasosDB.addStringProperty("colorCirio").notNull();
         pasosDB.addStringProperty("banda").notNull();
-        pasosDB.addLongProperty("idHermandad").notNull();
+        pasosDB.addStringProperty("capataz").notNull();
+        pasosDB.addStringProperty("numCostaleros").notNull();
+        pasosDB.addStringProperty("llamador").notNull();
 
         // Definimos las entidades (tablas) de la base de datos
         Entity usuariosHermandades = schema.addEntity("UsuariosHermandadesDB");

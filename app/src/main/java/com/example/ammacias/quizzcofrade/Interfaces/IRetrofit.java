@@ -1,8 +1,8 @@
 package com.example.ammacias.quizzcofrade.Interfaces;
 
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
-import com.example.ammacias.quizzcofrade.Clases.PasoAPI;
 import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -22,5 +22,5 @@ public interface IRetrofit {
     Call<Marcha> getMarchas();
 
     @GET("pasos")
-    Call<PasoAPI> getPasosRetrofit();
+    Call<Pasos> getPasosRetrofit();
 }

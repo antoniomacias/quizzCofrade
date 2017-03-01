@@ -1,22 +1,23 @@
-package com.example.ammacias.quizzcofrade.Clases;
+package com.example.ammacias.quizzcofrade.Pojos_API;
 
+import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 /**
- * Created by ammacias on 01/03/2017.
+ * Created by gramos on 23/02/2017.
  */
 
-public class PasoAPI {
+public class Hermandades {
 
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("data")
     @Expose
-    private List<Datum> data = null;
+    private List<Hermandad> data = null;
 
     public String getStatus() {
         return status;
@@ -26,12 +27,11 @@ public class PasoAPI {
         this.status = status;
     }
 
-    public List<Datum> getData() {
+    public List<Hermandad> getData() {
         return data;
     }
 
-    public void setData(List<Datum> data) {
+    public void setData(List<Hermandad> data) {
         this.data = data;
     }
-
 }

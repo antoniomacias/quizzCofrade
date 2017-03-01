@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteStatement;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
-import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
@@ -123,9 +122,5 @@ public class UsuariosHermandadesDBDao extends AbstractDao<UsuariosHermandadesDB,
     protected final boolean isEntityUpdateable() {
         return true;
     }
-
-    public String getEntidad(UsuariosHermandadesDB e){
-        return e.toString();
-    }
-
+    
 }

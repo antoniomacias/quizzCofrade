@@ -18,6 +18,7 @@ import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
@@ -84,10 +85,54 @@ public class CategoriaFragmentList extends Fragment {
 
 
             getDatos();
+            getPasos();
             //recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(categorias, mListener));
         }
 
         return view;
+    }
+    // RETROFIT PASOS
+    private void getPasos() {
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
+
+        Call<Pasos> autocompleteList1 = service1.getPasosRetrofit();
+
+        autocompleteList1.enqueue(new Callback<Pasos>() {
+            @Override
+            public void onResponse(Response<Pasos> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Pasos result= response.body();
+                    PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
+
+                    for (Paso p:result.getData()) {
+                        //"id, idHermandad, nombreTitular, foto, colorCirio, banda, capataz, numCostalero, llamador"
+                        System.out.println("ITERANDO EL PASO "+p);
+                        PasosDB pasoDB = new PasosDB();
+                        pasoDB.setId(p.getId());
+                        pasoDB.setIdHermandad(p.getIdHermandad());
+                        pasoDB.setNombreTitular(p.getNombreTitular());
+                        pasoDB.setFoto(p.getFoto());
+                        pasoDB.setColorCirio(p.getColorCirio());
+                        pasoDB.setBanda(p.getBanda());
+                        pasoDB.setCapataz(p.getCapataz());
+                        pasoDB.setLlamador(p.getLlamador());
+
+                        pasosDBDao.insertOrReplace(pasoDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
 
@@ -99,6 +144,7 @@ public class CategoriaFragmentList extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        // TODOS LOS DATOS
         IRetrofit service = retrofit.create(IRetrofit.class);
 
         Call<Result> autocompleteList = service.getDatos();
@@ -119,7 +165,6 @@ public class CategoriaFragmentList extends Fragment {
                         usuarioDB.setNick(u.getNick());
 
                         usuarioDBDao.insertOrReplace(usuarioDB);
-
                     }
 
 
@@ -134,21 +179,22 @@ public class CategoriaFragmentList extends Fragment {
                             hermandadDB.setTunica(h.getTunica());
                             hermandadDB.setDia(h.getDia());
                             hermandadDB.setNumNazarenos(h.getNumNazarenos());
+                            hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
 
                             hermandadDBDao.insertOrReplace(hermandadDB);
 
                             //Recorro los pasos para añadirlos
-                            for (Paso p: h.getPaso()) {
+                            /*for (Paso p: h.getPaso()) {
                                 PasosDB pasosDB = new PasosDB();
 
                                 pasosDB.setId(p.getId());
                                 pasosDB.setNombreTitular(p.getNombreTitular());
-                                pasosDB.setFoto(p.getFoto());
+                                pasosDB.setFoto((String) p.getFoto());
                                 pasosDB.setBanda(p.getBanda());
                                 pasosDB.setIdHermandad(h.getId());
 
                                 pasosDBDao.insertOrReplace(pasosDB);
-                            }
+                            }*/
                     }
 
                     UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
@@ -199,6 +245,12 @@ public class CategoriaFragmentList extends Fragment {
                 Toast.makeText(getActivity(), "Throw: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // ESCUDOS
+        // PASOS
+        // HERMANDADES
+        // ¿USUARIOS?
+        // INTERMEDIA
     }
 
 

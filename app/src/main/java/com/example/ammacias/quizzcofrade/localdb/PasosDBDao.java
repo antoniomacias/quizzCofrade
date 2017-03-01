@@ -23,10 +23,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property NombreTitular = new Property(1, String.class, "nombreTitular", false, "NOMBRE_TITULAR");
-        public final static Property Foto = new Property(2, String.class, "foto", false, "FOTO");
-        public final static Property Banda = new Property(3, String.class, "banda", false, "BANDA");
-        public final static Property IdHermandad = new Property(4, long.class, "idHermandad", false, "ID_HERMANDAD");
+        public final static Property IdHermandad = new Property(1, long.class, "idHermandad", false, "ID_HERMANDAD");
+        public final static Property NombreTitular = new Property(2, String.class, "nombreTitular", false, "NOMBRE_TITULAR");
+        public final static Property Foto = new Property(3, String.class, "foto", false, "FOTO");
+        public final static Property ColorCirio = new Property(4, String.class, "colorCirio", false, "COLOR_CIRIO");
+        public final static Property Banda = new Property(5, String.class, "banda", false, "BANDA");
+        public final static Property Capataz = new Property(6, String.class, "capataz", false, "CAPATAZ");
+        public final static Property NumCostaleros = new Property(7, String.class, "numCostaleros", false, "NUM_COSTALEROS");
+        public final static Property Llamador = new Property(8, String.class, "llamador", false, "LLAMADOR");
     };
 
 
@@ -43,10 +47,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PASOS_DB\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NOMBRE_TITULAR\" TEXT NOT NULL ," + // 1: nombreTitular
-                "\"FOTO\" TEXT NOT NULL ," + // 2: foto
-                "\"BANDA\" TEXT NOT NULL ," + // 3: banda
-                "\"ID_HERMANDAD\" INTEGER NOT NULL );"); // 4: idHermandad
+                "\"ID_HERMANDAD\" INTEGER NOT NULL ," + // 1: idHermandad
+                "\"NOMBRE_TITULAR\" TEXT NOT NULL ," + // 2: nombreTitular
+                "\"FOTO\" TEXT NOT NULL ," + // 3: foto
+                "\"COLOR_CIRIO\" TEXT NOT NULL ," + // 4: colorCirio
+                "\"BANDA\" TEXT NOT NULL ," + // 5: banda
+                "\"CAPATAZ\" TEXT NOT NULL ," + // 6: capataz
+                "\"NUM_COSTALEROS\" TEXT NOT NULL ," + // 7: numCostaleros
+                "\"LLAMADOR\" TEXT NOT NULL );"); // 8: llamador
     }
 
     /** Drops the underlying database table. */
@@ -63,10 +71,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getNombreTitular());
-        stmt.bindString(3, entity.getFoto());
-        stmt.bindString(4, entity.getBanda());
-        stmt.bindLong(5, entity.getIdHermandad());
+        stmt.bindLong(2, entity.getIdHermandad());
+        stmt.bindString(3, entity.getNombreTitular());
+        stmt.bindString(4, entity.getFoto());
+        stmt.bindString(5, entity.getColorCirio());
+        stmt.bindString(6, entity.getBanda());
+        stmt.bindString(7, entity.getCapataz());
+        stmt.bindString(8, entity.getNumCostaleros());
+        stmt.bindString(9, entity.getLlamador());
     }
 
     @Override
@@ -77,10 +89,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getNombreTitular());
-        stmt.bindString(3, entity.getFoto());
-        stmt.bindString(4, entity.getBanda());
-        stmt.bindLong(5, entity.getIdHermandad());
+        stmt.bindLong(2, entity.getIdHermandad());
+        stmt.bindString(3, entity.getNombreTitular());
+        stmt.bindString(4, entity.getFoto());
+        stmt.bindString(5, entity.getColorCirio());
+        stmt.bindString(6, entity.getBanda());
+        stmt.bindString(7, entity.getCapataz());
+        stmt.bindString(8, entity.getNumCostaleros());
+        stmt.bindString(9, entity.getLlamador());
     }
 
     @Override
@@ -92,10 +108,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     public PasosDB readEntity(Cursor cursor, int offset) {
         PasosDB entity = new PasosDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // nombreTitular
-            cursor.getString(offset + 2), // foto
-            cursor.getString(offset + 3), // banda
-            cursor.getLong(offset + 4) // idHermandad
+            cursor.getLong(offset + 1), // idHermandad
+            cursor.getString(offset + 2), // nombreTitular
+            cursor.getString(offset + 3), // foto
+            cursor.getString(offset + 4), // colorCirio
+            cursor.getString(offset + 5), // banda
+            cursor.getString(offset + 6), // capataz
+            cursor.getString(offset + 7), // numCostaleros
+            cursor.getString(offset + 8) // llamador
         );
         return entity;
     }
@@ -103,10 +123,14 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     @Override
     public void readEntity(Cursor cursor, PasosDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setNombreTitular(cursor.getString(offset + 1));
-        entity.setFoto(cursor.getString(offset + 2));
-        entity.setBanda(cursor.getString(offset + 3));
-        entity.setIdHermandad(cursor.getLong(offset + 4));
+        entity.setIdHermandad(cursor.getLong(offset + 1));
+        entity.setNombreTitular(cursor.getString(offset + 2));
+        entity.setFoto(cursor.getString(offset + 3));
+        entity.setColorCirio(cursor.getString(offset + 4));
+        entity.setBanda(cursor.getString(offset + 5));
+        entity.setCapataz(cursor.getString(offset + 6));
+        entity.setNumCostaleros(cursor.getString(offset + 7));
+        entity.setLlamador(cursor.getString(offset + 8));
      }
     
     @Override

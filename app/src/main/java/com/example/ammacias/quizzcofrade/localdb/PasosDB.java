@@ -11,6 +11,7 @@ public class PasosDB {
 
     @Id(autoincrement = true)
     private Long id;
+    private long idHermandad;
 
     @NotNull
     private String nombreTitular;
@@ -19,8 +20,19 @@ public class PasosDB {
     private String foto;
 
     @NotNull
+    private String colorCirio;
+
+    @NotNull
     private String banda;
-    private long idHermandad;
+
+    @NotNull
+    private String capataz;
+
+    @NotNull
+    private String numCostaleros;
+
+    @NotNull
+    private String llamador;
 
     @Generated
     public PasosDB() {
@@ -31,12 +43,16 @@ public class PasosDB {
     }
 
     @Generated
-    public PasosDB(Long id, String nombreTitular, String foto, String banda, long idHermandad) {
+    public PasosDB(Long id, long idHermandad, String nombreTitular, String foto, String colorCirio, String banda, String capataz, String numCostaleros, String llamador) {
         this.id = id;
+        this.idHermandad = idHermandad;
         this.nombreTitular = nombreTitular;
         this.foto = foto;
+        this.colorCirio = colorCirio;
         this.banda = banda;
-        this.idHermandad = idHermandad;
+        this.capataz = capataz;
+        this.numCostaleros = numCostaleros;
+        this.llamador = llamador;
     }
 
     public Long getId() {
@@ -45,6 +61,14 @@ public class PasosDB {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public long getIdHermandad() {
+        return idHermandad;
+    }
+
+    public void setIdHermandad(long idHermandad) {
+        this.idHermandad = idHermandad;
     }
 
     @NotNull
@@ -68,6 +92,16 @@ public class PasosDB {
     }
 
     @NotNull
+    public String getColorCirio() {
+        return colorCirio;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setColorCirio(@NotNull String colorCirio) {
+        this.colorCirio = colorCirio;
+    }
+
+    @NotNull
     public String getBanda() {
         return banda;
     }
@@ -77,12 +111,34 @@ public class PasosDB {
         this.banda = banda;
     }
 
-    public long getIdHermandad() {
-        return idHermandad;
+    @NotNull
+    public String getCapataz() {
+        return capataz;
     }
 
-    public void setIdHermandad(long idHermandad) {
-        this.idHermandad = idHermandad;
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setCapataz(@NotNull String capataz) {
+        this.capataz = capataz;
+    }
+
+    @NotNull
+    public String getNumCostaleros() {
+        return numCostaleros;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setNumCostaleros(@NotNull String numCostaleros) {
+        this.numCostaleros = numCostaleros;
+    }
+
+    @NotNull
+    public String getLlamador() {
+        return llamador;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setLlamador(@NotNull String llamador) {
+        this.llamador = llamador;
     }
 
 }

@@ -114,7 +114,7 @@ public class DetalleActivity extends AppCompatActivity {
         usuariosHermandadesDB.setIdHermandad(ide);
 
         usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
-        System.out.println(usuariosHermandadesDBDao.getEntidad(usuariosHermandadesDB));
+        //System.out.println(usuariosHermandadesDBDao.getEntidad(usuariosHermandadesDB));
     }
 
 
@@ -176,8 +176,11 @@ public class DetalleActivity extends AppCompatActivity {
         posicionLista--;
         id_aux = lista.get(posicionLista).getId();
 
-        if(checkAcertado(id_aux) && posicionLista==0){
-            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
+        while(checkAcertado(id_aux)){
+            posicionLista--;
+            id_aux = lista.get(posicionLista).getId();
+        }
+        if( posicionLista==0 ){
             posicionLista=lista.size();
         }
         respuesta.setText("");

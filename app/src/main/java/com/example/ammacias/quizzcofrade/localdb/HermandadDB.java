@@ -25,6 +25,9 @@ public class HermandadDB {
     private String dia;
     private int numNazarenos;
 
+    @NotNull
+    private String ANYO_FUNDACION;
+
     @Generated
     public HermandadDB() {
     }
@@ -34,13 +37,14 @@ public class HermandadDB {
     }
 
     @Generated
-    public HermandadDB(Long id, String nombre, String escudo, String tunica, String dia, int numNazarenos) {
+    public HermandadDB(Long id, String nombre, String escudo, String tunica, String dia, int numNazarenos, String anyoFundacion) {
         this.id = id;
         this.nombre = nombre;
         this.escudo = escudo;
         this.tunica = tunica;
         this.dia = dia;
         this.numNazarenos = numNazarenos;
+        this.ANYO_FUNDACION = anyoFundacion;
     }
 
     public Long getId() {
@@ -97,6 +101,16 @@ public class HermandadDB {
 
     public void setNumNazarenos(int numNazarenos) {
         this.numNazarenos = numNazarenos;
+    }
+
+    @NotNull
+    public String getAnyoFundacion() {
+        return ANYO_FUNDACION;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setAnyoFundacion(@NotNull String ANYO_FUNDACION) {
+        this.ANYO_FUNDACION = ANYO_FUNDACION;
     }
 
 }

@@ -28,6 +28,7 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
         public final static Property Tunica = new Property(3, String.class, "tunica", false, "TUNICA");
         public final static Property Dia = new Property(4, String.class, "dia", false, "DIA");
         public final static Property NumNazarenos = new Property(5, int.class, "numNazarenos", false, "NUM_NAZARENOS");
+        public final static Property AnyoFundacion = new Property(6, String.class, "anyoFundacion", false, "ANYO_FUNDACION");
     };
 
 
@@ -48,7 +49,8 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
                 "\"ESCUDO\" TEXT NOT NULL ," + // 2: escudo
                 "\"TUNICA\" TEXT NOT NULL ," + // 3: tunica
                 "\"DIA\" TEXT NOT NULL ," + // 4: dia
-                "\"NUM_NAZARENOS\" INTEGER NOT NULL );"); // 5: numNazarenos
+                "\"NUM_NAZARENOS\" INTEGER NOT NULL ," + // 5: numNazarenos
+                "\"ANYO_FUNDACION\" TEXT NOT NULL );"); // 6: anyoFundacion
     }
 
     /** Drops the underlying database table. */
@@ -70,6 +72,7 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
         stmt.bindString(4, entity.getTunica());
         stmt.bindString(5, entity.getDia());
         stmt.bindLong(6, entity.getNumNazarenos());
+        stmt.bindString(7, entity.getAnyoFundacion());
     }
 
     @Override
@@ -85,6 +88,7 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
         stmt.bindString(4, entity.getTunica());
         stmt.bindString(5, entity.getDia());
         stmt.bindLong(6, entity.getNumNazarenos());
+        stmt.bindString(7, entity.getAnyoFundacion());
     }
 
     @Override
@@ -100,7 +104,8 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
             cursor.getString(offset + 2), // escudo
             cursor.getString(offset + 3), // tunica
             cursor.getString(offset + 4), // dia
-            cursor.getInt(offset + 5) // numNazarenos
+            cursor.getInt(offset + 5), // numNazarenos
+            cursor.getString(offset + 6) // anyoFundacion
         );
         return entity;
     }
@@ -113,6 +118,7 @@ public class HermandadDBDao extends AbstractDao<HermandadDB, Long> {
         entity.setTunica(cursor.getString(offset + 3));
         entity.setDia(cursor.getString(offset + 4));
         entity.setNumNazarenos(cursor.getInt(offset + 5));
+        entity.setAnyoFundacion(cursor.getString(offset + 6));
      }
     
     @Override
