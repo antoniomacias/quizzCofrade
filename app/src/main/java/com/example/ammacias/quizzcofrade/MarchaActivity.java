@@ -3,8 +3,9 @@ package com.example.ammacias.quizzcofrade;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.ammacias.quizzcofrade.Clases.Datum;
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
-import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Clases.PasoAPI;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 
 import retrofit.Call;
@@ -47,5 +48,6 @@ public class MarchaActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

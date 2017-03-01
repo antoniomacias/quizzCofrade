@@ -37,7 +37,12 @@
             android:label="@string/title_activity_pasos"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RandomActivity" />
-        <activity android:name=".MarchaActivity"></activity>
+        <activity android:name=".MarchaActivity" />
+
+        <service
+            android:name=".MyReproductor"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
