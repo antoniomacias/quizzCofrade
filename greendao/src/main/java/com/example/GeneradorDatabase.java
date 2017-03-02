@@ -10,7 +10,7 @@ public class GeneradorDatabase {
         // PARAM 1: códigeo de versión: 1, 2, 3, 4
         // PARAM 2: el nombre del paquete del módule app de Android
         // donde queremos volcar los POJOS y demás ficheros de la base de datos
-        Schema schema = new Schema(1, "com.example.ammacias.quizzcofrade.localdb");
+        Schema schema = new Schema(2, "com.example.ammacias.quizzcofrade.localdb");
 
         // Definimos las entidades (tablas) de la base de datos
         Entity usuarioDB = schema.addEntity("UsuarioDB");

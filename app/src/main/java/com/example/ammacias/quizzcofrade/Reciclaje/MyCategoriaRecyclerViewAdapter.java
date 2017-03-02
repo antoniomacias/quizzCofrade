@@ -42,6 +42,7 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.nombre.setText(mValues.get(position).toString()); //
+        System.out.println("Recycler" +mValues.get(position).toString());
         switch (mValues.get(position).toString()){
             case "Tunicas":
                 Picasso.with(ctx)
@@ -55,7 +56,7 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
                         .resize(250, 200)
                         .into(holder.imagenCat);
                 break;
-            case "Escudos":
+            case "escudos":
                 Picasso.with(ctx)
                         .load("http://www.nasbc.org/AsbccImages/Question.png")
                         .resize(250, 200)

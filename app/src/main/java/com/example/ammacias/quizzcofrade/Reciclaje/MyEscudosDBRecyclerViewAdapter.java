@@ -53,7 +53,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         // TODO: Pintar con Picasso
-        if (cat_elegida.contains("Escudos")) {
+        if (cat_elegida.contains("escudos")) {
             System.out.println("Entro a cargar los escudos");
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)

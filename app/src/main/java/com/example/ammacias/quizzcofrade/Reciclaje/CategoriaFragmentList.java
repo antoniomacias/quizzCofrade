@@ -407,8 +407,11 @@ public class CategoriaFragmentList extends Fragment {
                     for(UsuariosHermandades uh:result.getData()){
                         if(!categorias.contains(uh.getCategoria())){
                             categorias.add(uh.getCategoria());
+                            System.out.println("Categoria a añadir: "+uh.getCategoria());
                         }
                     }
+                    recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
+
                 }
             }
 
@@ -417,11 +420,6 @@ public class CategoriaFragmentList extends Fragment {
                 System.out.println(t.getMessage());
             }
         });
-
-
-
-
-        recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
 
     }
 
