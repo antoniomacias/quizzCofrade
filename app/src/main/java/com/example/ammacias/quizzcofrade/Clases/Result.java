@@ -15,7 +15,7 @@ private List<Usuario> usuario = null;
     @SerializedName("Hermandad")
     @Expose
     private List<Hermandad> hermandad = null;
-    @SerializedName("UsuariosHermandades")
+    @SerializedName("UsuariosHermandadesAPI")
     @Expose
     private List<UsuariosHermandades> usuariosHermandades = null;
 

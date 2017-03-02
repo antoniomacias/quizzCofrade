@@ -24,6 +24,7 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Nick = new Property(1, String.class, "nick", false, "NICK");
+        public final static Property Email = new Property(2, String.class, "email", false, "EMAIL");
     };
 
 
@@ -40,7 +41,8 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USUARIO_DB\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"NICK\" TEXT);"); // 1: nick
+                "\"NICK\" TEXT," + // 1: nick
+                "\"EMAIL\" TEXT);"); // 2: email
     }
 
     /** Drops the underlying database table. */
@@ -62,6 +64,11 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         if (nick != null) {
             stmt.bindString(2, nick);
         }
+ 
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(3, email);
+        }
     }
 
     @Override
@@ -77,6 +84,11 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         if (nick != null) {
             stmt.bindString(2, nick);
         }
+ 
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(3, email);
+        }
     }
 
     @Override
@@ -88,7 +100,8 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
     public UsuarioDB readEntity(Cursor cursor, int offset) {
         UsuarioDB entity = new UsuarioDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // nick
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nick
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // email
         );
         return entity;
     }
@@ -97,6 +110,7 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
     public void readEntity(Cursor cursor, UsuarioDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNick(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setEmail(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     @Override

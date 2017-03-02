@@ -22,11 +22,14 @@ public class HermandadDB {
     private String tunica;
 
     @NotNull
+    private String fotoTunica;
+
+    @NotNull
     private String dia;
     private int numNazarenos;
 
     @NotNull
-    private String ANYO_FUNDACION;
+    private String anyoFundacion;
 
     @Generated
     public HermandadDB() {
@@ -37,14 +40,15 @@ public class HermandadDB {
     }
 
     @Generated
-    public HermandadDB(Long id, String nombre, String escudo, String tunica, String dia, int numNazarenos, String anyoFundacion) {
+    public HermandadDB(Long id, String nombre, String escudo, String tunica, String fotoTunica, String dia, int numNazarenos, String anyoFundacion) {
         this.id = id;
         this.nombre = nombre;
         this.escudo = escudo;
         this.tunica = tunica;
+        this.fotoTunica = fotoTunica;
         this.dia = dia;
         this.numNazarenos = numNazarenos;
-        this.ANYO_FUNDACION = anyoFundacion;
+        this.anyoFundacion = anyoFundacion;
     }
 
     public Long getId() {
@@ -86,6 +90,16 @@ public class HermandadDB {
     }
 
     @NotNull
+    public String getFotoTunica() {
+        return fotoTunica;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setFotoTunica(@NotNull String fotoTunica) {
+        this.fotoTunica = fotoTunica;
+    }
+
+    @NotNull
     public String getDia() {
         return dia;
     }
@@ -105,12 +119,12 @@ public class HermandadDB {
 
     @NotNull
     public String getAnyoFundacion() {
-        return ANYO_FUNDACION;
+        return anyoFundacion;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setAnyoFundacion(@NotNull String ANYO_FUNDACION) {
-        this.ANYO_FUNDACION = ANYO_FUNDACION;
+    public void setAnyoFundacion(@NotNull String anyoFundacion) {
+        this.anyoFundacion = anyoFundacion;
     }
 
 }

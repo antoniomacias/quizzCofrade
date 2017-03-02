@@ -14,13 +14,17 @@ public class Usuario {
     @SerializedName("nick")
     @Expose
     private String nick;
+    @SerializedName("email")
+    @Expose
+    private String email;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nick) {
+    public Usuario(Long id, String nick, String email) {
         this.id = id;
         this.nick = nick;
+        this.email = email;
     }
 
     public Long getId() {
@@ -37,6 +41,14 @@ public class Usuario {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

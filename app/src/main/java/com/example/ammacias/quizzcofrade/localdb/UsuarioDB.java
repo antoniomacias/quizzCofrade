@@ -12,6 +12,7 @@ public class UsuarioDB {
     @Id(autoincrement = true)
     private Long id;
     private String nick;
+    private String email;
 
     @Generated
     public UsuarioDB() {
@@ -22,9 +23,10 @@ public class UsuarioDB {
     }
 
     @Generated
-    public UsuarioDB(Long id, String nick) {
+    public UsuarioDB(Long id, String nick, String email) {
         this.id = id;
         this.nick = nick;
+        this.email = email;
     }
 
     public Long getId() {
@@ -41,6 +43,14 @@ public class UsuarioDB {
 
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

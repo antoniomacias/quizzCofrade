@@ -22,6 +22,9 @@ public class Hermandad {
     @SerializedName("tunica")
     @Expose
     private String tunica;
+    @SerializedName("foto_tunica")
+    @Expose
+    private String foto_tunica;
     @SerializedName("dia")
     @Expose
     private String dia;
@@ -38,11 +41,12 @@ public class Hermandad {
     public Hermandad() {
     }
 
-    public Hermandad(Long id, String nombre, String escudo, String tunica, String dia, Integer numNazarenos, String anyoFundacion) {
+    public Hermandad(Long id, String nombre, String escudo, String tunica, String foto_tunica, String dia, Integer numNazarenos, String anyoFundacion) {
         this.id = id;
         this.nombre = nombre;
         this.escudo = escudo;
         this.tunica = tunica;
+        this.foto_tunica = foto_tunica;
         this.dia = dia;
         this.numNazarenos = numNazarenos;
         this.anyoFundacion = anyoFundacion;
@@ -78,6 +82,14 @@ public class Hermandad {
 
     public void setTunica(String tunica) {
         this.tunica = tunica;
+    }
+
+    public String getFoto_tunica() {
+        return foto_tunica;
+    }
+
+    public void setFoto_tunica(String foto_tunica) {
+        this.foto_tunica = foto_tunica;
     }
 
     public String getDia() {

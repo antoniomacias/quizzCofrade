@@ -62,4 +62,14 @@ public class UsuariosHermandades {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+
+    @Override
+    public String toString() {
+        return "UsuariosHermandades{" +
+                "id=" + id +
+                ", idUsuario=" + idUsuario +
+                ", idHermandad=" + idHermandad +
+                ", categoria='" + categoria + '\'' +
+                '}';
+    }
 }

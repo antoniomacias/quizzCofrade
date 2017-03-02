@@ -18,7 +18,10 @@ import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
+import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
+import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
@@ -85,12 +88,145 @@ public class CategoriaFragmentList extends Fragment {
 
 
             getDatos();
-            getPasos();
+            /*getPasos();
+            getHermandades();
+            getUsuarios();
+            getUsuariosHermandades();
             //recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(categorias, mListener));
+            recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));*/
         }
 
         return view;
     }
+
+    private void getUsuariosHermandades() {
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
+
+        Call<UsuariosHermandadesAPI> autocompleteList1 = service1.getUsuariosHermandadesRetrofit();
+
+        autocompleteList1.enqueue(new Callback<UsuariosHermandadesAPI>() {
+            @Override
+            public void onResponse(Response<UsuariosHermandadesAPI> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    UsuariosHermandadesAPI result= response.body();
+                    UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
+
+                    for (UsuariosHermandades h:result.getData()) {
+                        // " id, idUsuario, idHermandad, categoria "
+                        System.out.println("ITERANDO EL USUARIO_HERMANDAD "+h);
+                        UsuariosHermandadesDB usuarioDB = new UsuariosHermandadesDB();
+                        usuarioDB.setId(h.getId());
+                        usuarioDB.setIdUsuario(h.getIdUsuario());
+                        usuarioDB.setIdHermandad(h.getIdHermandad());
+                        usuarioDB.setCategoria(h.getCategoria());
+
+                        usuariosHermandadesDBDao.insertOrReplace(usuarioDB);
+                    }
+
+                    for(UsuariosHermandades uh:result.getData()){
+                        if(!categorias.contains(uh.getCategoria())){
+                            categorias.add(uh.getCategoria());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    // RETROFIT USUARIOS
+    private void getUsuarios() {
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
+
+        Call<Usuarios> autocompleteList1 = service1.getUsuariosRetrofit();
+
+        autocompleteList1.enqueue(new Callback<Usuarios>() {
+            @Override
+            public void onResponse(Response<Usuarios> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Usuarios result= response.body();
+                    UsuarioDBDao hermandadDBDao = DatabaseConnection.getUsuarioDBDao(getActivity());
+
+                    for (Usuario h:result.getData()) {
+                        // " id, nick, email "
+                        System.out.println("ITERANDO EL USUARIO "+h);
+                        UsuarioDB usuarioDB = new UsuarioDB();
+                        usuarioDB.setId(h.getId());
+                        usuarioDB.setNick(h.getNick());
+                        usuarioDB.setEmail(h.getEmail());
+
+                        hermandadDBDao.insertOrReplace(usuarioDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
+    // RETROFIT HERMANDADES
+    private void getHermandades() {
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
+
+        Call<Hermandades> autocompleteList1 = service1.getHermandadesRetrofit();
+
+        autocompleteList1.enqueue(new Callback<Hermandades>() {
+            @Override
+            public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Hermandades result= response.body();
+                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+
+                    for (Hermandad h:result.getData()) {
+                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
+                        System.out.println("ITERANDO LA HERMANDAD "+h);
+                        HermandadDB hermandadDB = new HermandadDB();
+                        hermandadDB.setId(h.getId());
+                        hermandadDB.setNombre(h.getNombre());
+                        hermandadDB.setEscudo(h.getEscudo());
+                        hermandadDB.setTunica(h.getTunica());
+                        hermandadDB.setFotoTunica(h.getFoto_tunica());
+                        hermandadDB.setDia(h.getDia());
+                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
+                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
+
+                        hermandadDBDao.insertOrReplace(hermandadDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
     // RETROFIT PASOS
     private void getPasos() {
 
@@ -122,6 +258,7 @@ public class CategoriaFragmentList extends Fragment {
                         pasoDB.setBanda(p.getBanda());
                         pasoDB.setCapataz(p.getCapataz());
                         pasoDB.setLlamador(p.getLlamador());
+                        pasoDB.setNumCostaleros(p.getNumCostaleros());
 
                         pasosDBDao.insertOrReplace(pasoDB);
                     }
@@ -137,120 +274,155 @@ public class CategoriaFragmentList extends Fragment {
 
 
     void getDatos(){
-
-        //RETROFIT
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(IRetrofit.ENDPOINT)
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        // TODOS LOS DATOS
-        IRetrofit service = retrofit.create(IRetrofit.class);
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
 
-        Call<Result> autocompleteList = service.getDatos();
+        // RETROFIT USUARIOS
+        Call<Usuarios> autocompleteList1 = service1.getUsuariosRetrofit();
 
-        autocompleteList.enqueue(new Callback<Result>() {
-
+        autocompleteList1.enqueue(new Callback<Usuarios>() {
             @Override
-            public void onResponse(Response<Result> response, Retrofit retrofit) {
+            public void onResponse(Response<Usuarios> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Usuarios result= response.body();
+                    UsuarioDBDao hermandadDBDao = DatabaseConnection.getUsuarioDBDao(getActivity());
 
-                if (response.isSuccess()) {
-                    Result r = response.body();
-
-                    UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(getActivity());
-
-                    for (Usuario u: r.getUsuario()) {
+                    for (Usuario h:result.getData()) {
+                        // " id, nick, email "
+                        System.out.println("ITERANDO EL USUARIO "+h);
                         UsuarioDB usuarioDB = new UsuarioDB();
-                        usuarioDB.setId(u.getId());
-                        usuarioDB.setNick(u.getNick());
+                        usuarioDB.setId(h.getId());
+                        usuarioDB.setNick(h.getNick());
+                        usuarioDB.setEmail(h.getEmail());
 
-                        usuarioDBDao.insertOrReplace(usuarioDB);
+                        hermandadDBDao.insertOrReplace(usuarioDB);
                     }
-
-
-                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-                    PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
-
-                    for (Hermandad h: r.getHermandad()) {
-                            HermandadDB hermandadDB= new HermandadDB();
-                            hermandadDB.setId(h.getId());
-                            hermandadDB.setNombre(h.getNombre());
-                            hermandadDB.setEscudo(h.getEscudo());
-                            hermandadDB.setTunica(h.getTunica());
-                            hermandadDB.setDia(h.getDia());
-                            hermandadDB.setNumNazarenos(h.getNumNazarenos());
-                            hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
-
-                            hermandadDBDao.insertOrReplace(hermandadDB);
-
-                            //Recorro los pasos para añadirlos
-                            /*for (Paso p: h.getPaso()) {
-                                PasosDB pasosDB = new PasosDB();
-
-                                pasosDB.setId(p.getId());
-                                pasosDB.setNombreTitular(p.getNombreTitular());
-                                pasosDB.setFoto((String) p.getFoto());
-                                pasosDB.setBanda(p.getBanda());
-                                pasosDB.setIdHermandad(h.getId());
-
-                                pasosDBDao.insertOrReplace(pasosDB);
-                            }*/
-                    }
-
-                    UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
-
-                    for (UsuariosHermandades uh: r.getUsuariosHermandades()) {
-
-                        UsuariosHermandadesDB usuariosHermandadesDB= new UsuariosHermandadesDB();
-                        usuariosHermandadesDB.setId(uh.getId());
-                        usuariosHermandadesDB.setIdUsuario(uh.getIdUsuario());
-                        usuariosHermandadesDB.setCategoria(uh.getCategoria());
-                        usuariosHermandadesDB.setIdHermandad(uh.getIdHermandad());
-
-                        usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
-                    }
- /*                 categorias.add(usuariosHermandadesDBDao.queryBuilder()
-                            .where(new WhereCondition.StringCondition("1 GROUP BY categoria")).list());
-
-                    categorias.add(usuariosHermandadesDBDao.queryBuilder()
-                            .where(WhereCondition.StringCondition.field.in(fieldValues)).list());
-*/
-                    //List<UsuariosHermandadesDB> a = usuariosHermandadesDBDao.queryBuilder()
-                    //.where(new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Id.gt(0).toString())).list();
-
-                    /*return usuariosHermandadesDBDao.queryBuilder().where(
-                            new WhereCondition.StringCondition(UsuariosHermandadesDBDao.Properties.Categoria.eq("") " IN "
-                                    + "(SELECT " + UsuariosHermandadesDBDao.Properties.Categoria+ " FROM "
-                                    + UsuariosHermandadesDBDao.TABLENAME)+ " group by categoria")
-                            .list();*/
-
-                    for(UsuariosHermandades uh:r.getUsuariosHermandades()){
-                        if(!categorias.contains(uh.getCategoria())){
-                            categorias.add(uh.getCategoria());
-                        }
-                    }
-                    //System.out.println(categorias);
-
-                    recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
-
-                } else {
-                    System.out.println("Error: " + response.code());
-                    Toast.makeText(getActivity(), "Error: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("Throw: " + t.getMessage());
-                Toast.makeText(getActivity(), "Throw: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                System.out.println(t.getMessage());
             }
         });
 
-        // ESCUDOS
-        // PASOS
-        // HERMANDADES
-        // ¿USUARIOS?
-        // INTERMEDIA
+
+
+        // RETROFIT HERMANDADES
+
+        Call<Hermandades> autocompleteList2 = service1.getHermandadesRetrofit();
+
+        autocompleteList2.enqueue(new Callback<Hermandades>() {
+            @Override
+            public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Hermandades result= response.body();
+                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+
+                    for (Hermandad h:result.getData()) {
+                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
+                        System.out.println("ITERANDO LA HERMANDAD "+h);
+                        HermandadDB hermandadDB = new HermandadDB();
+                        hermandadDB.setId(h.getId());
+                        hermandadDB.setNombre(h.getNombre());
+                        hermandadDB.setEscudo(h.getEscudo());
+                        hermandadDB.setTunica(h.getTunica());
+                        hermandadDB.setFotoTunica(h.getFoto_tunica());
+                        hermandadDB.setDia(h.getDia());
+                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
+                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
+
+                        hermandadDBDao.insertOrReplace(hermandadDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+        // RETROFIT PASOS
+        Call<Pasos> autocompleteList3 = service1.getPasosRetrofit();
+
+        autocompleteList3.enqueue(new Callback<Pasos>() {
+            @Override
+            public void onResponse(Response<Pasos> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Pasos result= response.body();
+                    PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
+
+                    for (Paso p:result.getData()) {
+                        //"id, idHermandad, nombreTitular, foto, colorCirio, banda, capataz, numCostalero, llamador"
+                        System.out.println("ITERANDO EL PASO "+p);
+                        PasosDB pasoDB = new PasosDB();
+                        pasoDB.setId(p.getId());
+                        pasoDB.setIdHermandad(p.getIdHermandad());
+                        pasoDB.setNombreTitular(p.getNombreTitular());
+                        pasoDB.setFoto(p.getFoto());
+                        pasoDB.setColorCirio(p.getColorCirio());
+                        pasoDB.setBanda(p.getBanda());
+                        pasoDB.setCapataz(p.getCapataz());
+                        pasoDB.setLlamador(p.getLlamador());
+                        pasoDB.setNumCostaleros(p.getNumCostaleros());
+
+                        pasosDBDao.insertOrReplace(pasoDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+
+        // RETROFIT USUARIOS_HERMANDADESCall<UsuariosHermandadesAPI> autocompleteList1 = service1.getUsuariosHermandadesRetrofit();
+        Call<UsuariosHermandadesAPI> autocompleteList4 = service1.getUsuariosHermandadesRetrofit();
+        autocompleteList4.enqueue(new Callback<UsuariosHermandadesAPI>() {
+            @Override
+            public void onResponse(Response<UsuariosHermandadesAPI> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    UsuariosHermandadesAPI result= response.body();
+                    UsuariosHermandadesDBDao usuariosHermandadesDBDao = DatabaseConnection.getUsuariosHermandadesDBDao(getActivity());
+
+                    for (UsuariosHermandades h:result.getData()) {
+                        // " id, idUsuario, idHermandad, categoria "
+                        System.out.println("ITERANDO EL USUARIO_HERMANDAD "+h);
+                        UsuariosHermandadesDB usuarioDB = new UsuariosHermandadesDB();
+                        usuarioDB.setId(h.getId());
+                        usuarioDB.setIdUsuario(h.getIdUsuario());
+                        usuarioDB.setIdHermandad(h.getIdHermandad());
+                        usuarioDB.setCategoria(h.getCategoria());
+
+                        usuariosHermandadesDBDao.insertOrReplace(usuarioDB);
+                    }
+
+                    for(UsuariosHermandades uh:result.getData()){
+                        if(!categorias.contains(uh.getCategoria())){
+                            categorias.add(uh.getCategoria());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+
+
+
+        recyclerView.setAdapter(new MyCategoriaRecyclerViewAdapter(getActivity(),categorias, mListener));
+
     }
 
 

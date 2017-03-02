@@ -31,7 +31,7 @@ public class Paso {
     private String capataz;
     @SerializedName("numCostaleros")
     @Expose
-    private Integer numCostaleros;
+    private String numCostaleros;
     @SerializedName("llamador")
     @Expose
     private String llamador;
@@ -92,11 +92,11 @@ public class Paso {
         this.capataz = capataz;
     }
 
-    public Integer getNumCostaleros() {
+    public String getNumCostaleros() {
         return numCostaleros;
     }
 
-    public void setNumCostaleros(Integer numCostaleros) {
+    public void setNumCostaleros(String numCostaleros) {
         this.numCostaleros = numCostaleros;
     }
 

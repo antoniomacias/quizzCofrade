@@ -16,6 +16,7 @@ public class GeneradorDatabase {
         Entity usuarioDB = schema.addEntity("UsuarioDB");
         usuarioDB.addIdProperty().autoincrement().primaryKey();
         usuarioDB.addStringProperty("nick");
+        usuarioDB.addStringProperty("email");
 
         // Definimos las entidades (tablas) de la base de datos
         Entity hermandadDB = schema.addEntity("HermandadDB");
@@ -23,6 +24,7 @@ public class GeneradorDatabase {
         hermandadDB.addStringProperty("nombre").notNull();
         hermandadDB.addStringProperty("escudo").notNull();
         hermandadDB.addStringProperty("tunica").notNull();
+        hermandadDB.addStringProperty("fotoTunica").notNull();
         hermandadDB.addStringProperty("dia").notNull();
         hermandadDB.addIntProperty("numNazarenos").notNull();
         hermandadDB.addStringProperty("anyoFundacion").notNull();
