@@ -53,4 +53,9 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
         i.putExtra("IDPaso", p.getId());
         startActivity(i);
     }
+
+    @Override
+    public void onClickMarcha(String s) {
+
+    }
 }

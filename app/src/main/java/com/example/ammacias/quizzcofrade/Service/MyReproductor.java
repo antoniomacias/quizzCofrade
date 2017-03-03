@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Service;
 
 import android.app.Service;
 import android.content.Intent;

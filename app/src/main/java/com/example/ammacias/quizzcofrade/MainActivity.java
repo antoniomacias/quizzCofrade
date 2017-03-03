@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.ammacias.quizzcofrade.Clases.Paso;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
+import com.example.ammacias.quizzcofrade.Service.MyReproductor;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                 i = new Intent(MainActivity.this, PasosActivity.class);
                 startActivity(i);
                 break;
-            case "escudos":
+            case "Escudos":
                 i = new Intent(MainActivity.this, EscudosActivity.class);
                 startActivity(i);
                 break;
@@ -63,9 +64,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                 i = new Intent(MainActivity.this, EscudosActivity.class);
                 startActivity(i);
                 break;
-            case "Marcha":
-                i = new Intent(MainActivity.this, MyReproductor.class);
-                startService(i);
+            case "Marchas":
+                i = new Intent(MainActivity.this, MarchaActivity.class);
+                startActivity(i);
+                /*i = new Intent(MainActivity.this, MyReproductor.class);
+                startService(i);*/
                 break;
             default:
                 break;
@@ -79,6 +82,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
+
+    }
+
+    @Override
+    public void onClickMarcha(String s) {
 
     }
 

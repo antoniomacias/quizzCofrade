@@ -1,51 +1,52 @@
 package com.example.ammacias.quizzcofrade;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
-import com.example.ammacias.quizzcofrade.Clases.Marcha;
-import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-
-public class MarchaActivity extends AppCompatActivity {
+public class MarchaActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marcha);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        //RETROFIT
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(IRetrofit.ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IRetrofit service = retrofit.create(IRetrofit.class);
-
-        Call<Marcha> autocompleteList = service.getMarchas();
-
-        autocompleteList.enqueue(new Callback<Marcha>() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Response<Marcha> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    Marcha r = response.body();
-
-                    for (String a:r.getMarcha()) {
-                        System.out.println(a.toString());
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
+    }
 
+    @Override
+    public void onClickCategoria(String categoria) {
+
+    }
+
+    @Override
+    public void onClickHermandadDB(HermandadDB h, int posicionDeLaLista) {
+
+    }
+
+    @Override
+    public void onClickPasosDB(PasosDB p) {
+
+    }
+
+    @Override
+    public void onClickMarcha(String s) {
+        System.out.println(s);
     }
 }

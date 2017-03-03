@@ -56,13 +56,19 @@ public class MyCategoriaRecyclerViewAdapter extends RecyclerView.Adapter<MyCateg
                         .resize(250, 200)
                         .into(holder.imagenCat);
                 break;
-            case "escudos":
+            case "Escudos":
                 Picasso.with(ctx)
                         .load("http://www.nasbc.org/AsbccImages/Question.png")
                         .resize(250, 200)
                         .into(holder.imagenCat);
                 break;
             case "Random":
+                Picasso.with(ctx)
+                        .load("http://www.nasbc.org/AsbccImages/Question.png")
+                        .resize(250, 200)
+                        .into(holder.imagenCat);
+                break;
+            case "Marchas":
                 Picasso.with(ctx)
                         .load("http://www.nasbc.org/AsbccImages/Question.png")
                         .resize(250, 200)

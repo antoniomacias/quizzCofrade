@@ -13,4 +13,5 @@ public interface ICofrade {
     void onClickCategoria(String categoria);
     void onClickHermandadDB(HermandadDB h, int posicionDeLaLista);
     void onClickPasosDB(PasosDB p);
+    void onClickMarcha(String s);
 }

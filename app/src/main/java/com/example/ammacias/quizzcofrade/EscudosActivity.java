@@ -53,5 +53,10 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickPasosDB(PasosDB p) {}
 
+    @Override
+    public void onClickMarcha(String s) {
+
+    }
+
 
 }
