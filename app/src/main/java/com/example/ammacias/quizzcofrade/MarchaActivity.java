@@ -1,5 +1,6 @@
 package com.example.ammacias.quizzcofrade;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.Service.MyReproductor;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
@@ -48,5 +50,8 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickMarcha(String s) {
         System.out.println(s);
+        Intent i = new Intent(MarchaActivity.this, MyReproductor.class);
+        i.putExtra("cancion", s);
+        startService(i);
     }
 }

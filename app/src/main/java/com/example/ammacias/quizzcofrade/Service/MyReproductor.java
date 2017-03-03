@@ -22,7 +22,8 @@ public class MyReproductor extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        reproductorMusica = MediaPlayer.create(this, Uri.parse("http://juegomarcas.esy.es/SS/music/amordemadre.mp3"));
+        String cancion = intent.getStringExtra("cancion");
+        reproductorMusica = MediaPlayer.create(this, Uri.parse("http://juegomarcas.esy.es/SS/music/"+cancion));
 
        /* try {
             reproductorMusica.prepare();

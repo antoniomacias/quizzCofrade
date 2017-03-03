@@ -31,7 +31,7 @@ import retrofit.Retrofit;
 public class MarchaFragment extends Fragment {
 
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int mColumnCount = 4;
 
     private ICofrade mListener;
     RecyclerView recyclerView;

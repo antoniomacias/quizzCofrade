@@ -36,11 +36,6 @@ public class MyStringRecyclerViewAdapter extends RecyclerView.Adapter<MyStringRe
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        System.out.println("1"+mValues.get(2));
-        System.out.println(mValues.size());
-        //System.out.println(holder.nom);
-        holder.nombreMarcha.setText(mValues.get(position));
-        holder.imageViewAudio.setImageResource(R.drawable.emptystar);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,14 +56,12 @@ public class MyStringRecyclerViewAdapter extends RecyclerView.Adapter<MyStringRe
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView nombreMarcha;
         public final ImageView imageViewAudio;
         public String mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            nombreMarcha = (TextView) view.findViewById(R.id.nombreMarcha);
             imageViewAudio = (ImageView) view.findViewById(R.id.imageViewAudio);
         }
 
