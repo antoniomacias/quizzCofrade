@@ -11,7 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ammacias.quizzcofrade.MainActivity">
 
-
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,10 +22,63 @@
         android:id="@+id/fragment" />
 
     <TextView
+        android:id="@+id/escudos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Escudos"
+        android:layout_below="@+id/fragment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp"
+        android:onClick="click_escudos"/>
+
+    <TextView
+        android:id="@+id/tunicas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Túnicas"
+        android:layout_alignBaseline="@+id/escudos"
+        android:layout_alignBottom="@+id/escudos"
+        android:layout_alignLeft="@+id/random"
+        android:layout_alignStart="@+id/random"
+        android:onClick="click_tunicas"/>
+
+    <TextView
+        android:id="@+id/pasos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Pasos"
+        android:layout_alignBaseline="@+id/tunicas"
+        android:layout_alignBottom="@+id/tunicas"
+        android:layout_toRightOf="@+id/random"
+        android:layout_toEndOf="@+id/random"
+        android:layout_marginLeft="30dp"
+        android:onClick="click_pasos"/>
+
+    <TextView
+        android:id="@+id/marchas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Marchas"
+        android:layout_marginTop="89dp"
+        android:layout_below="@+id/escudos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="click_marchas"/>
+
+    <TextView
         android:id="@+id/random"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:layout_below="@+id/fragment"
-        android:text="Juego random"/>
+        android:text="Aleatorio"
+        android:layout_alignBaseline="@+id/marchas"
+        android:layout_alignBottom="@+id/marchas"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:onClick="click_random"/>
 </RelativeLayout>

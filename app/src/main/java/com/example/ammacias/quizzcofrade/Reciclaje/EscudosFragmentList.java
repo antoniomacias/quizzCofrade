@@ -93,7 +93,8 @@ public class EscudosFragmentList extends Fragment {
             if(listHermandad==null){
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
                 listHermandad = hermandadDBDao.loadAll();
-                Collections.shuffle(listHermandad);
+                // AQUÍ HAGO LA LISTA ALEATORIA
+                //Collections.shuffle(listHermandad);
                 ((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
             }
 

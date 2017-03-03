@@ -24,6 +24,7 @@ public class DaoMaster extends AbstractDaoMaster {
         UsuarioDBDao.createTable(db, ifNotExists);
         HermandadDBDao.createTable(db, ifNotExists);
         PasosDBDao.createTable(db, ifNotExists);
+        MarchaDBDao.createTable(db, ifNotExists);
         UsuariosHermandadesDBDao.createTable(db, ifNotExists);
     }
 
@@ -32,6 +33,7 @@ public class DaoMaster extends AbstractDaoMaster {
         UsuarioDBDao.dropTable(db, ifExists);
         HermandadDBDao.dropTable(db, ifExists);
         PasosDBDao.dropTable(db, ifExists);
+        MarchaDBDao.dropTable(db, ifExists);
         UsuariosHermandadesDBDao.dropTable(db, ifExists);
     }
 
@@ -54,6 +56,7 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(UsuarioDBDao.class);
         registerDaoClass(HermandadDBDao.class);
         registerDaoClass(PasosDBDao.class);
+        registerDaoClass(MarchaDBDao.class);
         registerDaoClass(UsuariosHermandadesDBDao.class);
     }
 

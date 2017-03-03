@@ -87,11 +87,12 @@ public class MarchaFragment extends Fragment {
                 if (response.isSuccess()) {
                     Marcha r = response.body();
 
-                    for (String a:r.getMarcha()) {
+                    /*for (String a:r.getMarcha()) {
                         System.out.println("Cada marcha: "+a.toString());
-                    }
+                    }*/
 
-                    recyclerView.setAdapter(new MyStringRecyclerViewAdapter(r.getMarcha(), mListener));
+                    // COMENTO ESTO PARA QUE NO DE ERROR AL TIRARLO Y PROBAR LO DEMÁS
+                    //recyclerView.setAdapter(new MyStringRecyclerViewAdapter(r.getMarcha(), mListener));
                 }
             }
 

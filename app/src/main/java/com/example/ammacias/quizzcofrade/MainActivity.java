@@ -22,21 +22,20 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements ICofrade{
-
-    TextView textView;
+    Intent i;
+    TextView escudos, tunicas, pasos, marchas, aleatorio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView)findViewById(R.id.random);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, RandomActivity.class);
-                startActivity(i);
-            }
-        });
+        escudos = (TextView)findViewById(R.id.escudos);
+        tunicas = (TextView)findViewById(R.id.tunicas);
+        pasos = (TextView)findViewById(R.id.pasos);
+        marchas = (TextView)findViewById(R.id.marchas);
+        aleatorio = (TextView)findViewById(R.id.random);
+
+
     }
 
     @Override
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
-
     }
 
     @Override
@@ -90,4 +88,33 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     }
 
+    public void click_escudos(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Escudos");
+        i = new Intent(MainActivity.this, EscudosActivity.class);
+        startActivity(i);
+    }
+
+    public void click_tunicas(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Tunicas");
+        i = new Intent(MainActivity.this, EscudosActivity.class);
+        startActivity(i);
+    }
+
+    public void click_pasos(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Pasos");
+        i = new Intent(MainActivity.this, PasosActivity.class);
+        startActivity(i);
+    }
+
+    public void click_marchas(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Marchas");
+        i = new Intent(MainActivity.this, MarchaActivity.class);
+        startActivity(i);
+    }
+
+    public void click_random(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Random");
+        i = new Intent(MainActivity.this, RandomActivity.class);
+        startActivity(i);
+    }
 }

@@ -33,6 +33,7 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -322,7 +323,11 @@ public class CategoriaFragmentList extends Fragment {
                 if (response.isSuccess()){
                     Hermandades result= response.body();
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-
+                    System.out.println(DatabaseConnection.getHermandadDBDao(getActivity()));
+                    // Desordeno las hermandades
+                    System.out.println("ANTES DE DESORDENAR: "+result.getData());
+                    Collections.shuffle(result.getData());
+                    System.out.println("TRAS DESORDENAR: "+result.getData());
                     for (Hermandad h:result.getData()) {
                         //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
                         System.out.println("ITERANDO LA HERMANDAD "+h);
