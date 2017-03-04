@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.DetalleActivity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Clases.Result;
-import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
-import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
@@ -27,13 +25,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
 
-public class DetalleActivity extends AppCompatActivity {
+public class DetalleEscudoActivity extends AppCompatActivity {
 
     ImageView imageView;
     EditText respuesta;
@@ -100,11 +93,11 @@ public class DetalleActivity extends AppCompatActivity {
 
     private void guardarAcierto(Long ide) {
         UsuariosHermandadesDBDao usuariosHermandadesDBDao =
-                DatabaseConnection.getUsuariosHermandadesDBDao(DetalleActivity.this);
+                DatabaseConnection.getUsuariosHermandadesDBDao(DetalleEscudoActivity.this);
 
         // Los valores actuales a insertar => Necesito el usuario
         UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
-        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleActivity.this);
+        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleEscudoActivity.this);
         List<UsuarioDB> usuario_actual = usuario.loadAll();
         /*if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
         else System.out.println("¡Hay más de uno! "+usuario_actual.size());*/

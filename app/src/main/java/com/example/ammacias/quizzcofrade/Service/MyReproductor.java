@@ -23,7 +23,7 @@ public class MyReproductor extends Service {
         super.onStartCommand(intent, flags, startId);
 
         String cancion = intent.getStringExtra("cancion");
-        reproductorMusica = MediaPlayer.create(this, Uri.parse("http://juegomarcas.esy.es/SS/music/"+cancion));
+        reproductorMusica = MediaPlayer.create(this, Uri.parse(cancion));
 
        /* try {
             reproductorMusica.prepare();

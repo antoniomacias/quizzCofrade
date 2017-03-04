@@ -8,9 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Service.MyReproductor;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 public class MarchaActivity extends AppCompatActivity implements ICofrade{
@@ -48,10 +50,10 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickMarcha(String s) {
-        System.out.println(s);
+    public void onClickMarcha(MarchaDB m) {
+        System.out.println(m);
         Intent i = new Intent(MarchaActivity.this, MyReproductor.class);
-        i.putExtra("cancion", s);
+        i.putExtra("cancion", m.getRuta());
         startService(i);
     }
 }

@@ -7,11 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Utils.Application_vars;
+import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 public class EscudosActivity extends AppCompatActivity implements ICofrade{
@@ -44,7 +44,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickHermandadDB(HermandadDB h, int pos) {
-        Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
+        Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
         i.putExtra("IDHermandad", h.getId());
         i.putExtra("posicion", pos);
         startActivity(i);
@@ -54,9 +54,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     public void onClickPasosDB(PasosDB p) {}
 
     @Override
-    public void onClickMarcha(String s) {
+    public void onClickMarcha(MarchaDB m) {
 
     }
-
-
 }

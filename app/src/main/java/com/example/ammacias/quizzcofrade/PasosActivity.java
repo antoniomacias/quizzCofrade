@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 public class PasosActivity extends AppCompatActivity implements ICofrade{
@@ -49,13 +51,13 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
-        Intent i = new Intent(PasosActivity.this, DetalleActivity.class);
+        Intent i = new Intent(PasosActivity.this, DetalleEscudoActivity.class);
         i.putExtra("IDPaso", p.getId());
         startActivity(i);
     }
 
     @Override
-    public void onClickMarcha(String s) {
+    public void onClickMarcha(MarchaDB m) {
 
     }
 }

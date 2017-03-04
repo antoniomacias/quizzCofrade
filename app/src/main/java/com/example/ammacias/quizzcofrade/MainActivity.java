@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Paso;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
@@ -13,6 +14,7 @@ import com.example.ammacias.quizzcofrade.Service.MyReproductor;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 import retrofit.Call;
@@ -84,9 +86,10 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickMarcha(String s) {
+    public void onClickMarcha(MarchaDB m) {
 
     }
+
 
     public void click_escudos(View view) {
         ((Application_vars) this.getApplication()).setCategoriaElegida("Escudos");
