@@ -96,6 +96,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
         });
     }
 
+    //If acertado = tick verde
     private Boolean checkAcertado(HermandadDB hermandadDB) {
         Boolean res = false;
         // if HermandadDB está en la tabla intermedia, es porque está acertado y devuelve True
