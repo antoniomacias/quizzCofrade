@@ -94,12 +94,15 @@ public class EscudosFragmentList extends Fragment {
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
                 listHermandad = hermandadDBDao.loadAll();
                 // AQUÍ HAGO LA LISTA ALEATORIA
-                //Collections.shuffle(listHermandad);
-                ((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
+                Collections.shuffle(listHermandad);
+                //((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
             }
+            System.out.println("TODAS LAS HERMANDADES: "+listHermandad);
 
 
-            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), listHermandad, mListener));
+            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(),
+                                    /*DatabaseConnection.getHermandadDBDao(getActivity()).loadAll()*/listHermandad,
+                                    mListener));
         }
         return view;
     }

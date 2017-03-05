@@ -14,6 +14,8 @@ import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
+import java.util.List;
+
 public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
@@ -43,7 +45,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickHermandadDB(HermandadDB h, int posicionDeLaLista) {
+    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int posicionDeLaLista) {
 
     }
 

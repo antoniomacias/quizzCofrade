@@ -23,6 +23,9 @@ import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class DetalleActivity extends AppCompatActivity {
     EditText respuesta;
 
     HermandadDBDao hermandadDBDao;
-    List<HermandadDB> lista;
+    List<HermandadDB> ListaDesordenada;
     Long id_aux;
     int posicionLista;
     String cat_elegida = "";
@@ -55,16 +58,15 @@ public class DetalleActivity extends AppCompatActivity {
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
 
         Intent i = getIntent();
-        //id = i.getExtras().getLong("IDHermandad");
         posicionLista = i.getExtras().getInt("posicion");
-        lista = new LinkedList<>(((Application_vars) this.getApplication()).getListHermandadEscudos());
-
-        id_aux = lista.get(posicionLista).getId();
+        ListaDesordenada = Parcels.unwrap(getIntent().getParcelableExtra("listaDesordenada"));
+        System.out.println("Y COGISTE: "+ListaDesordenada.get(posicionLista));
+        id_aux = ListaDesordenada.get(posicionLista).getId();
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
         String s=null;
         if(checkAcertado(id_aux)){
-            for(HermandadDB d: lista){
+            for(HermandadDB d: ListaDesordenada){
                 if(d.getId() == id_aux){
                     s = d.getNombre();
                 }
@@ -137,18 +139,18 @@ public class DetalleActivity extends AppCompatActivity {
 
     public void next_escudo(View view) {
         posicionLista++;
-        id_aux = lista.get(posicionLista).getId();
+        id_aux = ListaDesordenada.get(posicionLista).getId();
 
         // Busco si está acertada (Tabla_Intermedia)
         while(checkAcertado(id_aux)){
             posicionLista++;
-            id_aux = lista.get(posicionLista).getId();
+            id_aux = ListaDesordenada.get(posicionLista).getId();
         }
         //posicionLista++;
 
-        Toast.makeText(this, "Escudo "+posicionLista+" de "+lista.size(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Escudo "+posicionLista+" de "+ListaDesordenada.size(), Toast.LENGTH_SHORT).show();
 
-        if(posicionLista==lista.size()-1){
+        if(posicionLista==ListaDesordenada.size()-1){
             Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
             posicionLista=-1;
         }
@@ -174,14 +176,14 @@ public class DetalleActivity extends AppCompatActivity {
 
     public void previous_escudo(View view) {
         posicionLista--;
-        id_aux = lista.get(posicionLista).getId();
+        id_aux = ListaDesordenada.get(posicionLista).getId();
 
         while(checkAcertado(id_aux)){
             posicionLista--;
-            id_aux = lista.get(posicionLista).getId();
+            id_aux = ListaDesordenada.get(posicionLista).getId();
         }
         if( posicionLista==0 ){
-            posicionLista=lista.size();
+            posicionLista=ListaDesordenada.size();
         }
         respuesta.setText("");
         jugar(id_aux);

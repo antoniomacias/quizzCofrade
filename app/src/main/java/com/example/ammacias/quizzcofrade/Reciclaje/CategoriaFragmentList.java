@@ -323,14 +323,10 @@ public class CategoriaFragmentList extends Fragment {
                 if (response.isSuccess()){
                     Hermandades result= response.body();
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-                    System.out.println(DatabaseConnection.getHermandadDBDao(getActivity()));
-                    // Desordeno las hermandades
-                    System.out.println("ANTES DE DESORDENAR: "+result.getData());
-                    Collections.shuffle(result.getData());
-                    System.out.println("TRAS DESORDENAR: "+result.getData());
+
                     for (Hermandad h:result.getData()) {
                         //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        System.out.println("ITERANDO LA HERMANDAD "+h);
+                        //System.out.println("ITERANDO LA HERMANDAD "+h);
                         HermandadDB hermandadDB = new HermandadDB();
                         hermandadDB.setId(h.getId());
                         hermandadDB.setNombre(h.getNombre());
@@ -343,12 +339,52 @@ public class CategoriaFragmentList extends Fragment {
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    // Desordeno las hermandades
+                    /*System.out.println("ANTES DE DESORDENAR: "+result.getData());
+                    Collections.shuffle(result.getData());
+                    System.out.println("TRAS DESORDENAR: "+result.getData());*/
+
+                    //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
+                     /*HermandadDB hermandadDB = new HermandadDB();
+                    //hermandadDB.setId(h.getId());
+                    for (Long i = 0L; i < result.getData().size(); i++) {
+                        hermandadDB.setId(i);
+                            int a = i.intValue();
+                            Hermandad h = result.getData().get(a);
+                        System.out.println("Insertando en la bd a \n"+h);
+                        hermandadDB.setNombre(h.getNombre());
+                        hermandadDB.setEscudo(h.getEscudo());
+                        hermandadDB.setTunica(h.getTunica());
+                        hermandadDB.setFotoTunica(h.getFoto_tunica());
+                        hermandadDB.setDia(h.getDia());
+                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
+                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
+
+                        hermandadDBDao.insertOrReplace(hermandadDB);
+                    }
+
+                    List<HermandadDB> joes = hermandadDBDao.queryBuilder()
+                            .list();
+                    System.out.println("TODAS LAS HERMANDADES: "+joes);*/
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println(t.getMessage());
+                System.out.println("FALLO AL CARGAR LAS HERMANDADES: "+t.getMessage());
             }
         });
 

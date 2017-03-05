@@ -15,6 +15,8 @@ import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
+import java.util.List;
+
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
     }
 
     @Override
-    public void onClickHermandadDB(HermandadDB h, int posicionDeLaLista) {
+    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int posicionDeLaLista) {
 
     }
 

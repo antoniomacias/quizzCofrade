@@ -90,7 +90,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onClickHermandadDB(holder.mItem, position);
+                    mListener.onClickHermandadDB(holder.mItem,mValues, position);
                 }
             }
         });
@@ -103,8 +103,6 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
                 DatabaseConnection.getUsuariosHermandadesDBDao(ctx);
         List<UsuariosHermandadesDB> lista = usuariosHermandadesDBDao.loadAll();
         for(UsuariosHermandadesDB uh : lista){
-            /*System.out.println("BUSCO QUE "+hermandadDB.getId()+" == "+uh.getIdHermandad()+" y que "+
-                    cat_elegida+" == "+uh.getCategoria());*/
             if(uh.getIdHermandad() == hermandadDB.getId() && uh.getCategoria().equals(cat_elegida)){
                 res = true;
             }
