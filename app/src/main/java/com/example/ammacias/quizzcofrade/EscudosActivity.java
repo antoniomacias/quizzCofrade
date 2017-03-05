@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class EscudosActivity extends AppCompatActivity implements ICofrade{
+    Boolean recarga;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +43,16 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
         //String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
         //Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
-
+        recarga = false;
     }
 
 
     @Override
     public void onClickCategoria(String categoria) {}
 
-   /* @Override
-<<<<<<< HEAD
-    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {
-        Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
-=======*/
+    @Override
     public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {
         Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
-//>>>>>>> refs/remotes/origin/master
         i.putExtra("IDHermandad", h.getId());
         i.putExtra("listaDesordenada", Parcels.wrap(l));
         i.putExtra("posicion", pos);
@@ -68,5 +65,18 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickMarcha(MarchaDB m) {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!recarga){
+            //Toast.makeText(this, "Le diste patrás", Toast.LENGTH_SHORT).show();
+            recarga=true;
+        }else{
+            Toast.makeText(this, "Le diste patrás", Toast.LENGTH_SHORT).show();
+            finish();
+            startActivity(getIntent());
+        }
     }
 }
