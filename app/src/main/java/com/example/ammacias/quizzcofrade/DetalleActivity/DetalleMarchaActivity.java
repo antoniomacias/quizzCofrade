@@ -10,11 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.MarchaActivity;
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.Service.MyReproductor;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
-import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
-import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
@@ -26,38 +28,55 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetalleEscudoActivity extends AppCompatActivity {
+public class DetalleMarchaActivity extends AppCompatActivity {
+
 
     ImageView imageView;
     EditText respuesta;
 
-    HermandadDBDao hermandadDBDao;
-    List<HermandadDB> lista;
+    //Gestion MarchasDB
+    MarchaDBDao marchasDBDao;
+    List<MarchaDB> listaMarchas;
     Long id_aux;
     int posicionLista;
     String cat_elegida = "";
 
+    //Tabla intermedia
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_escudos);
+        setContentView(R.layout.activity_detalle_marcha);
 
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
-        respuesta =(EditText)findViewById(R.id.respuesta_escudo);
+        respuesta =(EditText)findViewById(R.id.respuesta_marcha);
 
         Intent i = getIntent();
         //id = i.getExtras().getLong("IDHermandad");
         posicionLista = i.getExtras().getInt("posicion");
-        lista = new LinkedList<>(((Application_vars) this.getApplication()).getListHermandadEscudos());
 
-        id_aux = lista.get(posicionLista).getId();
+        //TODO:Meter la lista en APPLICATION
+        //listaMarchas = new LinkedList<>(((Application_vars) this.getApplication()).getListHermandadEscudos());
+        marchasDBDao = DatabaseConnection.getMarchasDBDao(this);
+        listaMarchas = marchasDBDao.loadAll();
+
+        id_aux = listaMarchas.get(posicionLista).getId();
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
+                i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
+                startService(i);
+            }
+        });
+
 
         String s=null;
         if(checkAcertado(id_aux)){
-            for(HermandadDB d: lista){
+            for(MarchaDB d: listaMarchas){
                 if(d.getId() == id_aux){
                     s = d.getNombre();
                 }
@@ -66,88 +85,6 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         }
         jugar(id_aux);
     } // Fin onCreate
-
-    public void jugar(final Long id_aux){
-        hermandadDBDao = DatabaseConnection.getHermandadDBDao(this);
-        Picasso.with(this)
-                .load(hermandadDBDao.load(id_aux).getEscudo())
-                .resize(250, 200)
-                .into(imageView);
-
-        respuesta.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (respuesta.getText().toString().equalsIgnoreCase(hermandadDBDao.load(id_aux).getNombre())){
-                    muestradialogo();
-                    //System.out.println("Acertaste y guardo");
-                }
-            }
-        });
-    }
-
-    private void guardarAcierto(Long ide) {
-        UsuariosHermandadesDBDao usuariosHermandadesDBDao =
-                DatabaseConnection.getUsuariosHermandadesDBDao(DetalleEscudoActivity.this);
-
-        // Los valores actuales a insertar => Necesito el usuario
-        UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
-        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleEscudoActivity.this);
-        List<UsuarioDB> usuario_actual = usuario.loadAll();
-        /*if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
-        else System.out.println("¡Hay más de uno! "+usuario_actual.size());*/
-
-        usuariosHermandadesDB.setIdUsuario(usuario_actual.get(0).getId());
-        usuariosHermandadesDB.setCategoria(((Application_vars) this.getApplication()).getCategoriaElegida());
-        usuariosHermandadesDB.setIdHermandad(ide);
-
-        usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
-        //System.out.println(usuariosHermandadesDBDao.getEntidad(usuariosHermandadesDB));
-    }
-
-
-    private void muestradialogo() {
-        guardarAcierto(hermandadDBDao.load(id_aux).getId());
-        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("¡FLAMA HERMANO!")
-                .setContentText("¿Quieres pasar al siguiente nivel?")
-                .setConfirmText("Pasar al siguiente nivel")
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        next_escudo(findViewById(R.id.activity_detalle));
-                    }
-                })
-                .show();
-    }
-
-
-    public void next_escudo(View view) {
-        posicionLista++;
-        id_aux = lista.get(posicionLista).getId();
-
-        // Busco si está acertada (Tabla_Intermedia)
-        while(checkAcertado(id_aux)){
-            posicionLista++;
-            id_aux = lista.get(posicionLista).getId();
-        }
-        //posicionLista++;
-
-        Toast.makeText(this, "Escudo "+posicionLista+" de "+lista.size(), Toast.LENGTH_SHORT).show();
-
-        if(posicionLista==lista.size()-1){
-            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
-            posicionLista=-1;
-        }
-        respuesta.setText("");
-        jugar(id_aux);
-    }
 
     private Boolean checkAcertado(Long id_actual) {
         System.out.println("Compruebo si acertado");
@@ -165,16 +102,101 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         return res;
     }
 
-    public void previous_escudo(View view) {
+    public void jugar(final Long id_aux){
+        marchasDBDao = DatabaseConnection.getMarchasDBDao(this);
+        Picasso.with(this)
+                .load(R.drawable.emptystar)
+                .resize(250, 200)
+                .into(imageView);
+
+        System.out.println("Nombre marcha: "+marchasDBDao.load(id_aux).getNombre());
+        respuesta.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (respuesta.getText().toString().equalsIgnoreCase(marchasDBDao.load(id_aux).getNombre())){
+                    muestradialogo();
+                    //System.out.println("Acertaste y guardo");
+                }
+            }
+        });
+    }
+
+    private void muestradialogo() {
+        guardarAcierto(marchasDBDao.load(id_aux).getId());
+        new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("¡FLAMA HERMANO!")
+                .setContentText("¿Quieres pasar al siguiente nivel?")
+                .setConfirmText("Pasar al siguiente nivel")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        next_marcha(findViewById(R.id.activity_detalle));
+                    }
+                })
+                .show();
+    }
+
+    private void guardarAcierto(Long ide) {
+        UsuariosHermandadesDBDao usuariosHermandadesDBDao =
+                DatabaseConnection.getUsuariosHermandadesDBDao(this);
+
+        // Los valores actuales a insertar => Necesito el usuario
+        UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
+        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(this);
+        List<UsuarioDB> usuario_actual = usuario.loadAll();
+        /*if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
+        else System.out.println("¡Hay más de uno! "+usuario_actual.size());*/
+
+        usuariosHermandadesDB.setIdUsuario(usuario_actual.get(0).getId());
+        usuariosHermandadesDB.setCategoria(((Application_vars) this.getApplication()).getCategoriaElegida());
+        usuariosHermandadesDB.setIdHermandad(ide);
+
+        usuariosHermandadesDBDao.insertOrReplace(usuariosHermandadesDB);
+        //System.out.println(usuariosHermandadesDBDao.getEntidad(usuariosHermandadesDB));
+    }
+
+    public void next_marcha(View view) {
+
+        //TODO: Stop mediaplayer (Exception = null)
+        /*MyReproductor reproductor = new MyReproductor();
+        reproductor.stopAudio();*/
+        posicionLista++;
+        id_aux = listaMarchas.get(posicionLista).getId();
+
+        // Busco si está acertada (Tabla_Intermedia)
+        while(checkAcertado(id_aux)){
+            posicionLista++;
+            id_aux = listaMarchas.get(posicionLista).getId();
+        }
+        //posicionLista++;
+
+        Toast.makeText(this, "Marcha "+posicionLista+" de "+listaMarchas.size(), Toast.LENGTH_SHORT).show();
+
+        if(posicionLista==listaMarchas.size()-1){
+            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
+            posicionLista=-1;
+        }
+        respuesta.setText("");
+        jugar(id_aux);
+    }
+
+    public void previous_marcha(View view) {
         posicionLista--;
-        id_aux = lista.get(posicionLista).getId();
+        id_aux = listaMarchas.get(posicionLista).getId();
 
         while(checkAcertado(id_aux)){
             posicionLista--;
-            id_aux = lista.get(posicionLista).getId();
+            id_aux = listaMarchas.get(posicionLista).getId();
         }
         if( posicionLista==0 ){
-            posicionLista=lista.size();
+            posicionLista=listaMarchas.size();
         }
         respuesta.setText("");
         jugar(id_aux);

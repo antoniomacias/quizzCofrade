@@ -30,14 +30,32 @@ public class MyReproductor extends Service {
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
         reproductorMusica.start();
 
         return START_REDELIVER_INTENT;
     }
 
+    public void stopAudio(){
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
+        if (reproductorMusica != null) {
+            reproductorMusica.stop();
+            reproductorMusica.release();
+            reproductorMusica = null;
+        }
+    }
+
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        reproductorMusica.stop();
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
     }
 }

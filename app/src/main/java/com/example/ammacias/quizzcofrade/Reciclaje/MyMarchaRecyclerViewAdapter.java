@@ -23,6 +23,8 @@ public class MyMarchaRecyclerViewAdapter extends RecyclerView.Adapter<MyMarchaRe
     private final List<MarchaDB> mValues;
     private final ICofrade mListener;
 
+    String cat_elegida;
+
     public MyMarchaRecyclerViewAdapter(List<MarchaDB> items, ICofrade listener) {
         mValues = items;
         mListener = listener;
