@@ -23,21 +23,39 @@ public class MyReproductor extends Service {
         super.onStartCommand(intent, flags, startId);
 
         String cancion = intent.getStringExtra("cancion");
-        reproductorMusica = MediaPlayer.create(this, Uri.parse("http://juegomarcas.esy.es/SS/music/"+cancion));
+        reproductorMusica = MediaPlayer.create(this, Uri.parse(cancion));
 
        /* try {
             reproductorMusica.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }*/
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
         reproductorMusica.start();
 
         return START_REDELIVER_INTENT;
     }
 
+    public void stopAudio(){
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
+        if (reproductorMusica != null) {
+            reproductorMusica.stop();
+            reproductorMusica.release();
+            reproductorMusica = null;
+        }
+    }
+
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        reproductorMusica.stop();
+        if (reproductorMusica.isPlaying()){
+            reproductorMusica.stop();
+        }
     }
 }

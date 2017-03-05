@@ -8,11 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Utils.Application_vars;
+import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 
 import org.parceler.Parcels;
@@ -48,9 +48,14 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickCategoria(String categoria) {}
 
-    @Override
+   /* @Override
+<<<<<<< HEAD
     public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {
         Intent i = new Intent(EscudosActivity.this, DetalleActivity.class);
+=======*/
+    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {
+        Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
+//>>>>>>> refs/remotes/origin/master
         i.putExtra("IDHermandad", h.getId());
         i.putExtra("listaDesordenada", Parcels.wrap(l));
         i.putExtra("posicion", pos);
@@ -61,9 +66,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     public void onClickPasosDB(PasosDB p) {}
 
     @Override
-    public void onClickMarcha(String s) {
+    public void onClickMarcha(MarchaDB m) {
 
     }
-
-
 }

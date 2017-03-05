@@ -72,7 +72,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
         }else{ // if otra categoría q no sea Escudos
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
-                        .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                        .load(mValues.get(position).getFotoTunica())
                         .placeholder(R.drawable.loading)
                         .resize(250,200)
                         .transform(new BlurTransformation(ctx, 25, 1))
@@ -80,7 +80,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
 
             }else {
                 Picasso.with(ctx)
-                        .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                        .load(mValues.get(position).getFotoTunica())
                         .placeholder(R.drawable.loading)
                         .resize(250, 200)
                         .into(holder.mIdView);

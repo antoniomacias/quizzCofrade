@@ -9,16 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
+import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Paso;
-import com.example.ammacias.quizzcofrade.Clases.Result;
 import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
+import com.example.ammacias.quizzcofrade.Pojos_API.Marchas;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
 import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
 import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
@@ -26,6 +26,8 @@ import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
@@ -413,6 +415,33 @@ public class CategoriaFragmentList extends Fragment {
                         pasoDB.setNumCostaleros(p.getNumCostaleros());
 
                         pasosDBDao.insertOrReplace(pasoDB);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+        Call<Marchas> autocompleteList5 = service1.getMarchas();
+
+        autocompleteList5.enqueue(new Callback<Marchas>() {
+            @Override
+            public void onResponse(Response<Marchas> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Marchas r = response.body();
+                    MarchaDBDao marchaDBDao = DatabaseConnection.getMarchasDBDao(getActivity());
+
+                    for (Marcha a: r.getData()) {
+                        MarchaDB m = new MarchaDB();
+                        m.setNombre(a.getNombre());
+                        m.setBanda(a.getBanda());
+                        m.setFecha(a.getFecha());
+                        m.setRuta(a.getRuta());
+
+                        marchaDBDao.insertOrReplace(m);
                     }
                 }
             }

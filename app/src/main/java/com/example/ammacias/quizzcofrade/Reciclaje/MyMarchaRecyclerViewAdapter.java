@@ -1,27 +1,31 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Reciclaje;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
+import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link String} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Marcha} and makes a call to the
  * specified {@link ICofrade}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyStringRecyclerViewAdapter extends RecyclerView.Adapter<MyStringRecyclerViewAdapter.ViewHolder> {
+public class MyMarchaRecyclerViewAdapter extends RecyclerView.Adapter<MyMarchaRecyclerViewAdapter.ViewHolder> {
 
-    private final List<String> mValues;
+    private final List<MarchaDB> mValues;
     private final ICofrade mListener;
 
-    public MyStringRecyclerViewAdapter(List<String> items, ICofrade listener) {
+    String cat_elegida;
+
+    public MyMarchaRecyclerViewAdapter(List<MarchaDB> items, ICofrade listener) {
         mValues = items;
         mListener = listener;
     }
@@ -57,7 +61,7 @@ public class MyStringRecyclerViewAdapter extends RecyclerView.Adapter<MyStringRe
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final ImageView imageViewAudio;
-        public String mItem;
+        public MarchaDB mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Reciclaje;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,17 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
-import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 
 import java.util.List;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 /**
  * A fragment representing a list of Items.
@@ -63,45 +59,15 @@ public class MarchaFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            
-            getDatos();
+
+            MarchaDBDao marchaDBDao = DatabaseConnection.getMarchasDBDao(getActivity());
+            List<MarchaDB> listMarchas = marchaDBDao.loadAll();
+            recyclerView.setAdapter(new MyMarchaRecyclerViewAdapter(listMarchas, mListener));
 
         }
         return view;
     }
 
-    private void getDatos() {
-        //RETROFIT
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(IRetrofit.ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        IRetrofit service = retrofit.create(IRetrofit.class);
-
-        Call<Marcha> autocompleteList = service.getMarchas();
-
-        autocompleteList.enqueue(new Callback<Marcha>() {
-            @Override
-            public void onResponse(Response<Marcha> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    Marcha r = response.body();
-
-                    /*for (String a:r.getMarcha()) {
-                        System.out.println("Cada marcha: "+a.toString());
-                    }*/
-
-                    // COMENTO ESTO PARA QUE NO DE ERROR AL TIRARLO Y PROBAR LO DEMÁS
-                    //recyclerView.setAdapter(new MyStringRecyclerViewAdapter(r.getMarcha(), mListener));
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-
-            }
-        });
-    }
 
 
     @Override

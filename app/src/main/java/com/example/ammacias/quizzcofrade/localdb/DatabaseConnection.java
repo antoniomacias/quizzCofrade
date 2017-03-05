@@ -41,6 +41,11 @@ public class DatabaseConnection {
         return daoSession.getUsuariosHermandadesDBDao();
     }
 
+    public static MarchaDBDao getMarchasDBDao (Context ctx) {
+        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
+        return daoSession.getMarchaDBDao();
+    }
+
     public static void closeConnection(){
         daoMaster.getDatabase().close();
     }

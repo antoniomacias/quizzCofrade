@@ -17,7 +17,7 @@
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.example.ammacias.quizzcofrade.MarchaFragment"
+        android:name="com.example.ammacias.quizzcofrade.Reciclaje.MarchaFragment"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

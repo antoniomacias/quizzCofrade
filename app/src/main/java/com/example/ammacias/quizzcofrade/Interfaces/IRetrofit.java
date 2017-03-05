@@ -4,6 +4,7 @@ import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Result;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
+import com.example.ammacias.quizzcofrade.Pojos_API.Marchas;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
 import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
 import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
@@ -22,8 +23,8 @@ public interface IRetrofit {
     @GET("/SS/datos.json")
     Call<Result> getDatos();
 
-    @GET("/SS/marchas.json")
-    Call<Marcha> getMarchas();
+    @GET("marchas")
+    Call<Marchas> getMarchas();
 
     @GET("pasos")
     Call<Pasos> getPasosRetrofit();
