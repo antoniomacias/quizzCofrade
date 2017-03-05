@@ -52,20 +52,18 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        // TODO: Pintar con Picasso
         if (cat_elegida.contains("Escudos")) {
-            System.out.println("Entro a cargar los escudos");
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
                         .load((mValues.get(position).getEscudo()))
-                        .placeholder(R.drawable.loading)
+                        .placeholder(R.drawable.star)
                         .resize(250,200)
                         .transform(new BlurTransformation(ctx, 25, 1))
                         .into(holder.mIdView);
             }else{
                 Picasso.with(ctx)
                         .load((mValues.get(position).getEscudo()))
-                        .placeholder(R.drawable.loading)
+                        .placeholder(R.drawable.star)
                         .resize(250, 200)
                         .into(holder.mIdView);
             }
@@ -90,7 +88,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onClickHermandadDB(holder.mItem,mValues, position);
+                    mListener.onClickHermandadDB(holder.mItem, mValues, position);
                 }
             }
         });
