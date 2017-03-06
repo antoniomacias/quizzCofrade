@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade.DetalleActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +28,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import co.mobiwise.library.InteractivePlayerView;
+import co.mobiwise.library.OnActionClickedListener;
 
 public class DetalleMarchaActivity extends AppCompatActivity {
 
@@ -44,6 +47,9 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     //Tabla intermedia
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
+    //Reproductor
+    InteractivePlayerView ipv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,8 @@ public class DetalleMarchaActivity extends AppCompatActivity {
 
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_marcha);
+        ipv = (InteractivePlayerView) findViewById(R.id.ipv);
+
 
         posicionLista = getIntent().getExtras().getInt("posicion");
 
@@ -86,6 +94,31 @@ public class DetalleMarchaActivity extends AppCompatActivity {
         }
         jugar(id_aux);
 
+
+        //Skin reproductor
+        //TODO: Nuevo campo DDBB tiempo para el reproductor
+        ipv.setMax(123);
+        ipv.setProgressEmptyColor(Color.GRAY);
+        ipv.setProgressEmptyColor(Color.BLACK);
+        ipv.start();
+        ipv.setOnActionClickedListener(new OnActionClickedListener() {
+            @Override
+            public void onActionClicked(int id) {
+                switch (id){
+                    case 1:
+                        //Called when 1. action is clicked.
+                        break;
+                    case 2:
+                        //Called when 2. action is clicked.
+                        break;
+                    case 3:
+                        //Called when 3. action is clicked.
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         //Inicio el reproductor
         Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
         i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
