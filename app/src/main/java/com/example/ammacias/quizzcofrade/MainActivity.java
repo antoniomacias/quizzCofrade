@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 
+import java.util.Collections;
 import java.util.List;
 
 import retrofit.Call;
@@ -64,20 +66,33 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
         service1 = retrofit1.create(IRetrofit.class);
 
-        System.out.println("Comienza insert usuarios");
-        getUsuarios();
+        boolean mboolean = false;
+        SharedPreferences settings = getSharedPreferences("PREFS_NAME", 0);
+        mboolean = settings.getBoolean("FIRST_RUN", false);
+        if (!mboolean) { // do the thing for the first time
 
-        System.out.println("Comienza insert hermandades");
-        getHermandades();
 
-        System.out.println("Comienza insert pasos");
-        getPasos();
+            System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
+            getUsuarios();
+            //getHermandades();
+            //getPasos();
+            getUsuarios_Hermandades();
+            //getMarchas();
 
-        System.out.println("Comienza insert usu-hermandades");
-        getUsuarios_Hermandades();
 
-        System.out.println("Comienza insert marchas");
-        getMarchas();
+            settings = getSharedPreferences("PREFS_NAME", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("FIRST_RUN", true);
+            editor.commit();
+        } else { // other time your app loads
+            getHermandades();
+            getPasos();
+            getMarchas();
+        }
+
+
+
+
 
     }
 
@@ -203,6 +218,9 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
                 if (response.isSuccess()){
                     Hermandades result= response.body();
+                    //System.out.println("ANTES DE DESORDENAR: "+result.getData());
+                    Collections.shuffle(result.getData());
+                    //System.out.println("TRAS DESORDENAR: "+result.getData());
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
 
                     for (Hermandad h:result.getData()) {
@@ -219,7 +237,8 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
-
+                    List<HermandadDB> joes = hermandadDBDao.loadAll();
+                    System.out.println("TODAS LAS HERMANDADES: "+joes);
                     System.out.println("Fin insert hermandades");
 
 
