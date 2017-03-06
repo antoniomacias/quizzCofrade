@@ -61,21 +61,12 @@ public class EscudosFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            //TODO: Cambiar aplication
-            // Traigo las hermandades de Application. Si no hay, las cargo de la BD y seteo.
-            List<HermandadDB> listHermandad = ((Application_vars) getActivity().getApplication()).getListHermandadEscudos();
-            if(listHermandad==null){
-                HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-                listHermandad = hermandadDBDao.loadAll();
-                // AQUÍ HAGO LA LISTA ALEATORIA
-                Collections.shuffle(listHermandad);
-                //((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
-            }
+            //Load Hermandades from DB
+            HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+            List<HermandadDB> hermandadDBs = hermandadDBDao.loadAll();
 
-
-            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(),
-                                    /*DatabaseConnection.getHermandadDBDao(getActivity()).loadAll()*/listHermandad,
-                                    mListener));
+            //Call recycler
+            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
         }
         return view;
     }

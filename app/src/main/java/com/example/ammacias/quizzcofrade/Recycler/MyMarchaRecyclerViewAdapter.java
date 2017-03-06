@@ -33,7 +33,7 @@ public class MyMarchaRecyclerViewAdapter extends RecyclerView.Adapter<MyMarchaRe
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_string_item, parent, false);
+                .inflate(R.layout.fragment_marcha_item, parent, false);
         return new ViewHolder(view);
     }
 

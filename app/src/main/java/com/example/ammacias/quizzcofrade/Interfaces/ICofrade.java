@@ -12,7 +12,6 @@ import java.util.List;
  */
 
 public interface ICofrade {
-    void onClickCategoria(String categoria);
     void onClickHermandadDB(HermandadDB h, List<HermandadDB>l, int posicionDeLaLista);
     void onClickPasosDB(PasosDB p);
     void onClickMarcha(MarchaDB m);

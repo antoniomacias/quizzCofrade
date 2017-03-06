@@ -90,10 +90,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             getMarchas();
         }
 
-
-
-
-
     }
 
     //RETROFIT MARCHAS
@@ -118,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         marchaDBDao.insertOrReplace(m);
                     }
-                    System.out.println("Fin insert marchas");
                 }
             }
 
@@ -151,7 +146,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         usuariosHermandadesDBDao.insertOrReplace(usuarioDB);
                     }
-                    System.out.println("Fin insert usuarios-hermandades");
 
                     /*for(UsuariosHermandades uh:result.getData()){
                         if(!categorias.contains(uh.getCategoria())){
@@ -197,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         pasosDBDao.insertOrReplace(pasoDB);
                     }
-                    System.out.println("Fin insert pasos");
                 }
             }
 
@@ -218,8 +211,15 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
                 if (response.isSuccess()){
                     Hermandades result= response.body();
+
+                    //TODO: Foreach que cambie los ID's result de forma random e insertar en BBDD GreenDao
+                    System.out.println("TODAS LAS HERMANDADES RETROFIT1: "+result.getData().get(result.getData().size()-2));
+                    System.out.println("TODAS LAS HERMANDADES RETROFIT2: "+result.getData().get(result.getData().size()-3));
                     //System.out.println("ANTES DE DESORDENAR: "+result.getData());
                     Collections.shuffle(result.getData());
+
+                    System.out.println("TODAS LAS HERMANDADES SHUFFLE1: "+result.getData().get(1));
+                    System.out.println("TODAS LAS HERMANDADES SHUFFLE2: "+result.getData().get(2));
                     //System.out.println("TRAS DESORDENAR: "+result.getData());
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
 
@@ -238,7 +238,8 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
                     List<HermandadDB> joes = hermandadDBDao.loadAll();
-                    System.out.println("TODAS LAS HERMANDADES: "+joes);
+                    System.out.println("TODAS LAS HERMANDADES 1: "+joes.get(1));
+                    System.out.println("TODAS LAS HERMANDADES 2: "+joes.get(2));
                     System.out.println("Fin insert hermandades");
 
 
@@ -300,7 +301,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         hermandadDBDao.insertOrReplace(usuarioDB);
                     }
-                    System.out.println("Fin insert usuario");
                 }
             }
 
@@ -310,42 +310,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             }
         });
 
-    }
-
-    @Override
-    public void onClickCategoria(String categoria) {
-
-        /*
-        ((Application_vars) this.getApplication()).setCategoriaElegida(categoria);
-        String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
-        Intent i;
-        switch (cat_elegida){
-            case "Pasos":
-                System.out.println("PasosActivity");
-                i = new Intent(MainActivity.this, PasosActivity.class);
-                startActivity(i);
-                break;
-            case "Escudos":
-                i = new Intent(MainActivity.this, EscudosActivity.class);
-                startActivity(i);
-                break;
-            case "Random":
-                i = new Intent(MainActivity.this, RandomActivity.class);
-                startActivity(i);
-                break;
-            case "Tunicas":
-                i = new Intent(MainActivity.this, EscudosActivity.class);
-                startActivity(i);
-                break;
-            case "Marchas":
-                i = new Intent(MainActivity.this, MarchaActivity.class);
-                startActivity(i);*/
-                /*i = new Intent(MainActivity.this, MyReproductor.class);
-                startService(i);*/
-                /*break;
-            default:
-                break;
-        }*/
     }
 
     @Override

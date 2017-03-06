@@ -47,8 +47,6 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     }
 
 
-    @Override
-    public void onClickCategoria(String categoria) {}
 
     @Override
     public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {

@@ -65,6 +65,9 @@ public class DetalleMarchaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: Parar si estuviera reproduciendo, ya que se enciende al iniciar el Detalle
+                MyReproductor mr = new MyReproductor();
+                mr.stopSelf();
+                System.out.println("Parado");
                 Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
                 i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
                 startService(i);
@@ -82,10 +85,14 @@ public class DetalleMarchaActivity extends AppCompatActivity {
             respuesta.setText(s);
         }
         jugar(id_aux);
+
+        //Inicio el reproductor
+        Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
+        i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
+        startService(i);
     } // Fin onCreate
 
     private Boolean checkAcertado(Long id_actual) {
-        System.out.println("Compruebo si acertado");
         Boolean res = false;
         tabla_intermedia = DatabaseConnection.getUsuariosHermandadesDBDao(this);
         List<UsuariosHermandadesDB> registros = tabla_intermedia.loadAll();
@@ -106,8 +113,9 @@ public class DetalleMarchaActivity extends AppCompatActivity {
                 .load(R.drawable.emptystar)
                 .resize(250, 200)
                 .into(imageView);
-
+        System.out.println("********************************");
         System.out.println("Nombre marcha: "+marchasDBDao.load(id_aux).getNombre());
+        System.out.println("********************************");
         respuesta.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -161,41 +169,45 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     }
 
     public void next_marcha(View view) {
+        if(posicionLista==listaMarchas.size()-1){
+            posicionLista=0;
+        }else{
+            posicionLista++;
+        }
 
-        //TODO: Stop mediaplayer (Exception = null)
-        /*MyReproductor reproductor = new MyReproductor();
-        reproductor.stopAudio();*/
-        posicionLista++;
         id_aux = listaMarchas.get(posicionLista).getId();
 
         // Busco si está acertada (Tabla_Intermedia)
         while(checkAcertado(id_aux)){
-            posicionLista++;
+            if(posicionLista==listaMarchas.size()-1){
+                posicionLista=0;
+            }else{
+                posicionLista++;
+            }
             id_aux = listaMarchas.get(posicionLista).getId();
         }
-        //posicionLista++;
 
-        Toast.makeText(this, "Marcha "+posicionLista+" de "+listaMarchas.size(), Toast.LENGTH_SHORT).show();
-
-        if(posicionLista==listaMarchas.size()-1){
-            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
-            posicionLista=-1;
-        }
         respuesta.setText("");
         jugar(id_aux);
     }
 
     public void previous_marcha(View view) {
-        posicionLista--;
+        if( posicionLista==0 ){
+            posicionLista=listaMarchas.size()-1;
+        }else{
+            posicionLista--;
+        }
         id_aux = listaMarchas.get(posicionLista).getId();
 
         while(checkAcertado(id_aux)){
-            posicionLista--;
+            if( posicionLista==0 ){
+                posicionLista=listaMarchas.size()-1;
+            }else{
+                posicionLista--;
+            }
             id_aux = listaMarchas.get(posicionLista).getId();
         }
-        if( posicionLista==0 ){
-            posicionLista=listaMarchas.size();
-        }
+
         respuesta.setText("");
         jugar(id_aux);
     }
