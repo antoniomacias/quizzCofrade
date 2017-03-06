@@ -131,22 +131,29 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
 
     public void next_escudo(View view) {
-        posicionLista++;
+        if(posicionLista==ListaDesordenada.size()-1){
+            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
+            posicionLista=0;
+        }else{
+            posicionLista++;
+        }
+
         id_aux = ListaDesordenada.get(posicionLista).getId();
 
         // Busco si está acertada (Tabla_Intermedia)
         while(checkAcertado(id_aux)){
-            posicionLista++;
+            if(posicionLista==ListaDesordenada.size()-1){
+                posicionLista=0;
+            }else{
+                posicionLista++;
+            }
             id_aux = ListaDesordenada.get(posicionLista).getId();
         }
         //posicionLista++;
 
         Toast.makeText(this, "Escudo "+posicionLista+" de "+ListaDesordenada.size(), Toast.LENGTH_SHORT).show();
 
-        if(posicionLista==ListaDesordenada.size()-1){
-            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
-            posicionLista=-1;
-        }
+
         respuesta.setText("");
         jugar(id_aux);
     }
@@ -168,16 +175,22 @@ public class DetalleEscudoActivity extends AppCompatActivity {
     }
 
     public void previous_escudo(View view) {
-        posicionLista--;
+        if( posicionLista==0 ){
+            posicionLista=ListaDesordenada.size()-1;
+        }else{
+            posicionLista--;
+        }
         id_aux = ListaDesordenada.get(posicionLista).getId();
 
         while(checkAcertado(id_aux)){
-            posicionLista--;
+            if( posicionLista==0 ){
+                posicionLista=ListaDesordenada.size()-1;
+            }else{
+                posicionLista--;
+            }
             id_aux = ListaDesordenada.get(posicionLista).getId();
         }
-        if( posicionLista==0 ){
-            posicionLista=ListaDesordenada.size();
-        }
+
         respuesta.setText("");
         jugar(id_aux);
     }
