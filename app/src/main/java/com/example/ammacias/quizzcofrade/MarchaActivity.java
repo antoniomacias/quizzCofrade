@@ -54,7 +54,6 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickMarcha(MarchaDB m) {
-        System.out.println(m);
         Intent i = new Intent(MarchaActivity.this, DetalleMarchaActivity.class);
         i.putExtra("IDMarcha", m.getId());
         startActivity(i);

@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade.Reciclaje;
+package com.example.ammacias.quizzcofrade.Recycler;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
@@ -62,32 +61,7 @@ public class EscudosFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            /*String cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
-            switch (cat_elegida){
-                case "Pasos":
-                    PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
-                    for(PasosDB p: pasosDBDao.loadAll()){
-                        fotos.add(p.getFoto());
-                    }
-                    break;
-                case "Escudos":
-                    HermandadDBDao hermandadDBDao_escudos = DatabaseConnection.getHermandadDBDao(getActivity());
-                    for(HermandadDB p: hermandadDBDao_escudos.loadAll()){
-                        fotos.add(p.getEscudo());
-                    }
-                    break;
-                case "Random":
-                    break;
-                case "Tunicas":
-                    HermandadDBDao hermandadDBDao_tunicas = DatabaseConnection.getHermandadDBDao(getActivity());
-                    for(HermandadDB p: hermandadDBDao_tunicas.loadAll()){
-                        fotos.add(p.getTunica());
-                    }
-                    break;
-                default:
-                    break;
-            }*/
-
+            //TODO: Cambiar aplication
             // Traigo las hermandades de Application. Si no hay, las cargo de la BD y seteo.
             List<HermandadDB> listHermandad = ((Application_vars) getActivity().getApplication()).getListHermandadEscudos();
             if(listHermandad==null){
@@ -97,7 +71,6 @@ public class EscudosFragmentList extends Fragment {
                 Collections.shuffle(listHermandad);
                 //((Application_vars) getActivity().getApplication()).setListHermandadEscudos(listHermandad);
             }
-            System.out.println("TODAS LAS HERMANDADES: "+listHermandad);
 
 
             recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(),

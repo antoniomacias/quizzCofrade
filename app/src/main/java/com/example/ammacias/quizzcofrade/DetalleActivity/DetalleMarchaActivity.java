@@ -52,11 +52,8 @@ public class DetalleMarchaActivity extends AppCompatActivity {
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_marcha);
 
-        Intent i = getIntent();
-        //id = i.getExtras().getLong("IDHermandad");
-        posicionLista = i.getExtras().getInt("posicion");
+        posicionLista = getIntent().getExtras().getInt("posicion");
 
-        //TODO:Meter la lista en APPLICATION
         //listaMarchas = new LinkedList<>(((Application_vars) this.getApplication()).getListHermandadEscudos());
         marchasDBDao = DatabaseConnection.getMarchasDBDao(this);
         listaMarchas = marchasDBDao.loadAll();
@@ -67,6 +64,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: Parar si estuviera reproduciendo, ya que se enciende al iniciar el Detalle
                 Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
                 i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
                 startService(i);

@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade.Reciclaje;
+package com.example.ammacias.quizzcofrade.Recycler;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
