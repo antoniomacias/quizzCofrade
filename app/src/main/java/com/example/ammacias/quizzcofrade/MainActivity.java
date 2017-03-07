@@ -77,11 +77,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
             getUsuarios();
             getHermandades();
-<<<<<<< HEAD
             getPasos();
-=======
-            //getPasos();
->>>>>>> 28d55b9c87903ca92132673dae340d43092a8d68
             getUsuarios_Hermandades();
             //getMarchas();
 
