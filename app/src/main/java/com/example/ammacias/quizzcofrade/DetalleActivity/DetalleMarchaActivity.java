@@ -49,13 +49,14 @@ public class DetalleMarchaActivity extends AppCompatActivity {
 
     //Reproductor
     InteractivePlayerView ipv;
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_marcha);
 
-        imageView =(ImageView)findViewById(R.id.fotoDetalle);
+        //imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_marcha);
         ipv = (InteractivePlayerView) findViewById(R.id.ipv);
 
@@ -85,44 +86,11 @@ public class DetalleMarchaActivity extends AppCompatActivity {
 
         String s=null;
         if(checkAcertado(id_aux)){
-            for(MarchaDB d: listaMarchas){
-                if(d.getId() == id_aux){
-                    s = d.getNombre();
-                }
-            }
-            respuesta.setText(s);
+            respuesta.setText(listaMarchas.get(posicionLista).getNombre());
         }
         jugar(id_aux);
 
 
-        //Skin reproductor
-        //TODO: Nuevo campo DDBB tiempo para el reproductor
-        ipv.setMax(123);
-        ipv.setProgressEmptyColor(Color.GRAY);
-        ipv.setProgressEmptyColor(Color.BLACK);
-        ipv.start();
-        ipv.setOnActionClickedListener(new OnActionClickedListener() {
-            @Override
-            public void onActionClicked(int id) {
-                switch (id){
-                    case 1:
-                        //Called when 1. action is clicked.
-                        break;
-                    case 2:
-                        //Called when 2. action is clicked.
-                        break;
-                    case 3:
-                        //Called when 3. action is clicked.
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-        //Inicio el reproductor
-        Intent i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
-        i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
-        startService(i);
     } // Fin onCreate
 
     private Boolean checkAcertado(Long id_actual) {
@@ -141,11 +109,21 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     }
 
     public void jugar(final Long id_aux){
+
+        //Inicio el servicio
+        i = new Intent(DetalleMarchaActivity.this, MyReproductor.class);
+        i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
+        startService(i);
+
+        //Inicio el reproductor
+        iniciarMediaPlayer();
+
+
         marchasDBDao = DatabaseConnection.getMarchasDBDao(this);
-        Picasso.with(this)
+        /*Picasso.with(this)
                 .load(R.drawable.emptystar)
                 .resize(250, 200)
-                .into(imageView);
+                .into(imageView);*/
         System.out.println("********************************");
         System.out.println("Nombre marcha: "+marchasDBDao.load(id_aux).getNombre());
         System.out.println("********************************");
@@ -202,6 +180,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     }
 
     public void next_marcha(View view) {
+        stopService(i);
         if(posicionLista==listaMarchas.size()-1){
             posicionLista=0;
         }else{
@@ -225,6 +204,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     }
 
     public void previous_marcha(View view) {
+        stopService(i);
         if( posicionLista==0 ){
             posicionLista=listaMarchas.size()-1;
         }else{
@@ -243,5 +223,31 @@ public class DetalleMarchaActivity extends AppCompatActivity {
 
         respuesta.setText("");
         jugar(id_aux);
+    }
+
+    void iniciarMediaPlayer(){
+        //Skin reproductor
+        ipv.setMax(20);
+        ipv.setProgressEmptyColor(Color.GRAY);
+        ipv.setProgressEmptyColor(Color.BLACK);
+        ipv.start();
+        ipv.setOnActionClickedListener(new OnActionClickedListener() {
+            @Override
+            public void onActionClicked(int id) {
+                switch (id){
+                    case 1:
+                        Toast.makeText(DetalleMarchaActivity.this, "Play", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(DetalleMarchaActivity.this, "Pause", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        //Called when 3. action is clicked.
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }

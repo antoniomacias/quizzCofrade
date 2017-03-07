@@ -19,22 +19,25 @@
         app:emptyColor="#aaffffff"
         app:loadedColor="#fff44336"
         android:layout_centerHorizontal="true"
+        app:selectedAction1="@drawable/pause"
+        app:selectedAction2="@drawable/trumpet"
+        app:unselectedAction1="@drawable/pause_mute"
+        app:unselectedAction2="@drawable/trumpet_mute"
+
     />
-    <!-- app:selectedAction1="@drawable/shuffle_selected"
-        app:selectedAction2="@drawable/like_selected"
+    <!--
+
         app:selectedAction3="@drawable/replay_selected"
-        app:unselectedAction1="@drawable/shuffle_unselected"
-        app:unselectedAction2="@drawable/like_unselected"
         app:unselectedAction3="@drawable/replay_unselected" -->
 
-    <ImageView
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/fotoDetalle"
         android:layout_above="@+id/respuesta_marcha"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp" />
+        android:layout_marginBottom="64dp" />-->
 
     <EditText
         android:layout_width="wrap_content"
