@@ -27,14 +27,14 @@
         app:unselectedAction2="@drawable/like_unselected"
         app:unselectedAction3="@drawable/replay_unselected" -->
 
-    <!--<ImageView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/fotoDetalle"
         android:layout_above="@+id/respuesta_marcha"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp" />-->
+        android:layout_marginBottom="64dp" />
 
     <EditText
         android:layout_width="wrap_content"

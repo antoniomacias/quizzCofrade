@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
             System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
             getUsuarios();
-            //getHermandades();
+            getHermandades();
             //getPasos();
             getUsuarios_Hermandades();
             //getMarchas();
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         } else { // other time your app loads
-            getHermandades();
+            //getHermandades();
             getPasos();
             getMarchas();
         }
@@ -148,14 +148,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         usuariosHermandadesDBDao.insertOrReplace(usuarioDB);
                     }
-
-                    /*for(UsuariosHermandades uh:result.getData()){
-                        if(!categorias.contains(uh.getCategoria())){
-                            categorias.add(uh.getCategoria());
-                            System.out.println("Categoria a añadir: "+uh.getCategoria());
-                        }
-                    }*/
-
                 }
             }
 
@@ -176,6 +168,21 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             public void onResponse(Response<Pasos> response, Retrofit retrofit) {
                 if (response.isSuccess()){
                     Pasos result= response.body();
+
+                    //Array auxiliar con indices -> ID's
+                    List<Long> listNumeros = new ArrayList<Long>();
+                    for (int i = 0; i<=result.getData().size();i++){
+                        listNumeros.add(Long.valueOf(i));
+                    }
+
+                    int numeroRandom =0;
+                    //Generamos nuevos ID's para cada Paso.
+                    for (Paso p: result.getData()){
+                        numeroRandom = (int)(Math.random() * listNumeros.size()-1);
+                        p.setId(Long.valueOf(listNumeros.get(numeroRandom)));
+                        listNumeros.remove(listNumeros.get(numeroRandom));
+                    }
+
                     PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(MainActivity.this);
 
                     for (Paso p:result.getData()) {
@@ -214,47 +221,20 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                 if (response.isSuccess()){
                     Hermandades result= response.body();
 
-                    //TODO: Foreach que cambie los ID's result de forma random e insertar en BBDD GreenDao
-                    System.out.println("TODAS LAS HERMANDADES RETROFIT1: "+result.getData().get(result.getData().size()-2));
-                    System.out.println("TODAS LAS HERMANDADES RETROFIT2: "+result.getData().get(result.getData().size()-3));
-                    //System.out.println("ANTES DE DESORDENAR: "+result.getData());
-                    Collections.shuffle(result.getData());
-
-                    System.out.println("TODAS LAS HERMANDADES SHUFFLE1: "+result.getData().get(1));
-                    System.out.println("TODAS LAS HERMANDADES SHUFFLE2: "+result.getData().get(2));
-                    //System.out.println("TRAS DESORDENAR: "+result.getData());
-
+                    //Array auxiliar con indices -> ID's
                     List<Long> listNumeros = new ArrayList<Long>();
                     for (int i = 0; i<=result.getData().size();i++){
                         listNumeros.add(Long.valueOf(i));
                     }
 
-                    System.out.println("Size listaNumero: "+ (listNumeros.size()-1) +" Size de Hermandad: "+ (result.getData().size()-1));
                     int numeroRandom =0;
+                    //Generamos nuevos ID's para cada Hermandad.
                     for (Hermandad h: result.getData()){
                         numeroRandom = (int)(Math.random() * listNumeros.size()-1);
                         h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
                         listNumeros.remove(listNumeros.get(numeroRandom));
-                        System.out.println(h);
                     }
 
-
-/*
-                    List<Integer> listAuxRandom = new ArrayList<Integer>();
-                    int numeroRandom = 0;
-
-                    for (Hermandad h:result.getData()) {
-                        numeroRandom = (int)(Math.random() * result.getData().size()-1);
-
-                        while (listAuxRandom.contains(numeroRandom)){
-                            numeroRandom = (int)(Math.random() * result.getData().size()-1);
-                            System.out.println(numeroRandom);
-                        }
-                        System.out.println("Sig h");
-                        h.setId((Long.valueOf(numeroRandom)));
-                        listAuxRandom.add(numeroRandom);
-                    }
-*/
 
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
 
@@ -272,39 +252,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
-                    /*List<HermandadDB> joes = hermandadDBDao.loadAll();
-                    System.out.println("TODAS LAS HERMANDADES 1: "+joes.get(1));
-                    System.out.println("TODAS LAS HERMANDADES 2: "+joes.get(2));
-                    System.out.println("Fin insert hermandades");
-*/
-
-                    // Desordeno las hermandades
-                    /*System.out.println("ANTES DE DESORDENAR: "+result.getData());
-                    Collections.shuffle(result.getData());
-                    System.out.println("TRAS DESORDENAR: "+result.getData());*/
-
-                    //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                     /*HermandadDB hermandadDB = new HermandadDB();
-                    //hermandadDB.setId(h.getId());
-                    for (Long i = 0L; i < result.getData().size(); i++) {
-                        hermandadDB.setId(i);
-                            int a = i.intValue();
-                            Hermandad h = result.getData().get(a);
-                        System.out.println("Insertando en la bd a \n"+h);
-                        hermandadDB.setNombre(h.getNombre());
-                        hermandadDB.setEscudo(h.getEscudo());
-                        hermandadDB.setTunica(h.getTunica());
-                        hermandadDB.setFotoTunica(h.getFoto_tunica());
-                        hermandadDB.setDia(h.getDia());
-                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
-                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
-
-                        hermandadDBDao.insertOrReplace(hermandadDB);
-                    }
-
-                    List<HermandadDB> joes = hermandadDBDao.queryBuilder()
-                            .list();
-                    System.out.println("TODAS LAS HERMANDADES: "+joes);*/
                 }
             }
 

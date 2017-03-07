@@ -69,7 +69,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
         id_aux = listaMarchas.get(posicionLista).getId();
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        /*imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Parar si estuviera reproduciendo, ya que se enciende al iniciar el Detalle
@@ -80,7 +80,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
                 i.putExtra("cancion", marchasDBDao.load(id_aux).getRuta());
                 startService(i);
             }
-        });
+        });*/
 
 
         String s=null;
