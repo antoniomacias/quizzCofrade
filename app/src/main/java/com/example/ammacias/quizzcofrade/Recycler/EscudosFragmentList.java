@@ -66,6 +66,7 @@ public class EscudosFragmentList extends Fragment {
             List<HermandadDB> hermandadDBs = hermandadDBDao.loadAll();
 
             //Call recycler
+            //Ctx -> Picasso
             recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
         }
         return view;
