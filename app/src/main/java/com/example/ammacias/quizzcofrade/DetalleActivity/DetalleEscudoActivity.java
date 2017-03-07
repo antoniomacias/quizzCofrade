@@ -54,6 +54,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         herma = DatabaseConnection.getHermandadDBDao(this).load(i.getExtras().getLong("IDHermandad"));
+        System.out.println("ENTRANDO EN EL DETALLE DE :"+herma);
         id_aux = herma.getId();
 
         ListaDesordenada = DatabaseConnection.getHermandadDBDao(this).loadAll();
