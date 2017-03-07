@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             getHermandades();
             getPasos();
             getUsuarios_Hermandades();
-            //getMarchas();
+            getMarchas();
 
 
             settings = getSharedPreferences("PREFS_NAME", 0);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             editor.commit();
         } else { // other time your app loads
             //getHermandades();
-            getPasos();
+            //getPasos();
             //getMarchas();
         }
 
