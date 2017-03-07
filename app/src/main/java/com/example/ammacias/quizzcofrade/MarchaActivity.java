@@ -39,7 +39,7 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
 
 
     @Override
-    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int posicionDeLaLista) {
+    public void onClickHermandadDB(HermandadDB h) {
 
     }
 

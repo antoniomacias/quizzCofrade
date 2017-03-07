@@ -69,7 +69,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
                         .load(mValues.get(position).getFotoTunica())
-                        .placeholder(R.drawable.loading)
+                        .placeholder(R.drawable.star)
                         .resize(250,200)
                         .transform(new BlurTransformation(ctx, 25, 1))
                         .into(holder.mIdView);
@@ -77,7 +77,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             }else {
                 Picasso.with(ctx)
                         .load(mValues.get(position).getFotoTunica())
-                        .placeholder(R.drawable.loading)
+                        .placeholder(R.drawable.star)
                         .resize(250, 200)
                         .into(holder.mIdView);
             }
@@ -86,7 +86,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    mListener.onClickHermandadDB(holder.mItem, mValues, position);
+                    mListener.onClickHermandadDB(holder.mItem/*, mValues, position*/);
                 }
             }
         });

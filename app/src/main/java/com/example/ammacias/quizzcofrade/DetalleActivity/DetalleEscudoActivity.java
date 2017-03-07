@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
     EditText respuesta;
 
     HermandadDBDao hermandadDBDao;
+    HermandadDB herma;
     List<HermandadDB> ListaDesordenada;
     Long id_aux;
     int posicionLista;
@@ -51,19 +53,22 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
 
         Intent i = getIntent();
-        posicionLista = i.getExtras().getInt("posicion");
-        ListaDesordenada = Parcels.unwrap(getIntent().getParcelableExtra("listaDesordenada"));
-        System.out.println("Y COGISTE: "+ListaDesordenada.get(posicionLista));
-        id_aux = ListaDesordenada.get(posicionLista).getId();
+        herma = DatabaseConnection.getHermandadDBDao(this).load(i.getExtras().getLong("IDHermandad"));
+        id_aux = herma.getId();
+
+        ListaDesordenada = DatabaseConnection.getHermandadDBDao(this).loadAll();
+        for(int ii=0;ii<ListaDesordenada.size();ii++){
+            if(ListaDesordenada.get(ii).getId().equals(id_aux) || ListaDesordenada.get(ii).getId() == id_aux){
+                posicionLista = ii;
+            }
+        }
+        //posicionLista = ListaDesordenada.indexOf(herma);
+
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
         String s=null;
         if(checkAcertado(id_aux)){
-            for(HermandadDB d: ListaDesordenada){
-                if(d.getId() == id_aux){
-                    s = d.getNombre();
-                }
-            }
+            s = herma.getNombre();
             respuesta.setText(s);
         }
         jugar(id_aux);
@@ -73,7 +78,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         hermandadDBDao = DatabaseConnection.getHermandadDBDao(this);
         Picasso.with(this)
                 .load(hermandadDBDao.load(id_aux).getEscudo())
-                .resize(250, 200)
+                .resize(500, 400)
                 .into(imageView);
 
         respuesta.addTextChangedListener(new TextWatcher() {
@@ -132,7 +137,6 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
     public void next_escudo(View view) {
         if(posicionLista==ListaDesordenada.size()-1){
-            Toast.makeText(this, "Llegaste al límite", Toast.LENGTH_SHORT).show();
             posicionLista=0;
         }else{
             posicionLista++;
@@ -150,10 +154,6 @@ public class DetalleEscudoActivity extends AppCompatActivity {
             id_aux = ListaDesordenada.get(posicionLista).getId();
         }
         //posicionLista++;
-
-        Toast.makeText(this, "Escudo "+posicionLista+" de "+ListaDesordenada.size(), Toast.LENGTH_SHORT).show();
-
-
         respuesta.setText("");
         jugar(id_aux);
     }

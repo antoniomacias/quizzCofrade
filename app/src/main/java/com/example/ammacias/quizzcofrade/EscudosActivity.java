@@ -49,11 +49,12 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
 
     @Override
-    public void onClickHermandadDB(HermandadDB h, List<HermandadDB> l, int pos) {
+    public void onClickHermandadDB(HermandadDB h/*, List<HermandadDB> l, int pos*/) {
         Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
+        Toast.makeText(this, "Desde eñ actovoity le paso la hermandad: "+h, Toast.LENGTH_SHORT).show();
         i.putExtra("IDHermandad", h.getId());
-        i.putExtra("listaDesordenada", Parcels.wrap(l));
-        i.putExtra("posicion", pos);
+        /*i.putExtra("listaDesordenada", Parcels.wrap(l));
+        i.putExtra("posicion", pos);*/
         startActivity(i);
     }
 
