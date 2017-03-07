@@ -52,14 +52,23 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
 
-        Intent i = getIntent();
-        herma = DatabaseConnection.getHermandadDBDao(this).load(i.getExtras().getLong("IDHermandad"));
+        //Hermandad seleccionada
+        herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
         id_aux = herma.getId();
+        System.out.println("hermandad repe : "+herma.getNombre());
 
         ListaDesordenada = DatabaseConnection.getHermandadDBDao(this).loadAll();
         for(int ii=0;ii<ListaDesordenada.size();ii++){
             if(ListaDesordenada.get(ii).getId().equals(id_aux) || ListaDesordenada.get(ii).getId() == id_aux){
                 posicionLista = ii;
+            }
+        }
+        for (HermandadDB aux:ListaDesordenada) {
+            if (ListaDesordenada.contains(aux)){
+
+                System.out.println("///////////////////////////////////////");
+                System.out.println(aux);
+                System.out.println("///////////////////////////////////////");
             }
         }
         //posicionLista = ListaDesordenada.indexOf(herma);
@@ -159,7 +168,6 @@ public class DetalleEscudoActivity extends AppCompatActivity {
     }
 
     private Boolean checkAcertado(Long id_actual) {
-        System.out.println("Compruebo si acertado");
         Boolean res = false;
         tabla_intermedia = DatabaseConnection.getUsuariosHermandadesDBDao(this);
         List<UsuariosHermandadesDB> registros = tabla_intermedia.loadAll();

@@ -32,8 +32,10 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -221,6 +223,39 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                     System.out.println("TODAS LAS HERMANDADES SHUFFLE1: "+result.getData().get(1));
                     System.out.println("TODAS LAS HERMANDADES SHUFFLE2: "+result.getData().get(2));
                     //System.out.println("TRAS DESORDENAR: "+result.getData());
+
+                    List<Long> listNumeros = new ArrayList<Long>();
+                    for (int i = 0; i<=result.getData().size();i++){
+                        listNumeros.add(Long.valueOf(i));
+                    }
+
+                    System.out.println("Size listaNumero: "+ (listNumeros.size()-1) +" Size de Hermandad: "+ (result.getData().size()-1));
+                    int numeroRandom =0;
+                    for (Hermandad h: result.getData()){
+                        numeroRandom = (int)(Math.random() * listNumeros.size()-1);
+                        h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
+                        listNumeros.remove(listNumeros.get(numeroRandom));
+                        System.out.println(h);
+                    }
+
+
+/*
+                    List<Integer> listAuxRandom = new ArrayList<Integer>();
+                    int numeroRandom = 0;
+
+                    for (Hermandad h:result.getData()) {
+                        numeroRandom = (int)(Math.random() * result.getData().size()-1);
+
+                        while (listAuxRandom.contains(numeroRandom)){
+                            numeroRandom = (int)(Math.random() * result.getData().size()-1);
+                            System.out.println(numeroRandom);
+                        }
+                        System.out.println("Sig h");
+                        h.setId((Long.valueOf(numeroRandom)));
+                        listAuxRandom.add(numeroRandom);
+                    }
+*/
+
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
 
                     for (Hermandad h:result.getData()) {
@@ -237,11 +272,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
-                    List<HermandadDB> joes = hermandadDBDao.loadAll();
+                    /*List<HermandadDB> joes = hermandadDBDao.loadAll();
                     System.out.println("TODAS LAS HERMANDADES 1: "+joes.get(1));
                     System.out.println("TODAS LAS HERMANDADES 2: "+joes.get(2));
                     System.out.println("Fin insert hermandades");
-
+*/
 
                     // Desordeno las hermandades
                     /*System.out.println("ANTES DE DESORDENAR: "+result.getData());
