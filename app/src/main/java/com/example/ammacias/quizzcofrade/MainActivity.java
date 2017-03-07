@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
             System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
             getUsuarios();
-            //getHermandades();
-            //getPasos();
+            getHermandades();
+            getPasos();
             getUsuarios_Hermandades();
             //getMarchas();
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         } else { // other time your app loads
             getHermandades();
             getPasos();
-            getMarchas();
+            //getMarchas();
         }
 
     }

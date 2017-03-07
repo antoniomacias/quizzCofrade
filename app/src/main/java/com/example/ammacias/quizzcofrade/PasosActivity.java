@@ -50,6 +50,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
+        Toast.makeText(this, ""+p, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(PasosActivity.this, DetalleEscudoActivity.class);
         i.putExtra("IDPaso", p.getId());
         startActivity(i);

@@ -62,10 +62,7 @@ public class PasosDBFragmentList extends Fragment {
 
             PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
             List<PasosDB> pasosDBs = pasosDBDao.loadAll();
-            for (PasosDB p:pasosDBs) {
-                System.out.println("ruta: "+p.getFoto());
-                System.out.println("ruta: "+p.getNombreTitular());
-            }
+
             recyclerView.setAdapter(new MyPasosDBRecyclerViewAdapter(getActivity(), pasosDBs, mListener));
         }
         return view;

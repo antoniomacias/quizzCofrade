@@ -41,10 +41,10 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        // TODO: Pintar con Picasso
+        System.out.println("LA FOTO ES"+mValues.get(position).getFoto());
         Picasso.with(ctx)
                 .load((mValues.get(position).getFoto()))
-                .placeholder(R.drawable.loading)
+                .placeholder(R.drawable.star)
                 .resize(250, 200)
                 .into(holder.mIdView);
         //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));

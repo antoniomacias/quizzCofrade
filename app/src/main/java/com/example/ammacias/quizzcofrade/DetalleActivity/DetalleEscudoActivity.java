@@ -63,14 +63,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
                 posicionLista = ii;
             }
         }
-        for (HermandadDB aux:ListaDesordenada) {
-            if (ListaDesordenada.contains(aux)){
 
-                System.out.println("///////////////////////////////////////");
-                System.out.println(aux);
-                System.out.println("///////////////////////////////////////");
-            }
-        }
         //posicionLista = ListaDesordenada.indexOf(herma);
 
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
@@ -85,10 +78,17 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
     public void jugar(final Long id_aux){
         hermandadDBDao = DatabaseConnection.getHermandadDBDao(this);
-        Picasso.with(this)
-                .load(hermandadDBDao.load(id_aux).getEscudo())
-                .resize(500, 400)
-                .into(imageView);
+        if (cat_elegida.contains("Escudos")) {
+            Picasso.with(this)
+                    .load(hermandadDBDao.load(id_aux).getEscudo())
+                    .resize(500, 400)
+                    .into(imageView);
+        }else{ // Ha escogido Túnicas
+            Picasso.with(this)
+                    .load(hermandadDBDao.load(id_aux).getFotoTunica())
+                    .resize(500, 400)
+                    .into(imageView);
+        }
 
         respuesta.addTextChangedListener(new TextWatcher() {
             @Override

@@ -141,4 +141,13 @@ public class PasosDB {
         this.llamador = llamador;
     }
 
+    @Override
+    public String toString() {
+        return "PasosDB{" +
+                "id=" + id +
+                ", idHermandad=" + idHermandad +
+                ", nombreTitular='" + nombreTitular + '\'' +
+                ", foto='" + foto + '\'' +
+                '}';
+    }
 }
