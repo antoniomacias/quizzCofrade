@@ -51,7 +51,6 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickHermandadDB(HermandadDB h/*, List<HermandadDB> l, int pos*/) {
         Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
-        Toast.makeText(this, "Desde eñ actovoity le paso la hermandad: "+h, Toast.LENGTH_SHORT).show();
         i.putExtra("IDHermandad", h.getId());
         /*i.putExtra("listaDesordenada", Parcels.wrap(l));
         i.putExtra("posicion", pos);*/
@@ -73,7 +72,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
             //Toast.makeText(this, "Le diste patrás", Toast.LENGTH_SHORT).show();
             recarga=true;
         }else{
-            Toast.makeText(this, "Le diste patrás", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Le diste patrás", Toast.LENGTH_SHORT).show();
             finish();
             startActivity(getIntent());
         }

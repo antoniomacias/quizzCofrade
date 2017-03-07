@@ -11,7 +11,9 @@ public class PasosDB {
 
     @Id(autoincrement = true)
     private Long id;
-    private long idHermandad;
+
+    @NotNull
+    private String nombreHermandad;
 
     @NotNull
     private String nombreTitular;
@@ -43,9 +45,9 @@ public class PasosDB {
     }
 
     @Generated
-    public PasosDB(Long id, long idHermandad, String nombreTitular, String foto, String colorCirio, String banda, String capataz, String numCostaleros, String llamador) {
+    public PasosDB(Long id, String nombreHermandad, String nombreTitular, String foto, String colorCirio, String banda, String capataz, String numCostaleros, String llamador) {
         this.id = id;
-        this.idHermandad = idHermandad;
+        this.nombreHermandad = nombreHermandad;
         this.nombreTitular = nombreTitular;
         this.foto = foto;
         this.colorCirio = colorCirio;
@@ -63,12 +65,14 @@ public class PasosDB {
         this.id = id;
     }
 
-    public long getIdHermandad() {
-        return idHermandad;
+    @NotNull
+    public String getNombreHermandad() {
+        return nombreHermandad;
     }
 
-    public void setIdHermandad(long idHermandad) {
-        this.idHermandad = idHermandad;
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setNombreHermandad(@NotNull String nombreHermandad) {
+        this.nombreHermandad = nombreHermandad;
     }
 
     @NotNull
@@ -145,9 +149,14 @@ public class PasosDB {
     public String toString() {
         return "PasosDB{" +
                 "id=" + id +
-                ", idHermandad=" + idHermandad +
+                ", nombreHermandad='" + nombreHermandad + '\'' +
                 ", nombreTitular='" + nombreTitular + '\'' +
                 ", foto='" + foto + '\'' +
+                ", colorCirio='" + colorCirio + '\'' +
+                ", banda='" + banda + '\'' +
+                ", capataz='" + capataz + '\'' +
+                ", numCostaleros='" + numCostaleros + '\'' +
+                ", llamador='" + llamador + '\'' +
                 '}';
     }
 }

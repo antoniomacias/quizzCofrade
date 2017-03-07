@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
+import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleLlamadoresActivity;
+import com.example.ammacias.quizzcofrade.DetalleActivity.DetallePasosActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
@@ -19,7 +21,7 @@ import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import java.util.List;
 
 public class PasosActivity extends AppCompatActivity implements ICofrade{
-
+    String cat_elegida="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
             }
         });
 
-        String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
         Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
 
     }
@@ -50,10 +52,15 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
-        Toast.makeText(this, ""+p, Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(PasosActivity.this, DetalleEscudoActivity.class);
-        i.putExtra("IDPaso", p.getId());
-        startActivity(i);
+        if(cat_elegida.contains("Pasos")){
+            Intent i = new Intent(PasosActivity.this, DetallePasosActivity.class);
+            i.putExtra("IDPaso", p.getId());
+            startActivity(i);
+        }else{
+            Intent i = new Intent(PasosActivity.this, DetalleLlamadoresActivity.class);
+            i.putExtra("IDPaso", p.getId());
+            startActivity(i);
+        }
     }
 
     @Override

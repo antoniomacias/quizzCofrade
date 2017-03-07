@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         //"id, idHermandad, nombreTitular, foto, colorCirio, banda, capataz, numCostalero, llamador"
                         PasosDB pasoDB = new PasosDB();
                         pasoDB.setId(p.getId());
-                        pasoDB.setIdHermandad(p.getIdHermandad());
+                        pasoDB.setNombreHermandad(p.getNombreHermandad());
                         pasoDB.setNombreTitular(p.getNombreTitular());
                         pasoDB.setFoto(p.getFoto());
                         pasoDB.setColorCirio(p.getColorCirio());
@@ -336,6 +336,12 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
     public void click_random(View view) {
         ((Application_vars) this.getApplication()).setCategoriaElegida("Random");
         i = new Intent(MainActivity.this, RandomActivity.class);
+        startActivity(i);
+    }
+
+    public void click_llamadores(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Llamadores");
+        i = new Intent(MainActivity.this, PasosActivity.class);
         startActivity(i);
     }
 }

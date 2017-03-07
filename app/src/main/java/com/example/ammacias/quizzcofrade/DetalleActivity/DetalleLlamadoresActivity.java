@@ -1,21 +1,17 @@
 package com.example.ammacias.quizzcofrade.DetalleActivity;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
-import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
@@ -28,7 +24,10 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetallePasosActivity extends AppCompatActivity {
+/**
+ * Created by gabri_neno on 07/03/2017.
+ */
+public class DetalleLlamadoresActivity extends AppCompatActivity{
 
     ImageView imageView;
     EditText respuesta;
@@ -55,7 +54,7 @@ public class DetallePasosActivity extends AppCompatActivity {
         //Hermandad seleccionada
         paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
         id_aux = paso.getId();
-        hermandades =DatabaseConnection.getHermandadDBDao(this).loadAll();
+        hermandades = DatabaseConnection.getHermandadDBDao(this).loadAll();
         for(HermandadDB h:hermandades){
             if(h.getNombre().equals(paso.getNombreHermandad()))hermandad = h;
         }
@@ -87,7 +86,7 @@ public class DetallePasosActivity extends AppCompatActivity {
             if(h.getNombre().equals(pasosDBDao.load(id_aux).getNombreHermandad()))hermandad = h;
         }
         Picasso.with(this)
-                .load(pasosDBDao.load(id_aux).getFoto())
+                .load(pasosDBDao.load(id_aux).getLlamador())
                 .resize(500, 400)
                 .into(imageView);
         //hermandad =DatabaseConnection.getHermandadDBDao(this).load(pasosDBDao.load(id_aux).getIdHermandad());
@@ -111,11 +110,11 @@ public class DetallePasosActivity extends AppCompatActivity {
 
     private void guardarAcierto(Long ide) {
         UsuariosHermandadesDBDao usuariosHermandadesDBDao =
-                DatabaseConnection.getUsuariosHermandadesDBDao(DetallePasosActivity.this);
+                DatabaseConnection.getUsuariosHermandadesDBDao(DetalleLlamadoresActivity.this);
 
         // Los valores actuales a insertar => Necesito el usuario
         UsuariosHermandadesDB usuariosHermandadesDB = new UsuariosHermandadesDB();
-        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetallePasosActivity.this);
+        UsuarioDBDao usuario = DatabaseConnection.getUsuarioDBDao(DetalleLlamadoresActivity.this);
         List<UsuarioDB> usuario_actual = usuario.loadAll();
         /*if(usuario_actual.size()==1) System.out.println("Eres el único usuario");
         else System.out.println("¡Hay más de uno! "+usuario_actual.size());*/

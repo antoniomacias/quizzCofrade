@@ -65,7 +65,7 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
                         .resize(250, 200)
                         .into(holder.mIdView);
             }
-        }else{ // if otra categoría q no sea Escudos
+        }else{ // if otra categoría q no sea Escudos => TÚNICAS
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
                         .load(mValues.get(position).getFotoTunica())

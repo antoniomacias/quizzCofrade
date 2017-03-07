@@ -6,13 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link PasosDB} and makes a call to the
@@ -24,11 +31,14 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
     private final List<PasosDB> mValues;
     private final ICofrade mListener;
     private Context ctx;
+    String cat_elegida;
+
 
     public MyPasosDBRecyclerViewAdapter(Context ctx, List<PasosDB> items, ICofrade listener) {
         this.ctx = ctx;
         mValues = items;
         mListener = listener;
+        cat_elegida = ((Application_vars) ctx.getApplicationContext()).getCategoriaElegida();
     }
 
     @Override
@@ -41,12 +51,41 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        System.out.println("LA FOTO ES"+mValues.get(position).getFoto());
-        Picasso.with(ctx)
-                .load((mValues.get(position).getFoto()))
-                .placeholder(R.drawable.star)
-                .resize(250, 200)
-                .into(holder.mIdView);
+
+
+        if (cat_elegida.contains("Pasos")) {
+            if(checkAcertado(mValues.get(position))){
+                Picasso.with(ctx)
+                        .load((mValues.get(position).getFoto()))
+                        .placeholder(R.drawable.star)
+                        .resize(250,200)
+                        .transform(new BlurTransformation(ctx, 25, 1))
+                        .into(holder.mIdView);
+            }else{
+                Picasso.with(ctx)
+                        .load((mValues.get(position).getFoto()))
+                        .placeholder(R.drawable.star)
+                        .resize(250, 200)
+                        .into(holder.mIdView);
+            }
+        }else{ // if otra categoría q no sea Escudos => LLAMADORES
+            if(checkAcertado(mValues.get(position))){
+                Picasso.with(ctx)
+                        .load(mValues.get(position).getLlamador())
+                        .placeholder(R.drawable.star)
+                        .resize(250,200)
+                        .transform(new BlurTransformation(ctx, 25, 1))
+                        .into(holder.mIdView);
+
+            }else {
+                Picasso.with(ctx)
+                        .load(mValues.get(position).getLlamador())
+                        .placeholder(R.drawable.star)
+                        .resize(250, 200)
+                        .into(holder.mIdView);
+            }
+        }
+
         //holder.mIdView.setImageResource(Integer.parseInt(mValues.get(position).toString()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +99,22 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
             }
         });
     }
+
+    //If acertado = tick verde
+    private Boolean checkAcertado(PasosDB pasosDB) {
+        Boolean res = false;
+        // if HermandadDB está en la tabla intermedia, es porque está acertado y devuelve True
+        UsuariosHermandadesDBDao usuariosHermandadesDBDao =
+                DatabaseConnection.getUsuariosHermandadesDBDao(ctx);
+        List<UsuariosHermandadesDB> lista = usuariosHermandadesDBDao.loadAll();
+        for(UsuariosHermandadesDB uh : lista){
+            if(uh.getIdHermandad() == pasosDB.getId() && uh.getCategoria().equals(cat_elegida)){
+                res = true;
+            }
+        }
+        return res;
+    }
+
 
     @Override
     public int getItemCount() {

@@ -23,7 +23,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property IdHermandad = new Property(1, long.class, "idHermandad", false, "ID_HERMANDAD");
+        public final static Property NombreHermandad = new Property(1, String.class, "nombreHermandad", false, "NOMBRE_HERMANDAD");
         public final static Property NombreTitular = new Property(2, String.class, "nombreTitular", false, "NOMBRE_TITULAR");
         public final static Property Foto = new Property(3, String.class, "foto", false, "FOTO");
         public final static Property ColorCirio = new Property(4, String.class, "colorCirio", false, "COLOR_CIRIO");
@@ -47,7 +47,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"PASOS_DB\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"ID_HERMANDAD\" INTEGER NOT NULL ," + // 1: idHermandad
+                "\"NOMBRE_HERMANDAD\" TEXT NOT NULL ," + // 1: nombreHermandad
                 "\"NOMBRE_TITULAR\" TEXT NOT NULL ," + // 2: nombreTitular
                 "\"FOTO\" TEXT NOT NULL ," + // 3: foto
                 "\"COLOR_CIRIO\" TEXT NOT NULL ," + // 4: colorCirio
@@ -71,7 +71,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getIdHermandad());
+        stmt.bindString(2, entity.getNombreHermandad());
         stmt.bindString(3, entity.getNombreTitular());
         stmt.bindString(4, entity.getFoto());
         stmt.bindString(5, entity.getColorCirio());
@@ -89,7 +89,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getIdHermandad());
+        stmt.bindString(2, entity.getNombreHermandad());
         stmt.bindString(3, entity.getNombreTitular());
         stmt.bindString(4, entity.getFoto());
         stmt.bindString(5, entity.getColorCirio());
@@ -108,7 +108,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     public PasosDB readEntity(Cursor cursor, int offset) {
         PasosDB entity = new PasosDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getLong(offset + 1), // idHermandad
+            cursor.getString(offset + 1), // nombreHermandad
             cursor.getString(offset + 2), // nombreTitular
             cursor.getString(offset + 3), // foto
             cursor.getString(offset + 4), // colorCirio
@@ -123,7 +123,7 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
     @Override
     public void readEntity(Cursor cursor, PasosDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setIdHermandad(cursor.getLong(offset + 1));
+        entity.setNombreHermandad(cursor.getString(offset + 1));
         entity.setNombreTitular(cursor.getString(offset + 2));
         entity.setFoto(cursor.getString(offset + 3));
         entity.setColorCirio(cursor.getString(offset + 4));

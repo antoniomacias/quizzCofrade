@@ -11,9 +11,9 @@ public class Paso {
     @SerializedName("id")
     @Expose
     private Long id;
-    @SerializedName("idHermandad")
+    @SerializedName("nombreHermandad")
     @Expose
-    private Long idHermandad;
+    private String nombreHermandad;
     @SerializedName("nombreTitular")
     @Expose
     private String nombreTitular;
@@ -44,12 +44,12 @@ public class Paso {
         this.id = id;
     }
 
-    public Long getIdHermandad() {
-        return idHermandad;
+    public String getNombreHermandad() {
+        return nombreHermandad;
     }
 
-    public void setIdHermandad(Long idHermandad) {
-        this.idHermandad = idHermandad;
+    public void setNombreHermandad(String idHermandad) {
+        this.nombreHermandad = idHermandad;
     }
 
     public String getNombreTitular() {
@@ -112,7 +112,7 @@ public class Paso {
     public String toString() {
         return "Paso{" +
                 "id=" + id +
-                ", idHermandad=" + idHermandad +
+                ", nombreHermandad=" + nombreHermandad +
                 ", nombreTitular='" + nombreTitular + '\'' +
                 ", foto=" + foto +
                 ", colorCirio='" + colorCirio + '\'' +

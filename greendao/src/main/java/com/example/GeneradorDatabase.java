@@ -32,7 +32,7 @@ public class GeneradorDatabase {
         // Definimos las entidades (tablas) de la base de datos
         Entity pasosDB = schema.addEntity("PasosDB");
         pasosDB.addIdProperty().autoincrement().primaryKey();
-        pasosDB.addLongProperty("idHermandad").notNull();
+        pasosDB.addStringProperty("nombreHermandad").notNull();
         pasosDB.addStringProperty("nombreTitular").notNull();
         pasosDB.addStringProperty("foto").notNull();
         pasosDB.addStringProperty("colorCirio").notNull();

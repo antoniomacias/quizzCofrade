@@ -48,7 +48,9 @@
             android:label="@string/title_activity_marcha"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".DetalleActivity.DetalleMarchaActivity" />
-        <activity android:name=".DetalleActivity.DetallePasosActivity"></activity>
+        <activity android:name=".DetalleActivity.DetallePasosActivity" />
+        <activity android:name=".DetalleActivity.DetalleLlamadoresActivity" />
+        <activity android:name=".LlamadoresActivity"></activity>
     </application>
 
 </manifest>
