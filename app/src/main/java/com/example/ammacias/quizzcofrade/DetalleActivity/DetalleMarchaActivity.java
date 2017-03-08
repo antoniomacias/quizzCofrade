@@ -228,7 +228,7 @@ public class DetalleMarchaActivity extends AppCompatActivity {
     void iniciarMediaPlayer(){
         //Skin reproductor
         ipv.stop();
-        ipv.setProgress(-1);
+        ipv.setProgress(0);
         ipv.setMax(20);
         ipv.setProgressEmptyColor(Color.GRAY);
         ipv.setProgressEmptyColor(Color.BLACK);

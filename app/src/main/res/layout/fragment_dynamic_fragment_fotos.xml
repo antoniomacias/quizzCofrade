@@ -4,9 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/foto"/>
-
+        android:id="@+id/foto"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        />
+    </RelativeLayout>
 </FrameLayout>

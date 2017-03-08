@@ -18,6 +18,8 @@ import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFrag
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
+import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 import com.squareup.picasso.Picasso;
@@ -32,6 +34,7 @@ public class RandomActivity extends AppCompatActivity {
 
     List<HermandadDB> listaH;
     List<PasosDB> listaP;
+    List<MarchaDB> listaM;
 
     ImageView imageView;
     EditText respuesta;
@@ -86,6 +89,10 @@ public class RandomActivity extends AppCompatActivity {
         PasosDBDao PasosDBDao = DatabaseConnection.getPasosDBDao(this);
         listaP = PasosDBDao.loadAll();
 
+        MarchaDBDao marchaDBDao= DatabaseConnection.getMarchasDBDao(this);
+        listaM = marchaDBDao.loadAll();
+
+
         //Check si acierta
         respuesta.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,10 +127,10 @@ public class RandomActivity extends AppCompatActivity {
 
 
         //TODO: ¿Esto qué es? No se carga nada al iniciar el activity
-        imageView =(ImageView)findViewById(R.id.fotoDetalle);
+        //imageView =(ImageView)findViewById(R.id.fotoDetalle);
 
         //Si es 1 -> Hermandad
-        if ((int) (Math.random() * 1)== 1 ){
+        /*if ((int) (Math.random() * 1)== 1 ){
             Picasso.with(this)
                     .load(listaH.get(0).getEscudo())
                     .resize(250, 200)
@@ -133,7 +140,7 @@ public class RandomActivity extends AppCompatActivity {
                     .load(listaP.get(0).getFoto())
                     .resize(250, 200)
                     .into(imageView);
-        }
+        }*/
     }
 
     private void muestradialogo() {
@@ -201,10 +208,10 @@ public class RandomActivity extends AppCompatActivity {
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaH.size());
                 }
-                Picasso.with(this)
+                /*Picasso.with(this)
                         .load(listaH.get(randomInt).getEscudo())
                         .resize(250, 200)
-                        .into(imageView);
+                        .into(imageView);*/
                 nombreRespuesta = listaH.get(randomInt).getNombre();
                 arg = Long.valueOf(listaH.get(randomInt).getId());
                 arg1 = "Escudo";
@@ -214,10 +221,10 @@ public class RandomActivity extends AppCompatActivity {
                 while (listAux.contains(listaP.get(randomInt).getNombreTitular())){
                     randomInt = (int) (Math.random() * listaP.size());
                 }
-                Picasso.with(this)
+                /*Picasso.with(this)
                         .load(listaP.get(randomInt).getFoto())
                         .resize(250, 200)
-                        .into(imageView);
+                        .into(imageView);*/
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
                 arg1 = "Paso";
@@ -227,10 +234,10 @@ public class RandomActivity extends AppCompatActivity {
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaH.size());
                 }
-                Picasso.with(this)
+                /*Picasso.with(this)
                         .load(listaH.get(randomInt).getFotoTunica())
                         .resize(250, 200)
-                        .into(imageView);
+                        .into(imageView);*/
                 nombreRespuesta = listaH.get(randomInt).getNombre();
                 arg = Long.valueOf(listaH.get(randomInt).getId());
                 arg1 = "Tunica";
@@ -240,16 +247,23 @@ public class RandomActivity extends AppCompatActivity {
                 while (listAux.contains(listaP.get(randomInt).getLlamador())){
                     randomInt = (int) (Math.random() * listaP.size());
                 }
-                Picasso.with(this)
+                /*Picasso.with(this)
                         .load(listaP.get(randomInt).getLlamador())
                         .resize(250, 200)
-                        .into(imageView);
+                        .into(imageView);*/
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
                 arg1 = "Llamador";
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }else if(aux == 4){
-                arg = Long.valueOf(199);
+                int randomInt = (int) (Math.random() * listaM.size());
+                while (listAux.contains(listaM.get(randomInt).getNombre())){
+                    randomInt = (int) (Math.random() * listaM.size());
+                }
+
+                nombreRespuesta = listaM.get(randomInt).getNombre();
+                arg = Long.valueOf(listaM.get(randomInt).getId());
+                System.out.println("Marcha Respuesta: "+nombreRespuesta);
             }
             bandera = false;
 
@@ -331,7 +345,7 @@ public class RandomActivity extends AppCompatActivity {
     void cuentaAtras(){
         Calendar end = Calendar.getInstance();
         end.add(Calendar.MINUTE, 0);
-        end.add(Calendar.SECOND, 16);
+        end.add(Calendar.SECOND, 21);
 
         Calendar start = Calendar.getInstance();
         start.add(Calendar.SECOND, -1);

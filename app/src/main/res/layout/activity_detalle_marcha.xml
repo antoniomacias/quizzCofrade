@@ -19,14 +19,12 @@
         app:emptyColor="#aaffffff"
         app:loadedColor="#fff44336"
         android:layout_centerHorizontal="true"
+    />
+    <!--
         app:selectedAction1="@drawable/pause"
         app:selectedAction2="@drawable/trumpet"
         app:unselectedAction1="@drawable/pause_mute"
         app:unselectedAction2="@drawable/trumpet_mute"
-
-    />
-    <!--
-
         app:selectedAction3="@drawable/replay_selected"
         app:unselectedAction3="@drawable/replay_unselected" -->
 

@@ -12,14 +12,22 @@
     tools:context="com.example.ammacias.quizzcofrade.RandomActivity">
 
 
-    <ImageView
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/view_ticktock_countdown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp">
+    </FrameLayout>
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/fotoDetalle"
         android:layout_above="@+id/respuesta_escudo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp" />
+        android:layout_marginBottom="64dp" />-->
 
 
     <EditText
@@ -30,7 +38,8 @@
         android:ems="16"
         android:id="@+id/respuesta_escudo"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/container"/>
 
     <Button
         android:text="Siguiente"
@@ -114,10 +123,5 @@
         android:gravity="center"
         />
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="2000dp"
-        android:layout_below="@+id/siguiente_escudo">
-    </FrameLayout>
+
 </RelativeLayout>
