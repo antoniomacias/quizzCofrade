@@ -252,4 +252,10 @@ public class DetalleMarchaActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopService(i);
+    }
 }

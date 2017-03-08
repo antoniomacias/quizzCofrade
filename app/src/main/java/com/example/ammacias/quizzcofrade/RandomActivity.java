@@ -90,11 +90,6 @@ public class RandomActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 if (respuesta.getText().toString().equalsIgnoreCase(nombreRespuesta)){
                     muestradialogo();
-                    //TODO: Inserto en la tabla intermedia
-                    System.out.println("Acertaste y guardo");
-/*                  marcaDB.setAcertado(true);
-                    marcaDBDao.update(marcaDB);*/
-
                 }
             }
         });
@@ -136,7 +131,7 @@ public class RandomActivity extends AppCompatActivity {
         //Paramos contador
         mCountDown.stop();
 
-        //Aumentamos aciertes y seteamos el contador de Aciertos
+        //Aumentamos aciertos y seteamos el contador de Aciertos
         numAciertos++;
         aciertosImg.setText(""+numAciertos);
 
@@ -174,10 +169,11 @@ public class RandomActivity extends AppCompatActivity {
             cambiarImg();
 
             //Toast.makeText(this, "B: "+bandera, Toast.LENGTH_SHORT).show();
-            //Si es 0 -> Hermandad
+            //Si es 0 -> Escudo
             //Si es 1 -> Paso
             //Si es 2 -> Tunica
-            int aux = (int) (Math.random() * 3);
+            //Si es 3 -> Llamador
+            int aux = (int) (Math.random() * 4);
             if (aux == 0) {
                 //Generamos random
                 int randomInt = (int) (Math.random() * listaH.size());
@@ -190,7 +186,7 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaH.get(randomInt).getNombre();
-                System.out.println(nombreRespuesta);
+                System.out.println("Escudo Respuesta: "+nombreRespuesta);
             } else if (aux == 1) {
                 int randomInt = (int) (Math.random() * listaP.size());
                 while (listAux.contains(listaP.get(randomInt).getNombreTitular())){
@@ -201,18 +197,29 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
-                System.out.println(nombreRespuesta);
-            } else {
+                System.out.println("Paso Respuesta: "+nombreRespuesta);
+            } else if (aux == 2){
                 int randomInt = (int) (Math.random() * listaH.size());
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaH.size());
                 }
                 Picasso.with(this)
-                        .load("http://juegomarcas.esy.es/SS/images/ncage.jpg")
+                        .load(listaH.get(randomInt).getFotoTunica())
                         .resize(250, 200)
                         .into(imageView);
-                nombreRespuesta = listaH.get(0).getNombre();
-                System.out.println(nombreRespuesta);
+                nombreRespuesta = listaH.get(randomInt).getNombre();
+                System.out.println("Túnica Respuesta: "+nombreRespuesta);
+            }else if(aux == 3){
+                int randomInt = (int) (Math.random() * listaP.size());
+                while (listAux.contains(listaP.get(randomInt).getLlamador())){
+                    randomInt = (int) (Math.random() * listaP.size());
+                }
+                Picasso.with(this)
+                        .load(listaP.get(randomInt).getLlamador())
+                        .resize(250, 200)
+                        .into(imageView);
+                nombreRespuesta = listaP.get(randomInt).getNombreTitular();
+                System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }
             bandera = false;
             cuentaAtras();
@@ -302,4 +309,9 @@ public class RandomActivity extends AppCompatActivity {
         cuentaAtras();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mCountDown.stop();
+    }
 }
