@@ -57,6 +57,7 @@ public class RandomActivity extends AppCompatActivity {
 
     //Fragment
     Fragment f;
+    Long arg = Long.valueOf(0);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +187,6 @@ public class RandomActivity extends AppCompatActivity {
 
             //Configuro el fragment a cargar
             if (aux >3){
-                f = new DynamicFragmentMarcha();
                 System.out.println("Fragment marcha");
             }else{
                 f = new DynamicFragmentFotos();
@@ -207,6 +207,7 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaH.get(randomInt).getNombre();
+                arg = Long.valueOf(listaH.get(randomInt).getId());
                 System.out.println("Escudo Respuesta: "+nombreRespuesta);
             } else if (aux == 1) {
                 int randomInt = (int) (Math.random() * listaP.size());
@@ -218,6 +219,7 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
+                arg = Long.valueOf(listaP.get(randomInt).getId());
                 System.out.println("Paso Respuesta: "+nombreRespuesta);
             } else if (aux == 2){
                 int randomInt = (int) (Math.random() * listaH.size());
@@ -229,6 +231,7 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaH.get(randomInt).getNombre();
+                arg = Long.valueOf(listaH.get(randomInt).getId());
                 System.out.println("Túnica Respuesta: "+nombreRespuesta);
             }else if(aux == 3){
                 int randomInt = (int) (Math.random() * listaP.size());
@@ -240,11 +243,16 @@ public class RandomActivity extends AppCompatActivity {
                         .resize(250, 200)
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
+                arg = Long.valueOf(listaP.get(randomInt).getId());
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }else if(aux == 4){
-
+                arg = Long.valueOf(0);
             }
             bandera = false;
+
+            Bundle args = new Bundle();
+            args.putLong("arg", arg);
+            f.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, f)

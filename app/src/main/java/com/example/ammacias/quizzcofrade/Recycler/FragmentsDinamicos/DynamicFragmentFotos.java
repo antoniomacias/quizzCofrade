@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.ammacias.quizzcofrade.R;
 
@@ -14,7 +15,7 @@ import com.example.ammacias.quizzcofrade.R;
  */
 public class DynamicFragmentFotos extends Fragment {
 
-
+    TextView t;
     public DynamicFragmentFotos() {
         // Required empty public constructor
     }
@@ -24,7 +25,16 @@ public class DynamicFragmentFotos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dynamic_fragment_fotos, container, false);
+        View v = inflater.inflate(R.layout.fragment_dynamic_fragment_fotos, container, false);
+
+        Bundle args = getArguments();
+        int index = args.getInt("index", 0);
+
+
+        t = (TextView)v.findViewById(R.id.fotosText);
+        t.setText("He pasado: "+index);
+
+        return v;
     }
 
 }
