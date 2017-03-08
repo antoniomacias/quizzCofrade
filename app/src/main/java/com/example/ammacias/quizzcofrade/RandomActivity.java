@@ -57,7 +57,7 @@ public class RandomActivity extends AppCompatActivity {
 
     //Fragment
     Fragment f;
-    Long arg = Long.valueOf(0);
+    Long arg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +177,6 @@ public class RandomActivity extends AppCompatActivity {
         else {
             cambiarImg();
 
-            //Toast.makeText(this, "B: "+bandera, Toast.LENGTH_SHORT).show();
             //Si es 0 -> Escudo
             //Si es 1 -> Paso
             //Si es 2 -> Tunica
@@ -185,12 +184,11 @@ public class RandomActivity extends AppCompatActivity {
             //Si es 4 -> Marcha
             int aux = (int) (Math.random() * 5);
 
-            //Configuro el fragment a cargar
+            //Configuramos el fragment a cargar
             if (aux >3){
-                System.out.println("Fragment marcha");
+                f = new DynamicFragmentMarcha();
             }else{
                 f = new DynamicFragmentFotos();
-                System.out.println("Fragment fotos");
             }
 
             //Cargamos los datos
@@ -246,10 +244,11 @@ public class RandomActivity extends AppCompatActivity {
                 arg = Long.valueOf(listaP.get(randomInt).getId());
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }else if(aux == 4){
-                arg = Long.valueOf(0);
+                arg = Long.valueOf(199);
             }
             bandera = false;
 
+            //Pasamos parámetros al fragmento
             Bundle args = new Bundle();
             args.putLong("arg", arg);
             f.setArguments(args);
@@ -257,6 +256,7 @@ public class RandomActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, f)
                     .commit();
+            
             cuentaAtras();
         }
     }

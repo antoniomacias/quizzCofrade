@@ -27,8 +27,9 @@ public class DynamicFragmentMarcha extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_dynamic_fragment_marcha, container, false);
 
-        Bundle args = getArguments();
-        int index = args.getInt("index", 0);
+        long index = getArguments().getLong("arg",0);
+
+        System.out.println("Fragmento con "+getArguments().getLong("arg"));
 
         t = (TextView)v.findViewById(R.id.marchaText);
 
