@@ -113,4 +113,11 @@
         android:layout_alignBottom="@id/aciertosImg"
         android:gravity="center"
         />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="2000dp"
+        android:layout_below="@+id/siguiente_escudo">
+    </FrameLayout>
 </RelativeLayout>

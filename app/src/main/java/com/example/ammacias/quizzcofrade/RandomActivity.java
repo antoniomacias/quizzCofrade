@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
+import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
+import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
@@ -51,6 +54,9 @@ public class RandomActivity extends AppCompatActivity {
 
     //Control repeticiones
     List<String> listAux = new ArrayList<>();
+
+    //Fragment
+    Fragment f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +116,8 @@ public class RandomActivity extends AppCompatActivity {
         }
 
 
+
+        //TODO: ¿Esto qué es? No se carga nada al iniciar el activity
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
 
         //Si es 1 -> Hermandad
@@ -173,10 +181,23 @@ public class RandomActivity extends AppCompatActivity {
             //Si es 1 -> Paso
             //Si es 2 -> Tunica
             //Si es 3 -> Llamador
-            int aux = (int) (Math.random() * 4);
+            //Si es 4 -> Marcha
+            int aux = (int) (Math.random() * 5);
+
+            //Configuro el fragment a cargar
+            if (aux >3){
+                f = new DynamicFragmentMarcha();
+                System.out.println("Fragment marcha");
+            }else{
+                f = new DynamicFragmentFotos();
+                System.out.println("Fragment fotos");
+            }
+
+            //Cargamos los datos
             if (aux == 0) {
                 //Generamos random
                 int randomInt = (int) (Math.random() * listaH.size());
+
                 //Cercioramos que no se haya acertado anteriormente
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaH.size());
@@ -220,8 +241,14 @@ public class RandomActivity extends AppCompatActivity {
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
+            }else if(aux == 4){
+
             }
             bandera = false;
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, f)
+                    .commit();
             cuentaAtras();
         }
     }

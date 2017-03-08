@@ -25,6 +25,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
@@ -41,5 +42,4 @@ dependencies {
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
     testCompile 'junit:junit:4.12'
     apt 'org.parceler:parceler:1.1.1'
-
 }
