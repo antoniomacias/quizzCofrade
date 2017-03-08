@@ -57,7 +57,8 @@ public class RandomActivity extends AppCompatActivity {
 
     //Fragment
     Fragment f;
-    Long arg;
+    Long arg;           //Posicion
+    String arg1;        //Categoria
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +207,7 @@ public class RandomActivity extends AppCompatActivity {
                         .into(imageView);
                 nombreRespuesta = listaH.get(randomInt).getNombre();
                 arg = Long.valueOf(listaH.get(randomInt).getId());
+                arg1 = "Escudo";
                 System.out.println("Escudo Respuesta: "+nombreRespuesta);
             } else if (aux == 1) {
                 int randomInt = (int) (Math.random() * listaP.size());
@@ -218,6 +220,7 @@ public class RandomActivity extends AppCompatActivity {
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
+                arg1 = "Paso";
                 System.out.println("Paso Respuesta: "+nombreRespuesta);
             } else if (aux == 2){
                 int randomInt = (int) (Math.random() * listaH.size());
@@ -230,6 +233,7 @@ public class RandomActivity extends AppCompatActivity {
                         .into(imageView);
                 nombreRespuesta = listaH.get(randomInt).getNombre();
                 arg = Long.valueOf(listaH.get(randomInt).getId());
+                arg1 = "Tunica";
                 System.out.println("Túnica Respuesta: "+nombreRespuesta);
             }else if(aux == 3){
                 int randomInt = (int) (Math.random() * listaP.size());
@@ -242,6 +246,7 @@ public class RandomActivity extends AppCompatActivity {
                         .into(imageView);
                 nombreRespuesta = listaP.get(randomInt).getNombreTitular();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
+                arg1 = "Llamador";
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }else if(aux == 4){
                 arg = Long.valueOf(199);
@@ -251,12 +256,13 @@ public class RandomActivity extends AppCompatActivity {
             //Pasamos parámetros al fragmento
             Bundle args = new Bundle();
             args.putLong("arg", arg);
+            args.putString("arg1", arg1);
             f.setArguments(args);
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, f)
                     .commit();
-            
+
             cuentaAtras();
         }
     }

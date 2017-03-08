@@ -6,16 +6,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.PasosDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DynamicFragmentFotos extends Fragment {
 
-    TextView t;
+    ImageView imageView;
+
+    HermandadDBDao hermandadDBDao;
+    HermandadDB hermandadDB;
+    PasosDBDao pasosDBDao;
+    PasosDB pasosDB;
+
+
     public DynamicFragmentFotos() {
         // Required empty public constructor
     }
@@ -28,11 +42,46 @@ public class DynamicFragmentFotos extends Fragment {
         View v = inflater.inflate(R.layout.fragment_dynamic_fragment_fotos, container, false);
 
         long index = getArguments().getLong("arg",0);
+        String cat = getArguments().getString("arg1", "Escudo");
 
-        System.out.println("Fragmento con "+getArguments().getLong("arg"));
-        t = (TextView)v.findViewById(R.id.fotosText);
-        t.setText("He pasado: "+index);
+        imageView = (ImageView) v.findViewById(R.id.foto);
 
+        //System.out.println("Fragmento con "+getArguments().getLong("arg"));
+
+        switch (cat){
+            case "Escudo":
+                hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                hermandadDB = hermandadDBDao.load(index);
+                Picasso.with(getActivity())
+                        .load(hermandadDB.getEscudo())
+                        .resize(250, 200)
+                        .into(imageView);
+                break;
+            case "Tunica":
+                hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                hermandadDB = hermandadDBDao.load(index);
+                Picasso.with(getActivity())
+                        .load(hermandadDB.getFotoTunica())
+                        .resize(250, 200)
+                        .into(imageView);
+                break;
+            case "Paso":
+                pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
+                pasosDB = pasosDBDao.load(index);
+                Picasso.with(getActivity())
+                        .load(pasosDB.getFoto())
+                        .resize(250, 200)
+                        .into(imageView);
+                break;
+            case "Llamador":
+                pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
+                pasosDB = pasosDBDao.load(index);
+                Picasso.with(getActivity())
+                        .load(pasosDB.getLlamador())
+                        .resize(250, 200)
+                        .into(imageView);
+                break;
+        }
         return v;
     }
 
