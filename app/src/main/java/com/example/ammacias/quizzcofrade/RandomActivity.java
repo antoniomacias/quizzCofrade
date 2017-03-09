@@ -173,6 +173,11 @@ public class RandomActivity extends AppCompatActivity {
     }
 
     public void next_escudo(View view) {
+
+        if(f instanceof DynamicFragmentMarcha) {
+            ((DynamicFragmentMarcha)f).pararMarcha();
+        }
+
         //Reseteamos el campo
         respuesta.setText("");
 
@@ -191,6 +196,8 @@ public class RandomActivity extends AppCompatActivity {
             //Si es 3 -> Llamador
             //Si es 4 -> Marcha
             int aux = (int) (Math.random() * 5);
+
+
 
             //Configuramos el fragment a cargar
             if (aux >3){
