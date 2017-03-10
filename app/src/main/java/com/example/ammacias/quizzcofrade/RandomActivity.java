@@ -1,5 +1,8 @@
 package com.example.ammacias.quizzcofrade;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
+import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.RankingFragment;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
@@ -27,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -327,9 +332,10 @@ public class RandomActivity extends AppCompatActivity {
         mCountDown.stop();
         cambiarImg();
         //TODO: Cambiar img SweetAlertDialog
-        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+/*        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("¡SE HAN ACABADO LAS VIDAS!")
                 .setConfirmText("Volver a jugar")
+                .showCancelButton(true)
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
@@ -338,7 +344,28 @@ public class RandomActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-
+*/
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("¡SE HAN ACABADO LAS VIDAS!")
+                .setContentText("¿Quieres ver el ranking?")
+                .setCancelText("No, Volver a jugar")
+                .setConfirmText("Sí, Ver ranking")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        redirect(findViewById(R.id.activity_detalle));
+                    }
+                }).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        Toast.makeText(RandomActivity.this, "Redirigir al ránking", Toast.LENGTH_SHORT).show();
+                        mostrarDialogoBusqueda();
+                    }
+                })
+                .show();
         //TODO: Insertar los datos
 
 
@@ -375,5 +402,23 @@ public class RandomActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mCountDown.stop();
+    }
+
+    private void mostrarDialogoBusqueda() {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(RandomActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.fragment_ranking, null);
+        // Editar los elementos: editText...
+        mBuilder.setView(mView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.show();
+
+
+        // Cuando cierre el diálogo, redireccionar a las categorías
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                redirect(findViewById(R.id.activity_detalle));
+            }
+        });
     }
 }

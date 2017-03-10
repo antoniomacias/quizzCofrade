@@ -127,11 +127,4 @@ public class HermandadDB {
         this.anyoFundacion = anyoFundacion;
     }
 
-    @Override
-    public String toString() {
-        return "HermandadDB{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                '}';
-    }
 }

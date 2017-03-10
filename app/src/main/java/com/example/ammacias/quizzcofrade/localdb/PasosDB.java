@@ -145,18 +145,4 @@ public class PasosDB {
         this.llamador = llamador;
     }
 
-    @Override
-    public String toString() {
-        return "PasosDB{" +
-                "id=" + id +
-                ", nombreHermandad='" + nombreHermandad + '\'' +
-                ", nombreTitular='" + nombreTitular + '\'' +
-                ", foto='" + foto + '\'' +
-                ", colorCirio='" + colorCirio + '\'' +
-                ", banda='" + banda + '\'' +
-                ", capataz='" + capataz + '\'' +
-                ", numCostaleros='" + numCostaleros + '\'' +
-                ", llamador='" + llamador + '\'' +
-                '}';
-    }
 }

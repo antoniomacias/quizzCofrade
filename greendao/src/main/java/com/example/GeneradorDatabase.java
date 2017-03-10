@@ -50,6 +50,14 @@ public class GeneradorDatabase {
         marchaDB.addStringProperty("ruta");
 
         // Definimos las entidades (tablas) de la base de datos
+        Entity rankingDB = schema.addEntity("RankingDB");
+        rankingDB.addIdProperty().autoincrement().primaryKey();
+        rankingDB.addLongProperty("idUsuario");
+        rankingDB.addStringProperty("nick");
+        rankingDB.addIntProperty("aciertos");
+        rankingDB.addDateProperty("fecha");
+
+        // Definimos las entidades (tablas) de la base de datos
         Entity usuariosHermandades = schema.addEntity("UsuariosHermandadesDB");
         usuariosHermandades.addIdProperty().autoincrement().primaryKey();
         usuariosHermandades.addLongProperty("idUsuario").notNull();
