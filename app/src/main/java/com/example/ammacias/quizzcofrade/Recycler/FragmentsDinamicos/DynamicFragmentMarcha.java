@@ -83,6 +83,10 @@ public class DynamicFragmentMarcha extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+    }
+
+    public void pararMarcha(){
         getActivity().stopService(i);
     }
 }

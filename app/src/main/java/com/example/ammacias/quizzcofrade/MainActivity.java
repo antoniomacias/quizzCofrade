@@ -2,9 +2,11 @@ package com.example.ammacias.quizzcofrade;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
@@ -31,8 +33,10 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
+import com.loopeer.cardstack.CardStackView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -43,16 +47,48 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements ICofrade{
+public class MainActivity extends AppCompatActivity implements CardStackView.ItemExpendListener, ICofrade{
     Intent i;
     TextView escudos, tunicas, pasos, marchas, aleatorio;
 
     IRetrofit service1;
 
+    private CardStackView mStackView;
+    private LinearLayout mActionButtonContainer;
+    private TestStackAdapter mTestStackAdapter;
+
+    public static Integer[] TEST_DATAS = new Integer[]{
+            R.color.color_2,
+            R.color.color_12,
+            R.color.color_13,
+            R.color.color_17,
+            R.color.color_19,
+            R.color.color_20
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mStackView = (CardStackView) findViewById(R.id.stackview_main);
+        mActionButtonContainer = (LinearLayout) findViewById(R.id.button_container);
+        mStackView.setItemExpendListener(this);
+        mTestStackAdapter = new TestStackAdapter(this);
+        mStackView.setAdapter(mTestStackAdapter);
+
+        new Handler().postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        mTestStackAdapter.updateData(Arrays.asList(TEST_DATAS));
+                    }
+                }
+                , 200
+        );
+
 
         escudos = (TextView)findViewById(R.id.escudos);
         tunicas = (TextView)findViewById(R.id.tunicas);
@@ -92,6 +128,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             getMarchas();//yo
         }
 
+    }
+
+    @Override
+    public void onItemExpend(boolean expend) {
+        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
     }
 
     //RETROFIT MARCHAS

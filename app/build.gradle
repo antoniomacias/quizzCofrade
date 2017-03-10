@@ -40,6 +40,7 @@ dependencies {
     compile 'jp.wasabeef:picasso-transformations:2.1.0'
     compile 'com.bcgdv.asia.lib:ticktock:1.2'
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
+    compile 'com.loopeer.library:cardstack:1.0.2'
     testCompile 'junit:junit:4.12'
     apt 'org.parceler:parceler:1.1.1'
     compile 'com.github.chathuralakmal:AndroidImagePopup:1.0.5'
