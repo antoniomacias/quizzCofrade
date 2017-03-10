@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         } else { // other time your app loads
             //getHermandades();
             //getPasos();
-            //getMarchas();
+            getMarchas();//yo
         }
 
     }

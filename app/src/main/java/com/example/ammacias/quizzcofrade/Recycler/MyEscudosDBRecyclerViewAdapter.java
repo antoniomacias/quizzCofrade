@@ -54,30 +54,30 @@ public class MyEscudosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyEscud
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
                         .load((mValues.get(position).getEscudo()))
-                        .placeholder(R.drawable.star)
+                        .placeholder(R.drawable.blanco)
                         .resize(250,200)
                         .transform(new BlurTransformation(ctx, 25, 1))
                         .into(holder.mIdView);
             }else{
                 Picasso.with(ctx)
                         .load((mValues.get(position).getEscudo()))
-                        .placeholder(R.drawable.star)
+                        .placeholder(R.drawable.blanco)
                         .resize(250, 200)
                         .into(holder.mIdView);
             }
         }else{ // if otra categoría q no sea Escudos => TÚNICAS
-            if(checkAcertado(mValues.get(position))){
+            if (checkAcertado(mValues.get(position))) {
                 Picasso.with(ctx)
                         .load(mValues.get(position).getFotoTunica())
-                        .placeholder(R.drawable.star)
-                        .resize(250,200)
+                        .placeholder(R.drawable.blanco)
+                        .resize(250, 200)
                         .transform(new BlurTransformation(ctx, 25, 1))
                         .into(holder.mIdView);
 
-            }else {
+            } else {
                 Picasso.with(ctx)
                         .load(mValues.get(position).getFotoTunica())
-                        .placeholder(R.drawable.star)
+                        .placeholder(R.drawable.blanco)
                         .resize(250, 200)
                         .into(holder.mIdView);
             }

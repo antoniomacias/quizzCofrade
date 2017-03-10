@@ -1,6 +1,9 @@
 package com.example.ammacias.quizzcofrade.DetalleActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,8 +11,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
@@ -29,11 +35,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import rm.com.longpresspopup.LongPressPopup;
+import rm.com.longpresspopup.LongPressPopupBuilder;
 
 public class DetalleEscudoActivity extends AppCompatActivity {
 
     ImageView imageView;
     EditText respuesta;
+    boolean isImageFitToScreen;
 
     HermandadDBDao hermandadDBDao;
     HermandadDB herma;
@@ -44,6 +53,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +84,38 @@ public class DetalleEscudoActivity extends AppCompatActivity {
             respuesta.setText(s);
         }
         jugar(id_aux);
+
+        //imgview.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        //ImagePopup imagePopup = new ImagePopup(this);
+       /* final ImagePopup imagePopup = new ImagePopup(this);
+        imagePopup.setBackgroundColor(Color.BLACK);
+
+        imagePopup.setHideCloseIcon(false);
+        imagePopup.setImageOnClickClose(true);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imagePopup.initiatePopup(imageView.getDrawable());
+            }
+        });*/
+
+        /*imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isImageFitToScreen) {
+                    isImageFitToScreen=false;
+                    imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                    imageView.setAdjustViewBounds(true);
+                }else{
+                    isImageFitToScreen=true;
+                    imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+            }
+        });*/
     } // Fin onCreate
 
     public void jugar(final Long id_aux){

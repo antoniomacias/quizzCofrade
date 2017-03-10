@@ -42,4 +42,6 @@ dependencies {
     compile 'com.github.iammert:InteractivePlayerView:f4f6490290'
     testCompile 'junit:junit:4.12'
     apt 'org.parceler:parceler:1.1.1'
+    compile 'com.github.chathuralakmal:AndroidImagePopup:1.0.5'
+    compile 'com.rm:longpresspopup:1.0.1'
 }

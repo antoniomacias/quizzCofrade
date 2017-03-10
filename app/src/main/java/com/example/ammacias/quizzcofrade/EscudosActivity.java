@@ -50,6 +50,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickHermandadDB(HermandadDB h/*, List<HermandadDB> l, int pos*/) {
+        Toast.makeText(this, ""+h.getNombre(), Toast.LENGTH_SHORT).show();
         Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
         i.putExtra("IDHermandad", h.getId());
         /*i.putExtra("listaDesordenada", Parcels.wrap(l));
