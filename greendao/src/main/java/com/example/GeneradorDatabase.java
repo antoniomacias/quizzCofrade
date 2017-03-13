@@ -55,7 +55,7 @@ public class GeneradorDatabase {
         rankingDB.addLongProperty("idUsuario");
         rankingDB.addStringProperty("nick");
         rankingDB.addIntProperty("aciertos");
-        rankingDB.addDateProperty("fecha");
+        rankingDB.addStringProperty("fecha");
 
         // Definimos las entidades (tablas) de la base de datos
         Entity usuariosHermandades = schema.addEntity("UsuariosHermandadesDB");

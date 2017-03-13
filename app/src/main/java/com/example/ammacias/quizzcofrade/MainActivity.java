@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Paso;
+import com.example.ammacias.quizzcofrade.Clases.Ranking;
 import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
 import com.example.ammacias.quizzcofrade.Pojos_API.Marchas;
 import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
+import com.example.ammacias.quizzcofrade.Pojos_API.Rankings;
 import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
 import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
@@ -29,6 +31,8 @@ import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
+import com.example.ammacias.quizzcofrade.localdb.RankingDB;
+import com.example.ammacias.quizzcofrade.localdb.RankingDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
@@ -116,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
             getPasos();
             getUsuarios_Hermandades();
             getMarchas();
+            getRanking();
 
 
             settings = getSharedPreferences("PREFS_NAME", 0);
@@ -123,11 +128,40 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         } else { // other time your app loads
-            //getHermandades();
-            //getPasos();
             getMarchas();//yo
         }
 
+    }
+    //RETROFIT Ranking
+    private void getRanking() {
+        Call<Rankings> autocompleteList5 = service1.getRankingRetrofit();
+
+        autocompleteList5.enqueue(new Callback<Rankings>() {
+            @Override
+            public void onResponse(Response<Rankings> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Rankings r = response.body();
+                    RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(MainActivity.this);
+
+                    for (Ranking a: r.getData()) {
+                        // System.out.println("RANKING: "+a);
+                        //"id, nombre, banda, fecha, ruta"
+                        RankingDB m = new RankingDB();
+                        m.setIdUsuario(a.getIdUsuario());
+                        m.setNick(a.getNick());
+                        m.setFecha(a.getFecha());
+                        m.setAciertos(a.getAciertos());
+
+                        rankingDBDao.insertOrReplace(m);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
     }
 
     @Override

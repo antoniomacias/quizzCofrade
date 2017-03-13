@@ -46,6 +46,11 @@ public class DatabaseConnection {
         return daoSession.getMarchaDBDao();
     }
 
+    public static RankingDBDao getRankingDBDao (Context ctx) {
+        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
+        return daoSession.getRankingDBDao();
+    }
+
     public static void closeConnection(){
         daoMaster.getDatabase().close();
     }

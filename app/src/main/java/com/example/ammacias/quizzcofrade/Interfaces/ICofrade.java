@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public interface ICofrade {
-    void onClickHermandadDB(HermandadDB h/*, List<HermandadDB>l, int posicionDeLaLista*/);
+    void onClickHermandadDB(HermandadDB h);
     void onClickPasosDB(PasosDB p);
     void onClickMarcha(MarchaDB m);
 }

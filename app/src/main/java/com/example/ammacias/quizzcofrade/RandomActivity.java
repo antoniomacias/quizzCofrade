@@ -12,10 +12,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
+import com.example.ammacias.quizzcofrade.Clases.Ranking;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.RankingFragment;
@@ -26,6 +28,8 @@ import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
+import com.example.ammacias.quizzcofrade.localdb.RankingDB;
+import com.example.ammacias.quizzcofrade.localdb.RankingDBDao;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -67,6 +71,9 @@ public class RandomActivity extends AppCompatActivity {
     Fragment f;
     Long arg;           //Posicion
     String arg1;        //Categoria
+
+    ListView listviu;
+    List<RankingDB>l;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +153,7 @@ public class RandomActivity extends AppCompatActivity {
                     .resize(250, 200)
                     .into(imageView);
         }*/
-    }
+    }// Fin onCreate
 
     private void muestradialogo() {
         //guardarAcierto(hermandadDBDao.load(id_aux).getId());
@@ -405,12 +412,42 @@ public class RandomActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoBusqueda() {
+        //TODO: LO PRIMERO ES TRAERME EL RANKING ACTUAL DEL SERVIDOR
+        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
+        List<RankingDB> ran = rankingDBDao.loadAll();
+        System.out.println(ran);
+
+
+
+
+
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(RandomActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.fragment_ranking, null);
         // Editar los elementos: editText...
+
+
+        // Paso 1
+        listviu = (ListView) mView.findViewById(R.id.list_view_ranking);
+        // Paso 2
+        l = new ArrayList<>();
+        for (RankingDB r:ran) {
+            l.add(r);
+        }
+        // Paso 3
+        RankingAdapter adapter = new RankingAdapter(
+                this,
+                R.layout.ranking_item,
+                l
+        );
+        // Paso 4
+        listviu.setAdapter(adapter);
+
+
+
         mBuilder.setView(mView);
         AlertDialog dialog = mBuilder.create();
         dialog.show();
+
 
 
         // Cuando cierre el diálogo, redireccionar a las categorías
