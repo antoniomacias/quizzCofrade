@@ -7,7 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
     <application
+
         android:name=".Utils.Application_vars"
         android:allowBackup="true"
         android:icon="@drawable/logouno"
@@ -50,6 +53,7 @@
         <activity android:name=".DetalleActivity.DetalleMarchaActivity" />
         <activity android:name=".DetalleActivity.DetallePasosActivity" />
         <activity android:name=".DetalleActivity.DetalleLlamadoresActivity" />
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
 </manifest>

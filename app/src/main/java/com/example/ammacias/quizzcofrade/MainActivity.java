@@ -420,4 +420,10 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
         i = new Intent(MainActivity.this, PasosActivity.class);
         startActivity(i);
     }
+
+    public void click_login(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Login");
+        i = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
 }
