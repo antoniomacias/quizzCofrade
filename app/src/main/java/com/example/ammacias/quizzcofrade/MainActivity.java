@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
     Intent i;
     TextView escudos, tunicas, pasos, marchas, aleatorio;
 
-    IRetrofit service1;
+    static IRetrofit service1;
 
     private CardStackView mStackView;
     private LinearLayout mActionButtonContainer;
@@ -132,8 +132,9 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
         }
 
     }
+
     //RETROFIT Ranking
-    private void getRanking() {
+    public void getRanking() {
         Call<Rankings> autocompleteList5 = service1.getRankingRetrofit();
 
         autocompleteList5.enqueue(new Callback<Rankings>() {

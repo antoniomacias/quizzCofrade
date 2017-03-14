@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.example.ammacias.quizzcofrade.Clases.Ranking;
+import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Pojos_API.Rankings;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.RankingFragment;
@@ -38,6 +40,11 @@ import java.util.List;
 import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class RandomActivity extends AppCompatActivity {
 
@@ -412,10 +419,23 @@ public class RandomActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoBusqueda() {
-        //TODO: LO PRIMERO ES TRAERME EL RANKING ACTUAL DEL SERVIDOR
+        getRankingActual();
+        Boolean recordPersonal = false;
+        // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
         RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
         List<RankingDB> ran = rankingDBDao.loadAll();
-        System.out.println(ran);
+
+        for (RankingDB r:ran) {
+            // mis registros - mayor estricto q el anterior
+            if(r.getNick().equals("MI USUARIO_NICK") && numAciertos > r.getAciertos()){
+                recordPersonal = true;
+                // ¿Lanzar diálogo animación con felicitación?
+                // TODO: HAGO EL POST PARA SUBIRLOS AL SERVIDOR
+            }
+        }
+        //
+        // 
+        // si está en el ranking, mostrar alguna animación
 
 
 
@@ -434,11 +454,7 @@ public class RandomActivity extends AppCompatActivity {
             l.add(r);
         }
         // Paso 3
-        RankingAdapter adapter = new RankingAdapter(
-                this,
-                R.layout.ranking_item,
-                l
-        );
+        RankingAdapter adapter = new RankingAdapter(this,R.layout.ranking_item,l);
         // Paso 4
         listviu.setAdapter(adapter);
 
@@ -457,5 +473,45 @@ public class RandomActivity extends AppCompatActivity {
                 redirect(findViewById(R.id.activity_detalle));
             }
         });
+    }
+
+    private void getRankingActual() {
+        //RETROFIT Ranking
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+            Call<Rankings> autocompleteList5 =
+                    retrofit1.create(IRetrofit.class).getRankingRetrofit();
+
+            autocompleteList5.enqueue(new Callback<Rankings>() {
+                @Override
+                public void onResponse(Response<Rankings> response, Retrofit retrofit) {
+                    if (response.isSuccess()) {
+                        Rankings r = response.body();
+                        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
+
+                        for (Ranking a: r.getData()) {
+                            // System.out.println("RANKING: "+a);
+                            //"id, nombre, banda, fecha, ruta"
+                            RankingDB m = new RankingDB();
+                            m.setIdUsuario(a.getIdUsuario());
+                            m.setNick(a.getNick());
+                            m.setFecha(a.getFecha());
+                            m.setAciertos(a.getAciertos());
+
+                            rankingDBDao.insertOrReplace(m);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable t) {
+                    System.out.println(t.getMessage());
+                }
+            });
+        }
     }
 }
