@@ -95,6 +95,17 @@
      android:layout_alignStart="@+id/llamadores"
      android:layout_marginTop="52dp" />
 
+ <TextView
+     android:id="@+id/login"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textSize="20dp"
+     android:text="Login"
+     android:onClick="click_login"
+     android:layout_alignLeft="@+id/random"
+     android:layout_alignStart="@+id/random"
+     android:layout_marginTop="52dp" />
+
  <com.loopeer.cardstack.CardStackView
      android:id="@+id/stackview_main"
      android:layout_width="match_parent"
