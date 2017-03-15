@@ -73,14 +73,4 @@ public class RankingDB {
         this.fecha = fecha;
     }
 
-    @Override
-    public String toString() {
-        return "RankingDB{" +
-                "id=" + id +
-                ", idUsuario=" + idUsuario +
-                ", nick='" + nick + '\'' +
-                ", aciertos=" + aciertos +
-                ", fecha='" + fecha + '\'' +
-                '}';
-    }
 }

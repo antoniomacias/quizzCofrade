@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ceylonlabs.imageviewpopup.ImagePopup;
@@ -41,6 +42,7 @@ import rm.com.longpresspopup.LongPressPopupBuilder;
 public class DetalleEscudoActivity extends AppCompatActivity {
 
     ImageView imageView;
+    TextView pregunta;
     EditText respuesta;
     boolean isImageFitToScreen;
 
@@ -60,6 +62,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_escudos);
 
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
+        pregunta = (TextView)findViewById(R.id.pregunta_detalle_escudos);
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
 
         //Hermandad seleccionada
@@ -125,11 +128,27 @@ public class DetalleEscudoActivity extends AppCompatActivity {
                     .load(hermandadDBDao.load(id_aux).getEscudo())
                     .resize(500, 400)
                     .into(imageView);
+
         }else{ // Ha escogido Túnicas
-            Picasso.with(this)
-                    .load(hermandadDBDao.load(id_aux).getFotoTunica())
-                    .resize(500, 400)
-                    .into(imageView);
+            if(hermandadDBDao.load(id_aux).getFotoTunica().contains("n_")) { // El nazareno va de negro
+                if(hermandadDBDao.load(id_aux).getFotoTunica().contains("madruga")) { // El nazareno es de la Madrugá
+                    pregunta.setText("¿A qué hermandad pertenece este nazareno de la "+hermandadDBDao.load(id_aux).getDia()+"?");
+                }else pregunta.setText("¿A qué hermandad pertenece este nazareno del "+hermandadDBDao.load(id_aux).getDia()+"?");
+            }else{
+                pregunta.setText("¿A qué hermandad pertenece?");
+            }
+
+            if(hermandadDBDao.load(id_aux).getFotoTunica().contains("/_")) { // Hay dos nazarenos en la foto
+                Picasso.with(this)
+                        .load(hermandadDBDao.load(id_aux).getFotoTunica())
+                        .resize(500, 400)
+                        .into(imageView);
+            }else{
+                Picasso.with(this)
+                        .load(hermandadDBDao.load(id_aux).getFotoTunica())
+                        .resize(350, 350)
+                        .into(imageView);
+            }
         }
 
         respuesta.addTextChangedListener(new TextWatcher() {
