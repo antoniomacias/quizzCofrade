@@ -8,124 +8,209 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFF99"
     tools:context="com.example.ammacias.quizzcofrade.MainActivity">
 
-   <!-- <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="com.example.ammacias.quizzcofrade.Reciclaje.CategoriaFragmentList"
 
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="63dp"
-        android:id="@+id/fragment" />-->
-
-    <TextView
-        android:id="@+id/escudos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Escudos"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="17dp"
-        android:onClick="click_escudos"/>
-
-    <TextView
-        android:id="@+id/tunicas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Túnicas"
-        android:layout_alignBaseline="@+id/escudos"
-        android:layout_alignBottom="@+id/escudos"
-        android:layout_alignLeft="@+id/random"
-        android:layout_alignStart="@+id/random"
-        android:onClick="click_tunicas"/>
-
-    <TextView
-        android:id="@+id/pasos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="Pasos"
-        android:layout_alignBaseline="@+id/tunicas"
-        android:layout_alignBottom="@+id/tunicas"
-        android:layout_toRightOf="@+id/random"
-        android:layout_toEndOf="@+id/random"
-        android:layout_marginLeft="30dp"
-        android:onClick="click_pasos"/>
-
- <TextView
-     android:id="@+id/marchas"
+ <ImageView
+     android:id="@+id/cabecera"
      android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="20dp"
-     android:text="Marchas"
-     android:layout_marginTop="89dp"
-     android:layout_below="@+id/escudos"
+     android:layout_height="90dp"
+     app:srcCompat="@drawable/cabecera"
+     android:layout_alignParentTop="true"
      android:layout_alignParentLeft="true"
-     android:layout_alignParentStart="true"
-     android:onClick="click_marchas"/>
+     android:layout_alignParentRight="true"
+     android:layout_marginBottom="40dp"/>
 
- <TextView
-     android:id="@+id/llamadores"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="20dp"
-     android:text="Llamadores"
-     android:layout_marginTop="89dp"
-     android:layout_below="@+id/escudos"
-     android:layout_alignBaseline="@+id/marchas"
-     android:layout_alignBottom="@+id/marchas"
-     android:layout_marginLeft="30dp"
-     android:layout_toRightOf="@+id/marchas"
-     android:onClick="click_llamadores"/>
 
- <TextView
-     android:id="@+id/random"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="20dp"
-     android:text="Aleatorio"
-     android:onClick="click_random"
-     android:layout_below="@+id/llamadores"
-     android:layout_alignLeft="@+id/llamadores"
-     android:layout_alignStart="@+id/llamadores"
-     android:layout_marginTop="52dp" />
+    <RelativeLayout
+        android:id="@+id/primer_relative"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:layout_below="@id/cabecera"
+        >
 
- <TextView
-     android:id="@+id/login"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:textSize="20dp"
-     android:text="Login"
-     android:onClick="click_login"
-     android:layout_alignLeft="@+id/random"
-     android:layout_alignStart="@+id/random"
-     android:layout_marginTop="52dp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            >
 
- <com.loopeer.cardstack.CardStackView
-     android:id="@+id/stackview_main"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:background="@android:color/white"
-     android:clipToPadding="false"
-     android:paddingLeft="12dp"
-     android:paddingRight="12dp"
-     android:paddingTop="12dp"
-     android:layout_below="@+id/random"
-     />
- <LinearLayout
-     android:id="@+id/button_container"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_gravity="right|center_vertical"
-     android:layout_marginRight="@dimen/activity_horizontal_margin"
-     android:orientation="vertical"
-     android:gravity="center">
+            <ImageView
+                android:id="@+id/escudo_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_escudos"
+                android:src="@drawable/escudos"
+                >
+            </ImageView>
 
- </LinearLayout>
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/escudo_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:text="Escudos"
+                android:textSize="20dp"
+                android:textColor="#000"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            >
+
+            <ImageView
+                android:id="@+id/tunica_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_tunicas"
+                android:src="@drawable/tunicas" >
+            </ImageView>
+
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tunica_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:text="Túnicas"
+                android:textSize="20dp"
+                android:textColor="#000"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/paso_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_pasos"
+                android:src="@drawable/pasos" >
+            </ImageView>
+
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/paso_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:textSize="20dp"
+                android:text="Pasos"
+                android:textColor="#000" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:layout_below="@id/primer_relative">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentLeft="true"
+            >
+
+            <ImageView
+                android:id="@+id/marcha_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_marchas"
+                android:src="@drawable/marchas"
+                >
+            </ImageView>
+
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/marcha_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:text="Marchas"
+                android:textSize="20dp"
+                android:textColor="#000"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            >
+
+            <ImageView
+                android:id="@+id/llamador_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_llamadores"
+                android:src="@drawable/llamadores" >
+            </ImageView>
+
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/llamador_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:text="Llamador"
+                android:textSize="20dp"
+                android:textColor="#000"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/aleatorio_img"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:background="@null"
+                android:onClick="click_random"
+                android:src="@drawable/pasos" >
+            </ImageView>
+
+            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/aleatorio_img"
+                android:layout_centerInParent="true"
+                android:clickable="false"
+                android:textSize="20dp"
+                android:text="Aleatorio"
+                android:textColor="#000" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/registro_img"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="40dp"
+        android:layout_centerInParent="true"
+        app:srcCompat="@drawable/registro"
+        android:onClick="click_login"/>
+    
 
 </RelativeLayout>

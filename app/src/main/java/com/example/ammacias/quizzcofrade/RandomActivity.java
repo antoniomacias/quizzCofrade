@@ -345,7 +345,7 @@ public class RandomActivity extends AppCompatActivity {
         // Poner el reloj a 0
         mCountDown.stop();
         cambiarImg();
-        //TODO: Cambiar img SweetAlertDialog
+        //TODO: Cambiar img SweetAlertDialog => liquid button?
 /*        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("¡SE HAN ACABADO LAS VIDAS!")
                 .setConfirmText("Volver a jugar")
@@ -375,12 +375,10 @@ public class RandomActivity extends AppCompatActivity {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        Toast.makeText(RandomActivity.this, "Redirigir al ránking", Toast.LENGTH_SHORT).show();
                         mostrarDialogoBusqueda();
                     }
                 })
                 .show();
-        //TODO: Insertar los datos
 
 
     }
@@ -419,23 +417,28 @@ public class RandomActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogoBusqueda() {
+        // Petición GET y traerme SIEMPRE el ranking del servidor y no el de la bd local
         getRankingActual();
         Boolean recordPersonal = false;
+
         // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
         RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
         List<RankingDB> ran = rankingDBDao.loadAll();
 
         for (RankingDB r:ran) {
-            // mis registros - mayor estricto q el anterior
+            // mis registros -> mayor estricto q el anterior
             if(r.getNick().equals("MI USUARIO_NICK") && numAciertos > r.getAciertos()){
                 recordPersonal = true;
                 // ¿Lanzar diálogo animación con felicitación?
                 // TODO: HAGO EL POST PARA SUBIRLOS AL SERVIDOR
+
+            }else{ // Coger la posición que ocupa
+
             }
         }
         //
         // 
-        // si está en el ranking, mostrar alguna animación
+        // ¿Si está en el ranking, mostrar alguna animación? => liquid button?
 
 
 
@@ -450,11 +453,12 @@ public class RandomActivity extends AppCompatActivity {
         listviu = (ListView) mView.findViewById(R.id.list_view_ranking);
         // Paso 2
         l = new ArrayList<>();
+        Toast.makeText(this, "Para ver si carga antes la LISTA", Toast.LENGTH_SHORT).show();
         for (RankingDB r:ran) {
             l.add(r);
         }
         // Paso 3
-        RankingAdapter adapter = new RankingAdapter(this,R.layout.ranking_item,l);
+        RankingAdapter adapter = new RankingAdapter(this, R.layout.ranking_item, l);
         // Paso 4
         listviu.setAdapter(adapter);
 
@@ -492,7 +496,7 @@ public class RandomActivity extends AppCompatActivity {
                     if (response.isSuccess()) {
                         Rankings r = response.body();
                         RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
-
+                        rankingDBDao.deleteAll();
                         for (Ranking a: r.getData()) {
                             // System.out.println("RANKING: "+a);
                             //"id, nombre, banda, fecha, ruta"
@@ -504,6 +508,8 @@ public class RandomActivity extends AppCompatActivity {
 
                             rankingDBDao.insertOrReplace(m);
                         }
+
+                        Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -513,4 +519,5 @@ public class RandomActivity extends AppCompatActivity {
                 }
             });
         }
+
 }

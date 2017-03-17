@@ -51,12 +51,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
+                info.setText("Login attempt failed.\n" + e.getMessage() + "\n" +e.getCause());
             }
         });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 }
