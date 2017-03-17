@@ -209,6 +209,8 @@
         android:layout_alignParentBottom="true"
         android:layout_marginRight="40dp"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/registro" />
+        app:srcCompat="@drawable/registro"
+        android:onClick="click_login"/>
+    
 
 </RelativeLayout>

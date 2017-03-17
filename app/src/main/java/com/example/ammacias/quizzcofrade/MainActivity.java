@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
         } else { // other time your app loads
-            getMarchas();//yo
+            System.out.println("Ya no descargo");
         }
 
     }
