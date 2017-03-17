@@ -12,14 +12,23 @@
     tools:context="com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity">
 
 
+    <TextView
+        android:id="@+id/pregunta_detalle_escudos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:hint="¿A qué hermandad pertenece?" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/fotoDetalle"
+        android:layout_marginBottom="38dp"
         android:layout_above="@+id/respuesta_escudo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,7 +38,8 @@
         android:ems="16"
         android:id="@+id/respuesta_escudo"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Anterior"
@@ -50,4 +60,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="next_escudo"/>
+
 </RelativeLayout>

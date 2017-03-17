@@ -43,7 +43,7 @@ dependencies {
     compile 'com.loopeer.library:cardstack:1.0.2'
     compile 'com.github.chathuralakmal:AndroidImagePopup:1.0.5'
     compile 'com.rm:longpresspopup:1.0.1'
-    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     testCompile 'junit:junit:4.12'
     apt 'org.parceler:parceler:1.1.1'
 }

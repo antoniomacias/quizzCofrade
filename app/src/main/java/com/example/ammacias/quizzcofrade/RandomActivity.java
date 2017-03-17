@@ -513,8 +513,4 @@ public class RandomActivity extends AppCompatActivity {
                 }
             });
         }
-<<<<<<< HEAD
 }
-=======
-    }
->>>>>>> d49cadad8e7c687887a2be0f06f4ce4af365451b
