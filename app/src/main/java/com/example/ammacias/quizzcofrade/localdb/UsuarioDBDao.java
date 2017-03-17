@@ -25,6 +25,8 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Nick = new Property(1, String.class, "nick", false, "NICK");
         public final static Property Email = new Property(2, String.class, "email", false, "EMAIL");
+        public final static Property Idface = new Property(3, String.class, "idface", false, "IDFACE");
+        public final static Property AuthToken = new Property(4, String.class, "authToken", false, "AUTH_TOKEN");
     };
 
 
@@ -42,7 +44,9 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"USUARIO_DB\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NICK\" TEXT," + // 1: nick
-                "\"EMAIL\" TEXT);"); // 2: email
+                "\"EMAIL\" TEXT," + // 2: email
+                "\"IDFACE\" TEXT," + // 3: idface
+                "\"AUTH_TOKEN\" TEXT);"); // 4: authToken
     }
 
     /** Drops the underlying database table. */
@@ -69,6 +73,16 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         if (email != null) {
             stmt.bindString(3, email);
         }
+ 
+        String idface = entity.getIdface();
+        if (idface != null) {
+            stmt.bindString(4, idface);
+        }
+ 
+        String authToken = entity.getAuthToken();
+        if (authToken != null) {
+            stmt.bindString(5, authToken);
+        }
     }
 
     @Override
@@ -89,6 +103,16 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         if (email != null) {
             stmt.bindString(3, email);
         }
+ 
+        String idface = entity.getIdface();
+        if (idface != null) {
+            stmt.bindString(4, idface);
+        }
+ 
+        String authToken = entity.getAuthToken();
+        if (authToken != null) {
+            stmt.bindString(5, authToken);
+        }
     }
 
     @Override
@@ -101,7 +125,9 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         UsuarioDB entity = new UsuarioDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nick
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // email
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // email
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // idface
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // authToken
         );
         return entity;
     }
@@ -111,6 +137,8 @@ public class UsuarioDBDao extends AbstractDao<UsuarioDB, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNick(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setEmail(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setIdface(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setAuthToken(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

@@ -5,12 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.Date;
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +35,15 @@ public class LoginActivity extends AppCompatActivity {
 
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
-
+        UsuarioDBDao rankingDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+        List<UsuarioDB> ran = rankingDBDao.loadAll();
+        System.out.println("****************\n****************\n****************\n****************\n");
+        System.out.println("****************\n****************\n****************\n****************\n");
+        for (UsuarioDB u : ran){
+            System.out.println(u);
+        }
+        System.out.println("****************\n****************\n****************\n****************\n");
+        System.out.println("****************\n****************\n****************\n****************\n");
 
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {

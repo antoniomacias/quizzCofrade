@@ -17,6 +17,8 @@ public class GeneradorDatabase {
         usuarioDB.addIdProperty().autoincrement().primaryKey();
         usuarioDB.addStringProperty("nick");
         usuarioDB.addStringProperty("email");
+        usuarioDB.addStringProperty("idface");
+        usuarioDB.addStringProperty("authToken");
 
         // Definimos las entidades (tablas) de la base de datos
         Entity hermandadDB = schema.addEntity("HermandadDB");

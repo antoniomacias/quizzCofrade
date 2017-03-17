@@ -17,14 +17,22 @@ public class Usuario {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("idface")
+    @Expose
+    private String idface;
+    @SerializedName("authToken")
+    @Expose
+    private String authToken;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nick, String email) {
+    public Usuario(Long id, String nick, String email, String idface, String authToken) {
         this.id = id;
         this.nick = nick;
         this.email = email;
+        this.idface = idface;
+        this.authToken = authToken;
     }
 
     public Long getId() {
@@ -51,11 +59,22 @@ public class Usuario {
         this.email = email;
     }
 
+    public String getIdface() { return idface; }
+
+    public void setIdface(String idface) { this.idface = idface; }
+
+    public String getAuthToken() { return authToken; }
+
+    public void setAuthToken(String authToken) { this.authToken = authToken; }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", nick='" + nick + '\'' +
+                ", email='" + email + '\'' +
+                ", idface='" + idface + '\'' +
+                ", authToken='" + authToken + '\'' +
                 '}';
     }
 }

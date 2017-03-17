@@ -18,8 +18,14 @@ import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.example.ammacias.quizzcofrade.Clases.Ranking;
+import com.example.ammacias.quizzcofrade.Clases.Result;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
+import com.example.ammacias.quizzcofrade.Pojos_API.Marchas;
+import com.example.ammacias.quizzcofrade.Pojos_API.Pasos;
 import com.example.ammacias.quizzcofrade.Pojos_API.Rankings;
+import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
+import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.RankingFragment;
@@ -36,6 +42,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -45,8 +52,9 @@ import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
+import retrofit.http.Field;
 
-public class RandomActivity extends AppCompatActivity {
+public class RandomActivity extends AppCompatActivity{
 
     List<HermandadDB> listaH;
     List<PasosDB> listaP;
@@ -368,12 +376,14 @@ public class RandomActivity extends AppCompatActivity {
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        getRankingActual();
                         sDialog.dismissWithAnimation();
                         redirect(findViewById(R.id.activity_detalle));
                     }
                 }).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
+                        getRankingActual();
                         sDialog.dismissWithAnimation();
                         mostrarDialogoBusqueda();
                     }
@@ -418,7 +428,6 @@ public class RandomActivity extends AppCompatActivity {
 
     private void mostrarDialogoBusqueda() {
         // Petición GET y traerme SIEMPRE el ranking del servidor y no el de la bd local
-        getRankingActual();
         Boolean recordPersonal = false;
 
         // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
@@ -427,13 +436,48 @@ public class RandomActivity extends AppCompatActivity {
 
         for (RankingDB r:ran) {
             // mis registros -> mayor estricto q el anterior
-            if(r.getNick().equals("MI USUARIO_NICK") && numAciertos > r.getAciertos()){
+            if(r.getNick().equals("gabri_neno") && numAciertos > r.getAciertos()){
+                Toast.makeText(this, "entro en el if", Toast.LENGTH_SHORT).show();
                 recordPersonal = true;
                 // ¿Lanzar diálogo animación con felicitación?
                 // TODO: HAGO EL POST PARA SUBIRLOS AL SERVIDOR
 
-            }else{ // Coger la posición que ocupa
+                java.util.Date juDate = new Date();
+                // Fri Mar 17 19:11:01 GMT+01:00 2017
+                String[] parts = juDate.toString().split(" ");
+                String dia = parts[0]; // Fri
+                String mes = parts[1]; // Mar
+                String numdia = parts[2]; // 17
+                String hora = parts[3]; // 19:11:01
+                String zonahoraria = parts[4]; // GMT+01:00
+                String year = parts[5]; // 2017
 
+                System.out.println("El "+numdia+" / "+mes+" / "+year+" a las "+hora);
+                String fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
+                Long idUsuario = r.getIdUsuario();
+                String nick = r.getNick();
+
+                Retrofit retrofit1 = new Retrofit.Builder()
+                        .baseUrl(IRetrofit.ENDPOINT1)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                retrofit1.create(IRetrofit.class).createRanking(idUsuario, nick, numAciertos, fecha).enqueue(new Callback<Ranking>() {
+
+                    @Override
+                    public void onResponse(Response<Ranking> response, Retrofit retrofit) {
+                        Toast.makeText(RandomActivity.this, "EXITO", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }else{ // Coger la posición que ocupa
+                Toast.makeText(this, r.getNick()+"-"+r.getAciertos(), Toast.LENGTH_SHORT).show();
             }
         }
         //
@@ -519,5 +563,6 @@ public class RandomActivity extends AppCompatActivity {
                 }
             });
         }
+
 
 }

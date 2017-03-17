@@ -13,6 +13,8 @@ public class UsuarioDB {
     private Long id;
     private String nick;
     private String email;
+    private String idface;
+    private String authToken;
 
     @Generated
     public UsuarioDB() {
@@ -23,10 +25,12 @@ public class UsuarioDB {
     }
 
     @Generated
-    public UsuarioDB(Long id, String nick, String email) {
+    public UsuarioDB(Long id, String nick, String email, String idface, String authToken) {
         this.id = id;
         this.nick = nick;
         this.email = email;
+        this.idface = idface;
+        this.authToken = authToken;
     }
 
     public Long getId() {
@@ -53,4 +57,30 @@ public class UsuarioDB {
         this.email = email;
     }
 
+    public String getIdface() {
+        return idface;
+    }
+
+    public void setIdface(String idface) {
+        this.idface = idface;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioDB{" +
+                "id=" + id +
+                ", nick='" + nick + '\'' +
+                ", email='" + email + '\'' +
+                ", idface='" + idface + '\'' +
+                ", authToken='" + authToken + '\'' +
+                '}';
+    }
 }

@@ -12,7 +12,10 @@ import com.example.ammacias.quizzcofrade.Pojos_API.Usuarios;
 import com.example.ammacias.quizzcofrade.Pojos_API.UsuariosHermandadesAPI;
 
 import retrofit.Call;
+import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.Field;
+import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 
@@ -45,6 +48,8 @@ public interface IRetrofit {
     @GET("ranking")
     Call<Rankings> getRankingRetrofit();
 
+    @FormUrlEncoded
     @POST("ranking")
-    Call<Ranking> createRanking(@Body Ranking r);
+    Call<Ranking> createRanking(@Field("idUsuario") Long idUsuario, @Field("nick") String nick,
+                                @Field("aciertos") Integer aciertos, @Field("fecha") String fecha);
 }
