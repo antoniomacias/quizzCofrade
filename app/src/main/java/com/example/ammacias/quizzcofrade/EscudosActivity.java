@@ -41,6 +41,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         //String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
         //Toast.makeText(this, "Empezar a jugar con la categoría de "+cat_elegida, Toast.LENGTH_SHORT).show();
         recarga = false;

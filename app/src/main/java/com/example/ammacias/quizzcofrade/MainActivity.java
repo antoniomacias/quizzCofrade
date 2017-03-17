@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,7 +38,6 @@ import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
-import com.loopeer.cardstack.CardStackView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,54 +51,22 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class MainActivity extends AppCompatActivity implements CardStackView.ItemExpendListener, ICofrade{
+public class MainActivity extends AppCompatActivity implements ICofrade{
     Intent i;
-    TextView escudos, tunicas, pasos, marchas, aleatorio;
+    ImageView escudos, tunicas, pasos, marchas, aleatorio;
 
     static IRetrofit service1;
-
-    private CardStackView mStackView;
-    private LinearLayout mActionButtonContainer;
-    private TestStackAdapter mTestStackAdapter;
-
-    public static Integer[] TEST_DATAS = new Integer[]{
-            R.color.color_2,
-            R.color.color_12,
-            R.color.color_13,
-            R.color.color_17,
-            R.color.color_19,
-            R.color.color_20
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        mStackView = (CardStackView) findViewById(R.id.stackview_main);
-        mActionButtonContainer = (LinearLayout) findViewById(R.id.button_container);
-        mStackView.setItemExpendListener(this);
-        mTestStackAdapter = new TestStackAdapter(this);
-        mStackView.setAdapter(mTestStackAdapter);
-
-        new Handler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        mTestStackAdapter.updateData(Arrays.asList(TEST_DATAS));
-                    }
-                }
-                , 200
-        );
-
-
-        escudos = (TextView)findViewById(R.id.escudos);
-        tunicas = (TextView)findViewById(R.id.tunicas);
-        pasos = (TextView)findViewById(R.id.pasos);
-        marchas = (TextView)findViewById(R.id.marchas);
-        aleatorio = (TextView)findViewById(R.id.random);
+        escudos = (ImageView)findViewById(R.id.escudo_img);
+        tunicas = (ImageView)findViewById(R.id.tunica_img);
+        pasos = (ImageView)findViewById(R.id.paso_img);
+        //marchas = (ImageView)findViewById(R.id.marcha_img);
+        //aleatorio = (ImageView)findViewById(R.id.aleatorio_img);
 
 
         Retrofit retrofit1 = new Retrofit.Builder()
@@ -165,10 +133,7 @@ public class MainActivity extends AppCompatActivity implements CardStackView.Ite
         });
     }
 
-    @Override
-    public void onItemExpend(boolean expend) {
-        mActionButtonContainer.setVisibility(expend ? View.VISIBLE : View.GONE);
-    }
+
 
     //RETROFIT MARCHAS
     private void getMarchas() {
