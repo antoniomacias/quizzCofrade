@@ -117,7 +117,9 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         //"id, nombre, banda, fecha, ruta"
                         RankingDB m = new RankingDB();
                         m.setIdUsuario(a.getIdUsuario());
-                        m.setNick(a.getNick());
+                        m.setNombre(a.getNombre());
+                        m.setApellidos(a.getApellidos());
+                        m.setIdface(a.getIdface());
                         m.setFecha(a.getFecha());
                         m.setAciertos(a.getAciertos());
 

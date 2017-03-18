@@ -125,8 +125,10 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("FIRST_LOGIN", idface);
                             editor.commit();
                         }else{
+                            Toast.makeText(LoginActivity.this, "A", Toast.LENGTH_SHORT).show();
                             //Si el id de Facebook es diferente al de las SharedPrefs = Otra persona
                             if (!idSharedPreferences.equals(idface)){
+                                Toast.makeText(LoginActivity.this, "B", Toast.LENGTH_SHORT).show();
                                 //Machaco el ID de las SharedPreferences
                                 settings = getSharedPreferences("PREFS_FACEBOOK", 0);
                                 SharedPreferences.Editor editor = settings.edit();

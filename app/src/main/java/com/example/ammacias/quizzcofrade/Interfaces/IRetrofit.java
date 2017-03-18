@@ -56,12 +56,14 @@ public interface IRetrofit {
                              @Field("idface") String idface, @Field("authToken") String authToken);
 
     @FormUrlEncoded
-    @POST("ranking")
-    Call<Ranking> createRanking(@Field("idUsuario") Long idUsuario, @Field("nick") String nick,
-                                @Field("aciertos") Integer aciertos, @Field("fecha") String fecha);
+    @POST("ranking") // Nombre y apellidos no haría falta actualizarlos => cambiar API
+    Call<Ranking> createRanking(@Field("idUsuario") Long idUsuario,   @Field("nombre") String nombre,
+                                @Field("apellidos") String apellidos, @Field("idface") String idface,
+                                @Field("aciertos")  Integer aciertos, @Field("fecha") String fecha);
 
     @FormUrlEncoded
-    @POST("update-ranking") // TODO: HAY QUE PASARLE EL PARÁMETRO ID
-    Call<Ranking> updateRanking(@Field("idUsuario") Long idUsuario, @Field("nick") String nick,
-                                @Field("aciertos") Integer aciertos, @Field("fecha") String fecha);
+    @POST("update2-ranking") // TODO: HAY QUE PASARLE EL PARÁMETRO ID
+    Call<Ranking> updateRanking(@Field("idUsuario") Long idUsuario,   @Field("nombre") String nombre,
+                                @Field("apellidos") String apellidos, @Field("idface") String idface,
+                                @Field("aciertos")  Integer aciertos, @Field("fecha") String fecha);
 }

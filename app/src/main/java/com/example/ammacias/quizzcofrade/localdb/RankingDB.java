@@ -12,7 +12,9 @@ public class RankingDB {
     @Id(autoincrement = true)
     private Long id;
     private Long idUsuario;
-    private String nick;
+    private String nombre;
+    private String apellidos;
+    private String idface;
     private Integer aciertos;
     private String fecha;
 
@@ -25,10 +27,12 @@ public class RankingDB {
     }
 
     @Generated
-    public RankingDB(Long id, Long idUsuario, String nick, Integer aciertos, String fecha) {
+    public RankingDB(Long id, Long idUsuario, String nombre, String apellidos, String idface, Integer aciertos, String fecha) {
         this.id = id;
         this.idUsuario = idUsuario;
-        this.nick = nick;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.idface = idface;
         this.aciertos = aciertos;
         this.fecha = fecha;
     }
@@ -49,12 +53,28 @@ public class RankingDB {
         this.idUsuario = idUsuario;
     }
 
-    public String getNick() {
-        return nick;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getIdface() {
+        return idface;
+    }
+
+    public void setIdface(String idface) {
+        this.idface = idface;
     }
 
     public Integer getAciertos() {

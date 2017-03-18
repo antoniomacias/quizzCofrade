@@ -56,7 +56,9 @@ public class GeneradorDatabase {
         Entity rankingDB = schema.addEntity("RankingDB");
         rankingDB.addIdProperty().autoincrement().primaryKey();
         rankingDB.addLongProperty("idUsuario");
-        rankingDB.addStringProperty("nick");
+        rankingDB.addStringProperty("nombre");
+        rankingDB.addStringProperty("apellidos");
+        rankingDB.addStringProperty("idface");
         rankingDB.addIntProperty("aciertos");
         rankingDB.addStringProperty("fecha");
 

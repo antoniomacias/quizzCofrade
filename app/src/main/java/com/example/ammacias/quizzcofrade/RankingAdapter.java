@@ -45,7 +45,7 @@ public class RankingAdapter extends ArrayAdapter<RankingDB> {
         TextView fecha =  (TextView)v.findViewById(R.id.fecha_ranking);
 
         // 3. Aplico los datos del listado sobre los componentes visuales
-        nick.setText(current.getNick());
+        nick.setText(current.getNombre()+" "+current.getApellidos());
         puntuacion.setText(String.valueOf(current.getAciertos()));
         fecha.setText(current.getFecha());
 

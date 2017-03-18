@@ -24,9 +24,11 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property IdUsuario = new Property(1, Long.class, "idUsuario", false, "ID_USUARIO");
-        public final static Property Nick = new Property(2, String.class, "nick", false, "NICK");
-        public final static Property Aciertos = new Property(3, Integer.class, "aciertos", false, "ACIERTOS");
-        public final static Property Fecha = new Property(4, String.class, "fecha", false, "FECHA");
+        public final static Property Nombre = new Property(2, String.class, "nombre", false, "NOMBRE");
+        public final static Property Apellidos = new Property(3, String.class, "apellidos", false, "APELLIDOS");
+        public final static Property Idface = new Property(4, String.class, "idface", false, "IDFACE");
+        public final static Property Aciertos = new Property(5, Integer.class, "aciertos", false, "ACIERTOS");
+        public final static Property Fecha = new Property(6, String.class, "fecha", false, "FECHA");
     };
 
 
@@ -44,9 +46,11 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"RANKING_DB\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"ID_USUARIO\" INTEGER," + // 1: idUsuario
-                "\"NICK\" TEXT," + // 2: nick
-                "\"ACIERTOS\" INTEGER," + // 3: aciertos
-                "\"FECHA\" TEXT);"); // 4: fecha
+                "\"NOMBRE\" TEXT," + // 2: nombre
+                "\"APELLIDOS\" TEXT," + // 3: apellidos
+                "\"IDFACE\" TEXT," + // 4: idface
+                "\"ACIERTOS\" INTEGER," + // 5: aciertos
+                "\"FECHA\" TEXT);"); // 6: fecha
     }
 
     /** Drops the underlying database table. */
@@ -69,19 +73,29 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
             stmt.bindLong(2, idUsuario);
         }
  
-        String nick = entity.getNick();
-        if (nick != null) {
-            stmt.bindString(3, nick);
+        String nombre = entity.getNombre();
+        if (nombre != null) {
+            stmt.bindString(3, nombre);
+        }
+ 
+        String apellidos = entity.getApellidos();
+        if (apellidos != null) {
+            stmt.bindString(4, apellidos);
+        }
+ 
+        String idface = entity.getIdface();
+        if (idface != null) {
+            stmt.bindString(5, idface);
         }
  
         Integer aciertos = entity.getAciertos();
         if (aciertos != null) {
-            stmt.bindLong(4, aciertos);
+            stmt.bindLong(6, aciertos);
         }
  
         String fecha = entity.getFecha();
         if (fecha != null) {
-            stmt.bindString(5, fecha);
+            stmt.bindString(7, fecha);
         }
     }
 
@@ -99,19 +113,29 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
             stmt.bindLong(2, idUsuario);
         }
  
-        String nick = entity.getNick();
-        if (nick != null) {
-            stmt.bindString(3, nick);
+        String nombre = entity.getNombre();
+        if (nombre != null) {
+            stmt.bindString(3, nombre);
+        }
+ 
+        String apellidos = entity.getApellidos();
+        if (apellidos != null) {
+            stmt.bindString(4, apellidos);
+        }
+ 
+        String idface = entity.getIdface();
+        if (idface != null) {
+            stmt.bindString(5, idface);
         }
  
         Integer aciertos = entity.getAciertos();
         if (aciertos != null) {
-            stmt.bindLong(4, aciertos);
+            stmt.bindLong(6, aciertos);
         }
  
         String fecha = entity.getFecha();
         if (fecha != null) {
-            stmt.bindString(5, fecha);
+            stmt.bindString(7, fecha);
         }
     }
 
@@ -125,9 +149,11 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
         RankingDB entity = new RankingDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1), // idUsuario
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nick
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // aciertos
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // fecha
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nombre
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // apellidos
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // idface
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // aciertos
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // fecha
         );
         return entity;
     }
@@ -136,9 +162,11 @@ public class RankingDBDao extends AbstractDao<RankingDB, Long> {
     public void readEntity(Cursor cursor, RankingDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setIdUsuario(cursor.isNull(offset + 1) ? null : cursor.getLong(offset + 1));
-        entity.setNick(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setAciertos(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
-        entity.setFecha(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setNombre(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setApellidos(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setIdface(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setAciertos(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setFecha(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

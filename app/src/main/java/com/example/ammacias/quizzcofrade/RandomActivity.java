@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,11 +90,17 @@ public class RandomActivity extends AppCompatActivity{
 
     ListView listviu;
     List<RankingDB>l;
+    Retrofit retrofit1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random);
+
+        retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         vida1= (ImageView)findViewById(R.id.vida1);
         vida2= (ImageView)findViewById(R.id.vida2);
@@ -353,6 +360,7 @@ public class RandomActivity extends AppCompatActivity{
         // Poner el reloj a 0
         mCountDown.stop();
         cambiarImg();
+        getRankingActual();
         //TODO: Cambiar img SweetAlertDialog => liquid button?
 /*        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("¡SE HAN ACABADO LAS VIDAS!")
@@ -383,9 +391,8 @@ public class RandomActivity extends AppCompatActivity{
                 }).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        getRankingActual();
                         sDialog.dismissWithAnimation();
-                        mostrarDialogoBusqueda();
+                        mostrarDialogoRanking();
                     }
                 })
                 .show();
@@ -426,58 +433,53 @@ public class RandomActivity extends AppCompatActivity{
         mCountDown.stop();
     }
 
-    private void mostrarDialogoBusqueda() {
-        // Petición GET y traerme SIEMPRE el ranking del servidor y no el de la bd local
-        Boolean recordPersonal = false;
+    private void mostrarDialogoRanking() {
+        Long idUsuario = 0L;
+        String nombre = "", apellidos = "", fecha = "";
+        // idface = idSharedPreferences, numAciertos
 
         // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
+        String idSharedPreferences = "";
+        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+        idSharedPreferences = settings.getString("FIRST_LOGIN", "N");
+        // La prefs de face id es: idSharedPreferences);
+
         RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
         List<RankingDB> ran = rankingDBDao.loadAll();
 
         for (RankingDB r:ran) {
-            // mis registros -> mayor estricto q el anterior
-            if(r.getNick().equals("gabri_neno") && numAciertos > r.getAciertos()){
-                Toast.makeText(this, "entro en el if", Toast.LENGTH_SHORT).show();
-                recordPersonal = true;
-                // ¿Lanzar diálogo animación con felicitación?
-                // TODO: HAGO EL POST PARA SUBIRLOS AL SERVIDOR
 
+            // Si existe registro
+            if(r.getIdface().equals(idSharedPreferences)){
                 java.util.Date juDate = new Date();
                 // Fri Mar 17 19:11:01 GMT+01:00 2017
                 String[] parts = juDate.toString().split(" ");
-                String dia = parts[0]; // Fri
-                String mes = parts[1]; // Mar
-                String numdia = parts[2]; // 17
-                String hora = parts[3]; // 19:11:01
-                String zonahoraria = parts[4]; // GMT+01:00
-                String year = parts[5]; // 2017
+                String dia = parts[0];          // Fri
+                String mes = parts[1];          // Mar
+                String numdia = parts[2];       // 17
+                String hora = parts[3];         // 19:11:01
+                String zonahoraria = parts[4];  // GMT+01:00
+                String year = parts[5];         // 2017
 
-                System.out.println("El "+numdia+" / "+mes+" / "+year+" a las "+hora);
-                String fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
-                Long idUsuario = r.getIdUsuario();
-                String nick = r.getNick();
+                idUsuario = r.getIdUsuario();
+                nombre = r.getNombre();
+                apellidos = r.getApellidos();
+                // idface = idSharedPreferences
+                // numAciertos
+                fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
 
-                Retrofit retrofit1 = new Retrofit.Builder()
-                        .baseUrl(IRetrofit.ENDPOINT1)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
+                // Si ese registro es mayor estricto q el anterior => UPDATE en la BD
+                if(numAciertos > r.getAciertos()){
+                    // ¿Lanzar diálogo animación con felicitación?
+                    updateRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+                }else{ // TODO: No es récord y muestro su posición
 
-                retrofit1.create(IRetrofit.class).createRanking(idUsuario, nick, numAciertos, fecha).enqueue(new Callback<Ranking>() {
+                }
 
-                    @Override
-                    public void onResponse(Response<Ranking> response, Retrofit retrofit) {
-                        Toast.makeText(RandomActivity.this, "EXITO", Toast.LENGTH_SHORT).show();
-                    }
+                
 
-                    @Override
-                    public void onFailure(Throwable t) {
-                        Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-
-            }else{ // Coger la posición que ocupa
-                Toast.makeText(this, r.getNick()+"-"+r.getAciertos(), Toast.LENGTH_SHORT).show();
+            }else{ // No existe registro y hago INSERT
+                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
             }
         }
         //
@@ -497,7 +499,6 @@ public class RandomActivity extends AppCompatActivity{
         listviu = (ListView) mView.findViewById(R.id.list_view_ranking);
         // Paso 2
         l = new ArrayList<>();
-        Toast.makeText(this, "Para ver si carga antes la LISTA", Toast.LENGTH_SHORT).show();
         for (RankingDB r:ran) {
             l.add(r);
         }
@@ -519,6 +520,40 @@ public class RandomActivity extends AppCompatActivity{
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 redirect(findViewById(R.id.activity_detalle));
+            }
+        });
+    }
+
+    private void updateRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
+        retrofit1.create(IRetrofit.class).updateRanking(idUsuario,
+                nombre, apellidos, idSharedPreferences, this.numAciertos, fecha).enqueue(new Callback<Ranking>() {
+
+            @Override
+            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
+                Toast.makeText(RandomActivity.this, "EXITO al actualizar", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void insertRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
+        retrofit1.create(IRetrofit.class).createRanking(idUsuario,
+                nombre, apellidos, idSharedPreferences, this.numAciertos, fecha).enqueue(new Callback<Ranking>() {
+
+            @Override
+            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
+                Toast.makeText(RandomActivity.this, "¡Felicidades por tu primera partida!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -546,7 +581,9 @@ public class RandomActivity extends AppCompatActivity{
                             //"id, nombre, banda, fecha, ruta"
                             RankingDB m = new RankingDB();
                             m.setIdUsuario(a.getIdUsuario());
-                            m.setNick(a.getNick());
+                            m.setNombre(a.getNombre());
+                            m.setApellidos(a.getApellidos());
+                            m.setIdface(a.getIdface());
                             m.setFecha(a.getFecha());
                             m.setAciertos(a.getAciertos());
 

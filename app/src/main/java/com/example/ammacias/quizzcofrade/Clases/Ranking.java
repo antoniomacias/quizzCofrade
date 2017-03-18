@@ -16,9 +16,15 @@ public class Ranking {
     @SerializedName("idUsuario")
     @Expose
     private Long  idUsuario;
-    @SerializedName("nick")
+    @SerializedName("nombre")
     @Expose
-    private String  nick;
+    private String  nombre;
+    @SerializedName("apellidos")
+    @Expose
+    private String  apellidos;
+    @SerializedName("idface")
+    @Expose
+    private String  idface;
     @SerializedName("aciertos")
     @Expose
     private Integer  aciertos;
@@ -29,10 +35,12 @@ public class Ranking {
     public Ranking() {
     }
 
-    public Ranking(Long id, Long idUsuario, String nick, Integer aciertos, String fecha) {
+    public Ranking(Long id, Long idUsuario, String nombre, String apellidos, String idface, Integer aciertos, String fecha) {
         this.id = id;
         this.idUsuario = idUsuario;
-        this.nick = nick;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.idface = idface;
         this.aciertos = aciertos;
         this.fecha = fecha;
     }
@@ -53,13 +61,17 @@ public class Ranking {
         this.idUsuario = idUsuario;
     }
 
-    public String getNick() {
-        return nick;
-    }
+    public String getNombre() { return nombre; }
 
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getApellidos() { return apellidos; }
+
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+
+    public String getIdface() { return idface; }
+
+    public void setIdface(String idface) { this.idface = idface; }
 
     public Integer getAciertos() {
         return aciertos;
@@ -82,9 +94,11 @@ public class Ranking {
         return "Ranking{" +
                 "id=" + id +
                 ", idUsuario=" + idUsuario +
-                ", nick='" + nick + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
+                ", idface='" + idface + '\'' +
                 ", aciertos=" + aciertos +
-                ", fecha=" + fecha +
+                ", fecha='" + fecha + '\'' +
                 '}';
     }
 }
