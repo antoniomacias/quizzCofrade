@@ -1,6 +1,7 @@
 package com.example.ammacias.quizzcofrade;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.greenrobot.greendao.database.Database;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,7 +90,50 @@ public class LoginActivity extends AppCompatActivity {
                         email = (String) bFacebookData.get("email");
                         nombre = (String) bFacebookData.get("first_name");
                         apellidos = (String) bFacebookData.get("last_name");
-                        crearUsuario(nombre, apellidos, email, idface, authToken);
+
+                        //TODO: Cambiarlo hacia arriba
+                        String idSharedPreferences = "";
+                        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+                        idSharedPreferences = settings.getString("FIRST_LOGIN", "N");
+
+                        System.out.println("La prefs de face id es: "+idSharedPreferences);
+                        System.out.println("El id que acaba de devolver Facebook es: "+idface);
+                        //Primera vez
+                        if (idSharedPreferences.equals("N") || idface.equals("")) {
+                            System.out.println("*****************************\n****************************\nLOGIN POR PRIMERA VEZ");
+                            boolean bandera = false;
+
+                            //Busco que no exista en la BBDD
+                            UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+                            List<UsuarioDB> u = usuarioDBDao.loadAll();
+
+                            //Busco al usuario
+                            for (UsuarioDB us:u) {
+                                if (us.getId().equals(idface)){
+                                    bandera = true;
+                                }
+                            }
+
+                            //Si no existe: Creo al usuario
+                            if (!bandera) {
+                                crearUsuario(nombre, apellidos, email, idface, authToken);
+                            }
+
+                            //Creo el ID de las SharedPreferences
+                            settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("FIRST_LOGIN", idface);
+                            editor.commit();
+                        }else{
+                            //Si el id de Facebook es diferente al de las SharedPrefs = Otra persona
+                            if (!idSharedPreferences.equals(idface)){
+                                //Machaco el ID de las SharedPreferences
+                                settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("FIRST_LOGIN", idface);
+                                editor.commit();
+                            }
+                        }
                     }
                 });
                 Bundle parameters = new Bundle();

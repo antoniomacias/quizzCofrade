@@ -27,7 +27,7 @@
         android:id="@+id/primer_relative"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="70dp"
         android:gravity="center_vertical"
         android:layout_below="@id/cabecera"
         >
