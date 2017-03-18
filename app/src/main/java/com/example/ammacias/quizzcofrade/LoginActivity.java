@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.Clases.Ranking;
+import com.example.ammacias.quizzcofrade.Clases.Usuario;
+import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
@@ -17,6 +21,11 @@ import com.facebook.login.widget.LoginButton;
 
 import java.util.Date;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.GsonConverterFactory;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -73,5 +82,26 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
+    }
+
+    public void crearUsuario(String nick, String email, String idface, String authToken){
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofit1.create(IRetrofit.class).createUser(nick, email, idface, authToken).enqueue(new Callback<Usuario>() {
+
+            @Override
+            public void onResponse(Response<Usuario> response, Retrofit retrofit) {
+                Toast.makeText(LoginActivity.this, "EXITO al crear el usuario", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(LoginActivity.this, "ERROR  al crear el usuario", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

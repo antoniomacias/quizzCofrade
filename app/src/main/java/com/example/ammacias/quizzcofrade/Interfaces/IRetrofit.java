@@ -3,6 +3,7 @@ package com.example.ammacias.quizzcofrade.Interfaces;
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.Clases.Ranking;
 import com.example.ammacias.quizzcofrade.Clases.Result;
+import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Clases.UsuariosHermandades;
 import com.example.ammacias.quizzcofrade.Pojos_API.Hermandades;
 import com.example.ammacias.quizzcofrade.Pojos_API.Marchas;
@@ -49,7 +50,17 @@ public interface IRetrofit {
     Call<Rankings> getRankingRetrofit();
 
     @FormUrlEncoded
+    @POST("usuario")
+    Call<Usuario> createUser(@Field("nick") String idUsuario, @Field("email") String email,
+                                @Field("idface") String idface, @Field("authToken") String authToken);
+
+    @FormUrlEncoded
     @POST("ranking")
     Call<Ranking> createRanking(@Field("idUsuario") Long idUsuario, @Field("nick") String nick,
+                                @Field("aciertos") Integer aciertos, @Field("fecha") String fecha);
+
+    @FormUrlEncoded
+    @POST("update-ranking") // TODO: HAY QUE PASARLE EL PARÁMETRO ID
+    Call<Ranking> updateRanking(@Field("idUsuario") Long idUsuario, @Field("nick") String nick,
                                 @Field("aciertos") Integer aciertos, @Field("fecha") String fecha);
 }
