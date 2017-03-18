@@ -11,9 +11,12 @@ public class Usuario {
     @SerializedName("id")
     @Expose
     private Long id;
-    @SerializedName("nick")
+    @SerializedName("nombre")
     @Expose
-    private String nick;
+    private String nombre;
+    @SerializedName("apellidos")
+    @Expose
+    private String apellidos;
     @SerializedName("email")
     @Expose
     private String email;
@@ -27,9 +30,10 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(Long id, String nick, String email, String idface, String authToken) {
+    public Usuario(Long id, String nombre, String apellidos, String email, String idface, String authToken) {
         this.id = id;
-        this.nick = nick;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.email = email;
         this.idface = idface;
         this.authToken = authToken;
@@ -43,12 +47,20 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNick() {
-        return nick;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getEmail() {
@@ -59,19 +71,28 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getIdface() { return idface; }
+    public String getIdface() {
+        return idface;
+    }
 
-    public void setIdface(String idface) { this.idface = idface; }
+    public void setIdface(String idface) {
+        this.idface = idface;
+    }
 
-    public String getAuthToken() { return authToken; }
+    public String getAuthToken() {
+        return authToken;
+    }
 
-    public void setAuthToken(String authToken) { this.authToken = authToken; }
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
-                ", nick='" + nick + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", apellidos='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
                 ", idface='" + idface + '\'' +
                 ", authToken='" + authToken + '\'' +

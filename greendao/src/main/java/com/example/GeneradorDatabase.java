@@ -15,7 +15,8 @@ public class GeneradorDatabase {
         // Definimos las entidades (tablas) de la base de datos
         Entity usuarioDB = schema.addEntity("UsuarioDB");
         usuarioDB.addIdProperty().autoincrement().primaryKey();
-        usuarioDB.addStringProperty("nick");
+        usuarioDB.addStringProperty("nombre");
+        usuarioDB.addStringProperty("apellidos");
         usuarioDB.addStringProperty("email");
         usuarioDB.addStringProperty("idface");
         usuarioDB.addStringProperty("authToken");

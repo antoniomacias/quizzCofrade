@@ -51,8 +51,9 @@ public interface IRetrofit {
 
     @FormUrlEncoded
     @POST("usuario")
-    Call<Usuario> createUser(@Field("nick") String idUsuario, @Field("email") String email,
-                                @Field("idface") String idface, @Field("authToken") String authToken);
+    Call<Usuario> createUser(@Field("nombre") String nombre, @Field("apellidos") String apellidos,
+                             @Field("email") String email,
+                             @Field("idface") String idface, @Field("authToken") String authToken);
 
     @FormUrlEncoded
     @POST("ranking")

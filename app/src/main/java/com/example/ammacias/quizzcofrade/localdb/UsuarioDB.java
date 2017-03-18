@@ -11,7 +11,8 @@ public class UsuarioDB {
 
     @Id(autoincrement = true)
     private Long id;
-    private String nick;
+    private String nombre;
+    private String apellidos;
     private String email;
     private String idface;
     private String authToken;
@@ -25,9 +26,10 @@ public class UsuarioDB {
     }
 
     @Generated
-    public UsuarioDB(Long id, String nick, String email, String idface, String authToken) {
+    public UsuarioDB(Long id, String nombre, String apellidos, String email, String idface, String authToken) {
         this.id = id;
-        this.nick = nick;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.email = email;
         this.idface = idface;
         this.authToken = authToken;
@@ -41,12 +43,20 @@ public class UsuarioDB {
         this.id = id;
     }
 
-    public String getNick() {
-        return nick;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNick(String nick) {
-        this.nick = nick;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getEmail() {
@@ -73,14 +83,4 @@ public class UsuarioDB {
         this.authToken = authToken;
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioDB{" +
-                "id=" + id +
-                ", nick='" + nick + '\'' +
-                ", email='" + email + '\'' +
-                ", idface='" + idface + '\'' +
-                ", authToken='" + authToken + '\'' +
-                '}';
-    }
 }

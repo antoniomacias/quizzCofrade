@@ -319,8 +319,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         // " id, nick, email "
                         UsuarioDB usuarioDB = new UsuarioDB();
                         usuarioDB.setId(h.getId());
-                        usuarioDB.setNick(h.getNick());
+                        usuarioDB.setNombre(h.getNombre());
+                        usuarioDB.setApellidos(h.getApellidos());
                         usuarioDB.setEmail(h.getEmail());
+                        usuarioDB.setIdface(h.getIdface());
+                        usuarioDB.setAuthToken(h.getAuthToken());
 
                         hermandadDBDao.insertOrReplace(usuarioDB);
                     }
