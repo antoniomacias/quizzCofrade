@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             //Busco al usuario
                             for (UsuarioDB us:u) {
-                                if (us.getId().equals(idface)){
+                                if (us.getIdface().equals(idface)){
                                     bandera = true;
                                 }
                             }
@@ -125,16 +125,14 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("FIRST_LOGIN", idface);
                             editor.commit();
                         }else{
-                            Toast.makeText(LoginActivity.this, "A", Toast.LENGTH_SHORT).show();
                             //Si el id de Facebook es diferente al de las SharedPrefs = Otra persona
-                            if (!idSharedPreferences.equals(idface)){
-                                Toast.makeText(LoginActivity.this, "B", Toast.LENGTH_SHORT).show();
+                            //if (!idSharedPreferences.equals(idface)){
                                 //Machaco el ID de las SharedPreferences
                                 settings = getSharedPreferences("PREFS_FACEBOOK", 0);
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putString("FIRST_LOGIN", idface);
                                 editor.commit();
-                            }
+                            //}
                         }
                     }
                 });
@@ -205,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        Toast.makeText(this, ""+nombre+"\n"+ apellidos+"\n"+ email+"\n"+ idface+"\n"+ authToken, Toast.LENGTH_SHORT).show();
         retrofit1.create(IRetrofit.class).createUser(nombre, apellidos, email, idface, authToken).enqueue(new Callback<Usuario>() {
 
             @Override
@@ -215,6 +214,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
                 Toast.makeText(LoginActivity.this, "ERROR  al crear el usuario", Toast.LENGTH_SHORT).show();
+                System.out.println(t.getMessage());
 
             }
         });

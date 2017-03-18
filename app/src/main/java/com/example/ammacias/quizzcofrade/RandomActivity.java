@@ -434,66 +434,11 @@ public class RandomActivity extends AppCompatActivity{
     }
 
     private void mostrarDialogoRanking() {
-        Long idUsuario = 0L;
-        String nombre = "", apellidos = "", fecha = "";
-        // idface = idSharedPreferences, numAciertos
-
-        // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
-        String idSharedPreferences = "";
-        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
-        idSharedPreferences = settings.getString("FIRST_LOGIN", "N");
-        // La prefs de face id es: idSharedPreferences);
-
-        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
-        List<RankingDB> ran = rankingDBDao.loadAll();
-
-        for (RankingDB r:ran) {
-
-            // Si existe registro
-            if(r.getIdface().equals(idSharedPreferences)){
-                java.util.Date juDate = new Date();
-                // Fri Mar 17 19:11:01 GMT+01:00 2017
-                String[] parts = juDate.toString().split(" ");
-                String dia = parts[0];          // Fri
-                String mes = parts[1];          // Mar
-                String numdia = parts[2];       // 17
-                String hora = parts[3];         // 19:11:01
-                String zonahoraria = parts[4];  // GMT+01:00
-                String year = parts[5];         // 2017
-
-                idUsuario = r.getIdUsuario();
-                nombre = r.getNombre();
-                apellidos = r.getApellidos();
-                // idface = idSharedPreferences
-                // numAciertos
-                fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
-
-                // Si ese registro es mayor estricto q el anterior => UPDATE en la BD
-                if(numAciertos > r.getAciertos()){
-                    // ¿Lanzar diálogo animación con felicitación?
-                    updateRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
-                }else{ // TODO: No es récord y muestro su posición
-
-                }
-
-                
-
-            }else{ // No existe registro y hago INSERT
-                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
-            }
-        }
-        //
-        // 
-        // ¿Si está en el ranking, mostrar alguna animación? => liquid button?
-
-
-
-
-
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(RandomActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.fragment_ranking, null);
         // Editar los elementos: editText...
-
+        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
+        List<RankingDB> ran = rankingDBDao.loadAll();
 
         // Paso 1
         listviu = (ListView) mView.findViewById(R.id.list_view_ranking);
@@ -526,16 +471,17 @@ public class RandomActivity extends AppCompatActivity{
 
     private void updateRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
         retrofit1.create(IRetrofit.class).updateRanking(idUsuario,
-                nombre, apellidos, idSharedPreferences, this.numAciertos, fecha).enqueue(new Callback<Ranking>() {
+                nombre, apellidos, idSharedPreferences, numAciertos, fecha).enqueue(new Callback<Ranking>() {
 
             @Override
             public void onResponse(Response<Ranking> response, Retrofit retrofit) {
                 Toast.makeText(RandomActivity.this, "EXITO al actualizar", Toast.LENGTH_SHORT).show();
+                haztumagia();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RandomActivity.this, "ERROR al actualizar", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -548,17 +494,90 @@ public class RandomActivity extends AppCompatActivity{
             @Override
             public void onResponse(Response<Ranking> response, Retrofit retrofit) {
                 Toast.makeText(RandomActivity.this, "¡Felicidades por tu primera partida!", Toast.LENGTH_SHORT).show();
+                haztumagia();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                Toast.makeText(RandomActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RandomActivity.this, "ERROR en tu primera partida", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
     private void getRankingActual() {
+        //haztumagia();
+        Long idUsuario = 0L;
+        String nombre = "", apellidos = "", fecha = "";
+        // idface = idSharedPreferences, numAciertos
+
+        // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
+        String idSharedPreferences = "";
+        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+        idSharedPreferences = settings.getString("FIRST_LOGIN", "N");
+        // La prefs de face id es: idSharedPreferences);
+
+        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
+        List<RankingDB> ran = rankingDBDao.loadAll();
+
+        for (RankingDB r:ran) {
+
+            // Si existe registro
+            System.out.println("Comparando "+r.getIdface()+" con "+idSharedPreferences);
+            if(r.getIdface().equals(idSharedPreferences)){
+                System.out.println("Son iguales");
+                java.util.Date juDate = new Date();
+                // Fri Mar 17 19:11:01 GMT+01:00 2017
+                String[] parts = juDate.toString().split(" ");
+                String dia = parts[0];          // Fri
+                String mes = parts[1];          // Mar
+                String numdia = parts[2];       // 17
+                String hora = parts[3];         // 19:11:01
+                String zonahoraria = parts[4];  // GMT+01:00
+                String year = parts[5];         // 2017
+
+                idUsuario = r.getIdUsuario();
+                nombre = r.getNombre();
+                apellidos = r.getApellidos();
+                // idface = idSharedPreferences
+                // numAciertos
+                fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
+
+                System.out.println("Estos son los datos: \n"+idUsuario+" \n "+ nombre+" \n "+ apellidos+" \n "
+                        + idSharedPreferences+" \n "+ numAciertos+" \n "+ fecha);
+
+                System.out.println("Comparo ahora el número de aciertos: "+numAciertos+" - "+r.getAciertos());
+                // Si ese registro es mayor estricto q el anterior => UPDATE en la BD
+                if(numAciertos > r.getAciertos()){
+                    System.out.println("Existe registro y acabas de batir récord");
+                    // ¿Lanzar diálogo animación con felicitación?
+                    updateRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+                }else{ // TODO: No es récord y muestro su posición
+                    System.out.println("No has batido récord y te muestro tu posición");
+
+                }
+
+
+
+            }else{ // No existe registro y hago INSERT
+                System.out.println("No existes en el ranking");
+                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+            }
+        }
+        //
+        //
+        // ¿Si está en el ranking, mostrar alguna animación? => liquid button?
+
+
+        System.out.println("AHORA ME TRAIGO LOS DATOS, UNA VEZ INSERTADO O ACTUALIZADO");
+
+
+
+
+
+        }
+
+    private void haztumagia() {
         //RETROFIT Ranking
 
         Retrofit retrofit1 = new Retrofit.Builder()
@@ -566,40 +585,41 @@ public class RandomActivity extends AppCompatActivity{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-            Call<Rankings> autocompleteList5 =
-                    retrofit1.create(IRetrofit.class).getRankingRetrofit();
+        Call<Rankings> autocompleteList5 =
+                retrofit1.create(IRetrofit.class).getRankingRetrofit();
 
-            autocompleteList5.enqueue(new Callback<Rankings>() {
-                @Override
-                public void onResponse(Response<Rankings> response, Retrofit retrofit) {
-                    if (response.isSuccess()) {
-                        Rankings r = response.body();
-                        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
-                        rankingDBDao.deleteAll();
-                        for (Ranking a: r.getData()) {
-                            // System.out.println("RANKING: "+a);
-                            //"id, nombre, banda, fecha, ruta"
-                            RankingDB m = new RankingDB();
-                            m.setIdUsuario(a.getIdUsuario());
-                            m.setNombre(a.getNombre());
-                            m.setApellidos(a.getApellidos());
-                            m.setIdface(a.getIdface());
-                            m.setFecha(a.getFecha());
-                            m.setAciertos(a.getAciertos());
+        autocompleteList5.enqueue(new Callback<Rankings>() {
+            @Override
+            public void onResponse(Response<Rankings> response, Retrofit retrofit) {
+                if (response.isSuccess()) {
+                    Rankings r = response.body();
+                    RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
+                    rankingDBDao.deleteAll();
+                    for (Ranking a: r.getData()) {
+                        // System.out.println("RANKING: "+a);
+                        //"id, nombre, banda, fecha, ruta"
+                        RankingDB m = new RankingDB();
+                        m.setIdUsuario(a.getIdUsuario());
+                        m.setNombre(a.getNombre());
+                        m.setApellidos(a.getApellidos());
+                        m.setIdface(a.getIdface());
+                        m.setFecha(a.getFecha());
+                        m.setAciertos(a.getAciertos());
 
-                            rankingDBDao.insertOrReplace(m);
-                        }
-
-                        Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
+                        rankingDBDao.insertOrReplace(m);
                     }
-                }
 
-                @Override
-                public void onFailure(Throwable t) {
-                    System.out.println(t.getMessage());
+                    Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+    }
 
 
 }
