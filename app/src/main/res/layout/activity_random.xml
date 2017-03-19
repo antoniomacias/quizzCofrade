@@ -9,17 +9,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFF99"
     tools:context="com.example.ammacias.quizzcofrade.RandomActivity">
 
+    <ImageView
+        android:id="@+id/cabecera"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/cabecera2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_below="@+id/view_ticktock_countdown"
+    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="#333333"
+        android:text="`Tos´ por igual"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="64dp">
-    </FrameLayout>
+        android:layout_below="@+id/cabecera"
+        android:layout_marginBottom="35dp"/>
+
+
     <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,58 +43,60 @@
         android:layout_marginBottom="64dp" />-->
 
 
-    <EditText
+    <com.example.ammacias.quizzcofrade.Utils.CustomEditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:inputType="textPersonName"
         android:hint="Escribe el nombre de la cofradía"
         android:ems="16"
         android:id="@+id/respuesta_escudo"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/container"/>
+        android:layout_below="@+id/container"
+        android:background="@drawable/bg_respuestas"/>
 
-    <Button
-        android:text="Siguiente"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/boton_siguiente"
         android:id="@+id/siguiente_escudo"
-        android:layout_below="@+id/respuesta_escudo"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:onClick="next_escudo"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/star"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/respuesta_escudo"
-        android:layout_alignStart="@+id/respuesta_escudo"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/vida1"
+        android:layout_below="@+id/titulo"
         android:id="@+id/vida1" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/star"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/vida2"
         android:layout_toRightOf="@+id/vida1"
+        android:layout_alignTop="@+id/vida1"
         android:id="@+id/vida2" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/star"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/vida3"
         android:layout_toRightOf="@+id/vida2"
+        android:layout_alignTop="@+id/vida2"
         android:id="@+id/vida3" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/star"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/vida4"
         android:layout_toRightOf="@+id/vida3"
+        android:layout_alignTop="@+id/vida3"
         android:id="@+id/vida4" />
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/star"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/vida5"
         android:layout_toRightOf="@+id/vida4"
+        android:layout_alignTop="@+id/vida4"
         android:id="@+id/vida5" />
 
     <com.bcgdv.asia.lib.ticktock.TickTockView
@@ -89,39 +104,99 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         app:tickTextSize="20dp"
-        android:layout_alignTop="@+id/vida5"
+        android:layout_alignBottom="@+id/vida5"
         android:layout_alignParentRight="true"
         app:tickAutoFitText="true"
-        app:tickMiddleColor="#333333"
+        app:tickMiddleColor="#DBC64C"
         app:tickMoveCounterClockwise="true"
-        app:tickTextColor="#FFF"
+        app:tickTextColor="#333333"
         app:tickDotRadius="6dp"
         app:tickEmptyRingColor="@android:color/white"
-        app:tickFillRingColor="@color/colorPrimary"
+        app:tickFillRingColor="#333333"
         app:tickRingThickness="3dp"
         app:tickCircleDuration="total_time"/>
 
-    <ImageView
-        android:id="@+id/aciertosImg"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:srcCompat="@drawable/twitter"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/view_ticktock_countdown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp">
+    </FrameLayout>
 
+    <TextView
+        android:id="@+id/capipuntos"
+        android:text="CAPIPUNTOS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/respuesta_escudo"
+        android:textColor="#333333"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/siguiente_escudo"
+        />
+
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/fondo_puntuacion"
+        android:layout_below="@+id/capipuntos"
+        android:id="@+id/fondo1" />
+    <TextView
+        android:id="@+id/numAciertos1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="30dp"
+        android:textColor="#FFF"
+        android:layout_alignLeft="@id/fondo1"
+        android:layout_alignTop="@id/fondo1"
+        android:layout_alignRight="@id/fondo1"
+        android:layout_alignBottom="@id/fondo1"
+        android:gravity="center"
+        />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/fondo_puntuacion"
+        android:layout_toRightOf="@+id/fondo1"
+        android:layout_alignTop="@+id/fondo1"
+        android:id="@+id/fondo2" />
+    <TextView
+        android:id="@+id/numAciertos2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="30dp"
+        android:textColor="#FFF"
+        android:layout_alignLeft="@id/fondo2"
+        android:layout_alignTop="@id/fondo2"
+        android:layout_alignRight="@id/fondo2"
+        android:layout_alignBottom="@id/fondo2"
+        android:gravity="center"
+        />
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/fondo_puntuacion"
+        android:id="@+id/fondo3"
+        android:layout_below="@+id/capipuntos"
+        android:layout_toRightOf="@+id/fondo2"
+        android:layout_toEndOf="@+id/fondo2" />
     <TextView
         android:id="@+id/numAciertos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20"
+        android:text="0"
         android:textSize="30dp"
         android:textColor="#FFF"
-        android:layout_alignLeft="@id/aciertosImg"
-        android:layout_alignTop="@id/aciertosImg"
-        android:layout_alignRight="@id/aciertosImg"
-        android:layout_alignBottom="@id/aciertosImg"
+        android:layout_alignLeft="@id/fondo3"
+        android:layout_alignTop="@id/fondo3"
+        android:layout_alignRight="@id/fondo3"
+        android:layout_alignBottom="@id/fondo3"
         android:gravity="center"
         />
-
 
 </RelativeLayout>
