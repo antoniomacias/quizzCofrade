@@ -53,6 +53,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/container"
+
+        android:gravity="center"
         android:background="@drawable/bg_respuestas"/>
 
     <ImageView

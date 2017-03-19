@@ -9,18 +9,35 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFF99"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.ammacias.quizzcofrade.EscudosActivity"
     tools:showIn="@layout/activity_juego">
+
+    <ImageView
+        android:id="@+id/cabecera"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        app:srcCompat="@drawable/cabecera2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
+
+    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50dp"
+        android:textColor="#333333"
+        android:text="Escudos"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cabecera"
+        android:layout_marginBottom="35dp"/>
 
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:name="com.example.ammacias.quizzcofrade.Recycler.EscudosFragmentList"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="55dp"
-        android:layout_marginStart="55dp"
+        android:layout_below="@+id/titulo"
         android:id="@+id/fragment2" />
 </RelativeLayout>

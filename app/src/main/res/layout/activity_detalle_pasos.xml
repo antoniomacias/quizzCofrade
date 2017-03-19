@@ -40,7 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/titulo"
         android:layout_marginTop="10dp"
-        android:textSize="25dp"
+        android:textSize="35dp"
         android:textColor="#333333"
         android:text="Al cielo con..¿cúal?"
         android:layout_marginBottom="40dp"/>
@@ -63,6 +63,8 @@
         android:id="@+id/respuesta_paso"
         android:layout_below="@+id/fotoDetalle"
         android:layout_centerHorizontal="true"
+
+        android:gravity="center"
         android:background="@drawable/bg_respuestas"
         />
 
