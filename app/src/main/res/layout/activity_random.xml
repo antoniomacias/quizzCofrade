@@ -111,7 +111,7 @@
         app:tickMoveCounterClockwise="true"
         app:tickTextColor="#333333"
         app:tickDotRadius="6dp"
-        app:tickEmptyRingColor="@android:color/white"
+        app:tickEmptyRingColor="#006633"
         app:tickFillRingColor="#333333"
         app:tickRingThickness="3dp"
         app:tickCircleDuration="total_time"/>
@@ -144,18 +144,19 @@
         app:srcCompat="@drawable/fondo_puntuacion"
         android:layout_below="@+id/capipuntos"
         android:id="@+id/fondo1" />
-    <TextView
+    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertos1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="30dp"
-        android:textColor="#FFF"
+        android:textColor="#006633"
         android:layout_alignLeft="@id/fondo1"
         android:layout_alignTop="@id/fondo1"
         android:layout_alignRight="@id/fondo1"
         android:layout_alignBottom="@id/fondo1"
         android:gravity="center"
+
         />
     <ImageView
         android:layout_width="40dp"
@@ -164,13 +165,13 @@
         android:layout_toRightOf="@+id/fondo1"
         android:layout_alignTop="@+id/fondo1"
         android:id="@+id/fondo2" />
-    <TextView
+    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertos2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="30dp"
-        android:textColor="#FFF"
+        android:textColor="#006633"
         android:layout_alignLeft="@id/fondo2"
         android:layout_alignTop="@id/fondo2"
         android:layout_alignRight="@id/fondo2"
@@ -185,13 +186,13 @@
         android:layout_below="@+id/capipuntos"
         android:layout_toRightOf="@+id/fondo2"
         android:layout_toEndOf="@+id/fondo2" />
-    <TextView
+    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
         android:textSize="30dp"
-        android:textColor="#FFF"
+        android:textColor="#006633"
         android:layout_alignLeft="@id/fondo3"
         android:layout_alignTop="@id/fondo3"
         android:layout_alignRight="@id/fondo3"
