@@ -42,7 +42,7 @@ import rm.com.longpresspopup.LongPressPopupBuilder;
 public class DetalleEscudoActivity extends AppCompatActivity {
 
     ImageView imageView;
-    TextView pregunta;
+    TextView pregunta, pregunta_detalle_escudos, titulo;
     EditText respuesta;
     boolean isImageFitToScreen;
 
@@ -64,6 +64,9 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         pregunta = (TextView)findViewById(R.id.pregunta_detalle_escudos);
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
+        pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
+
+        titulo = (TextView)findViewById(R.id.titulo);
 
         //Hermandad seleccionada
         herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
@@ -80,6 +83,14 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         //posicionLista = ListaDesordenada.indexOf(herma);
 
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+
+        if (cat_elegida.equalsIgnoreCase("Escudos")){
+            pregunta_detalle_escudos.setText("¿A qué hermandad representan?");
+            titulo.setText("Escudos");
+        }else {
+            titulo.setText("Túnicas");
+            pregunta_detalle_escudos.setText("¿A qué hermandad pertenece?");
+        }
 
         String s=null;
         if(checkAcertado(id_aux)){

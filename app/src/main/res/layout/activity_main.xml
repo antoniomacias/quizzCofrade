@@ -49,7 +49,7 @@
                 >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/escudo_img"
@@ -76,7 +76,7 @@
                 android:src="@drawable/tunicas" >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tunica_img"
@@ -102,7 +102,7 @@
                 android:src="@drawable/pasos" >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/paso_img"
@@ -138,7 +138,7 @@
                 >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/marcha_img"
@@ -164,7 +164,7 @@
                 android:src="@drawable/llamadores" >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/llamador_img"
@@ -190,7 +190,7 @@
                 android:src="@drawable/pasos" >
             </ImageView>
 
-            <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+            <com.example.ammacias.quizzcofrade.Utils.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/aleatorio_img"
