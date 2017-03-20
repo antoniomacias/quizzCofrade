@@ -59,7 +59,7 @@ public class RandomActivity extends AppCompatActivity{
     //Control aciertos/vidas
     int var_global = 16;
     int numVidas, numAciertos;
-    boolean bandera;
+    boolean bandera, registro;
     ImageView vida1;
     ImageView vida2;
     ImageView vida3;
@@ -153,7 +153,7 @@ public class RandomActivity extends AppCompatActivity{
 
         // Iniciamos el juego
         next_escudo(findViewById(android.R.id.content));
-
+        registro = false;
     }// Fin onCreate
 
     private void muestradialogo() {
@@ -505,9 +505,10 @@ public class RandomActivity extends AppCompatActivity{
 
         for (RankingDB r:ran) {
 
-            // Si existe registro
+            // Sí existe registro
             System.out.println("Comparando "+r.getIdface()+" con "+idSharedPreferences);
             if(r.getIdface().equals(idSharedPreferences)){
+                registro = true;
                 System.out.println("Son iguales");
                 java.util.Date juDate = new Date();
                 // Fri Mar 17 19:11:01 GMT+01:00 2017
@@ -541,11 +542,14 @@ public class RandomActivity extends AppCompatActivity{
                 }
 
 
-
-            }else{ // No existe registro y hago INSERT
-                System.out.println("No existes en el ranking");
-                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
             }
+        } // fin del bucle
+        if(!registro){
+            // No existe registro y hago INSERT si está logueado
+            System.out.println("No existes en el ranking. Compruebo si estás logueado");
+            if (!idSharedPreferences.equals("N")) {
+                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+            }else System.out.println("No estás logueado y no hago nada (Traerme el ránking actual)");
         }
         //
         //
