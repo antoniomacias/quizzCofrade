@@ -47,6 +47,11 @@ import retrofit.Retrofit;
 
 public class RandomActivity extends AppCompatActivity{
 
+    //Datos @haztumagia
+    Long idUsuario = 0L;
+    String nombre = "", apellidos = "", fecha = "";
+    Rankings ranking = null;
+
     List<HermandadDB> listaH;
     List<PasosDB> listaP;
     List<MarchaDB> listaM;
@@ -79,7 +84,7 @@ public class RandomActivity extends AppCompatActivity{
     String arg1;        //Categoria
 
     ListView listviu;
-    List<RankingDB>l;
+    List<Ranking>l;
     Retrofit retrofit1;
 
     TextView pregunta_detalle_escudos;
@@ -343,7 +348,7 @@ public class RandomActivity extends AppCompatActivity{
         // Poner el reloj a 0
         mCountDown.stop();
         cambiarImg();
-        getRankingActual();
+        haztumagia();
         //TODO: Cambiar img SweetAlertDialog => liquid button?
 /*        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("¡SE HAN ACABADO LAS VIDAS!")
@@ -432,7 +437,7 @@ public class RandomActivity extends AppCompatActivity{
         listviu = (ListView) mView.findViewById(R.id.list_view_ranking);
         // Paso 2
         l = new ArrayList<>();
-        for (RankingDB r:ran) {
+        for (Ranking r:ranking.getData()) {
             l.add(r);
         }
         // Paso 3
@@ -493,6 +498,7 @@ public class RandomActivity extends AppCompatActivity{
         });
     }
 
+<<<<<<< HEAD
     private void getRankingActual() {
         haztumagia();
         Long idUsuario = 0L;
@@ -568,6 +574,8 @@ public class RandomActivity extends AppCompatActivity{
 
 
         }
+=======
+>>>>>>> de27269f8e42cbdf26e867181099858c6054b1fb
 
     private void haztumagia() {
         //RETROFIT Ranking
@@ -580,25 +588,67 @@ public class RandomActivity extends AppCompatActivity{
         Call<Rankings> autocompleteList5 =
                 retrofit1.create(IRetrofit.class).getRankingRetrofit();
 
+
+        // idface = idSharedPreferences, numAciertos
+
+        // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
+        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
+
+        final String idSharedPreferences = settings.getString("FIRST_LOGIN", "N");;
+        // La prefs de face id es: idSharedPreferences);
+
         autocompleteList5.enqueue(new Callback<Rankings>() {
             @Override
             public void onResponse(Response<Rankings> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    Rankings r = response.body();
-                    RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
-                    rankingDBDao.deleteAll();
-                    for (Ranking a: r.getData()) {
-                        // System.out.println("RANKING: "+a);
-                        //"id, nombre, banda, fecha, ruta"
-                        RankingDB m = new RankingDB();
-                        m.setIdUsuario(a.getIdUsuario());
-                        m.setNombre(a.getNombre());
-                        m.setApellidos(a.getApellidos());
-                        m.setIdface(a.getIdface());
-                        m.setFecha(a.getFecha());
-                        m.setAciertos(a.getAciertos());
+                    ranking = response.body();
 
-                        rankingDBDao.insertOrReplace(m);
+
+                    for (Ranking r : ranking.getData()) {
+
+                        // Sí existe registro
+                        System.out.println("Comparando "+r.getIdface()+" con "+idSharedPreferences);
+                        if(r.getIdface().equals(idSharedPreferences)){
+                            registro = true;
+                            System.out.println("Son iguales");
+                            java.util.Date juDate = new Date();
+                            // Fri Mar 17 19:11:01 GMT+01:00 2017
+                            String[] parts = juDate.toString().split(" ");
+                            String dia = parts[0];          // Fri
+                            String mes = parts[1];          // Mar
+                            String numdia = parts[2];       // 17
+                            String hora = parts[3];         // 19:11:01
+                            String zonahoraria = parts[4];  // GMT+01:00
+                            String year = parts[5];         // 2017
+
+                            idUsuario = r.getIdUsuario();
+                            nombre = r.getNombre();
+                            apellidos = r.getApellidos();
+                            // idface = idSharedPreferences
+                            // numAciertos
+                            fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
+
+                            System.out.println("Estos son los datos: \n"+idUsuario+" \n "+ nombre+" \n "+ apellidos+" \n "
+                                    + idSharedPreferences+" \n "+ numAciertos+" \n "+ fecha);
+
+                            System.out.println("Comparo ahora el número de aciertos: "+numAciertos+" - "+r.getAciertos());
+                            // Si ese registro es mayor estricto q el anterior => UPDATE en la BD
+                            if(numAciertos > r.getAciertos()){
+                                System.out.println("Existe registro y acabas de batir récord");
+                                // ¿Lanzar diálogo animación con felicitación?
+                                updateRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+                            }else{ // TODO: No es récord y muestro su posición
+                                System.out.println("No has batido récord y te muestro tu posición");
+
+                            }
+                        }
+                    } // fin del bucle
+                    if(!registro){
+                        // No existe registro y hago INSERT si está logueado
+                        System.out.println("No existes en el ranking. Compruebo si estás logueado");
+                        if (!idSharedPreferences.equals("N")) {
+                            insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+                        }else System.out.println("No estás logueado y no hago nada (Traerme el ránking actual)");
                     }
 
                     //Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();

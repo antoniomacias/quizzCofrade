@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.ammacias.quizzcofrade.Clases.Ranking;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.RankingDB;
 
@@ -16,13 +17,13 @@ import java.util.List;
 /**
  * Created by gabri_neno on 13/03/2017.
  */
-public class RankingAdapter extends ArrayAdapter<RankingDB> {
+public class RankingAdapter extends ArrayAdapter<Ranking> {
 
     private Context ctx;
     private int layoutItem;
-    private List<RankingDB> values;
+    private List<Ranking> values;
 
-    public RankingAdapter(Context context, int resource, List<RankingDB> objects) {
+    public RankingAdapter(Context context, int resource, List<Ranking> objects) {
         super(context, resource, objects);
         ctx = context;
         layoutItem = resource;
@@ -37,7 +38,7 @@ public class RankingAdapter extends ArrayAdapter<RankingDB> {
 
         // 1. Rescato el elemento actual que estoy dibujando
         // mediante el parámetro position que recibo en este método
-        RankingDB current = values.get(position);
+        Ranking current = values.get(position);
 
         // 2. Obtener del layout todos los componentes visuales
         // que tengo que modificar
