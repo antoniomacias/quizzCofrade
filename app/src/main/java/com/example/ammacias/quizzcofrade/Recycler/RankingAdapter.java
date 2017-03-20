@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade;
+package com.example.ammacias.quizzcofrade.Recycler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.localdb.RankingDB;
 
 import java.util.List;
