@@ -31,6 +31,7 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.sql.SQLOutput;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -161,8 +162,8 @@ public class DetalleEscudoActivity extends AppCompatActivity {
                         .into(imageView);
             }
         }
-
         respuesta.addTextChangedListener(new TextWatcher() {
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
@@ -171,12 +172,26 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                String resp = Normalizer.normalize(respuesta.getText().toString(), Normalizer.Form.NFD);
+                /*resp = resp.replaceAll(
+                        "[\\p{InCombiningDiacriticalMarks}]", ""
+                );*/
+                resp = resp.replaceAll("[^\\p{ASCII}(N\u0303)(n\u0303)(\u00A1)(\u00BF)(\u00B0)(U\u0308)(u\u0308)]", "");
                 if (respuesta.getText().toString().equalsIgnoreCase(hermandadDBDao.load(id_aux).getNombre())){
                     muestradialogo();
-                    //System.out.println("Acertaste y guardo");
                 }
             }
         });
+    }
+
+    public static String cleanString(String texto) {
+        texto = Normalizer.normalize(texto, Normalizer.Form.NFD);
+        texto = texto.replaceAll(
+                "[\\p{InCombiningDiacriticalMarks}]", ""
+        );
+        System.out.println("*******************************\n*************************\n*************************\n*************************\n************************************");
+        System.out.println(texto);
+        return texto;
     }
 
     private void guardarAcierto(Long ide) {

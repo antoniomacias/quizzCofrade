@@ -498,13 +498,25 @@ public class RandomActivity extends AppCompatActivity{
 
 
                     for (Ranking r : ranking.getData()) {
+                        java.util.Date juDate = new Date();
+                        // Fri Mar 17 19:11:01 GMT+01:00 2017
+                        String[] parts = juDate.toString().split(" ");
+                        String dia = parts[0];          // Fri
+                        String mes = parts[1];          // Mar
+                        String numdia = parts[2];       // 17
+                        String hora = parts[3];         // 19:11:01
+                        String zonahoraria = parts[4];  // GMT+01:00
+                        String year = parts[5];         // 2017
+
+                        fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
+
 
                         // Sí existe registro
                         System.out.println("Comparando "+r.getIdface()+" con "+idSharedPreferences);
                         if(r.getIdface().equals(idSharedPreferences)){
                             registro = true;
                             System.out.println("Son iguales");
-                            java.util.Date juDate = new Date();
+                            /*java.util.Date juDate = new Date();
                             // Fri Mar 17 19:11:01 GMT+01:00 2017
                             String[] parts = juDate.toString().split(" ");
                             String dia = parts[0];          // Fri
@@ -512,14 +524,14 @@ public class RandomActivity extends AppCompatActivity{
                             String numdia = parts[2];       // 17
                             String hora = parts[3];         // 19:11:01
                             String zonahoraria = parts[4];  // GMT+01:00
-                            String year = parts[5];         // 2017
+                            String year = parts[5];         // 2017*/
 
                             idUsuario = r.getIdUsuario();
                             nombre = r.getNombre();
                             apellidos = r.getApellidos();
                             // idface = idSharedPreferences
                             // numAciertos
-                            fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
+                            //fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
 
                             System.out.println("Estos son los datos: \n"+idUsuario+" \n "+ nombre+" \n "+ apellidos+" \n "
                                     + idSharedPreferences+" \n "+ numAciertos+" \n "+ fecha);
