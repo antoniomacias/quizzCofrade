@@ -367,7 +367,6 @@ public class RandomActivity extends AppCompatActivity{
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        getRankingActual();
                         sDialog.dismissWithAnimation();
                         redirect(findViewById(R.id.activity_detalle));
                     }
@@ -495,7 +494,7 @@ public class RandomActivity extends AppCompatActivity{
     }
 
     private void getRankingActual() {
-        //haztumagia();
+        haztumagia();
         Long idUsuario = 0L;
         String nombre = "", apellidos = "", fecha = "";
         // idface = idSharedPreferences, numAciertos
