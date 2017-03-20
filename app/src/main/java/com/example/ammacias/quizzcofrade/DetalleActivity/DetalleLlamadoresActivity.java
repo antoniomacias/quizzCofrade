@@ -46,7 +46,7 @@ public class DetalleLlamadoresActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_escudos);
+        setContentView(R.layout.activity_detalle_pasos);
 
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);

@@ -60,15 +60,9 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickPasosDB(PasosDB p) {
-        if(cat_elegida.contains("Pasos")){
-            Intent i = new Intent(PasosActivity.this, DetallePasosActivity.class);
-            i.putExtra("IDPaso", p.getId());
-            startActivity(i);
-        }else{
-            Intent i = new Intent(PasosActivity.this, DetalleLlamadoresActivity.class);
-            i.putExtra("IDPaso", p.getId());
-            startActivity(i);
-        }
+        Intent i = new Intent(PasosActivity.this, DetallePasosActivity.class);
+        i.putExtra("IDPaso", p.getId());
+        startActivity(i);
     }
 
     @Override

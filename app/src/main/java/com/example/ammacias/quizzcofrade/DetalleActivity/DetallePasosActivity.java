@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
@@ -41,6 +42,8 @@ public class DetallePasosActivity extends AppCompatActivity {
     Long id_aux;
     int posicionLista;
     String cat_elegida = "";
+    TextView titulo;
+    TextView pregunta_detalle_escudos;
 
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
@@ -51,6 +54,9 @@ public class DetallePasosActivity extends AppCompatActivity {
 
         imageView =(ImageView)findViewById(R.id.fotoDetalle);
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
+        titulo = (TextView)findViewById(R.id.titulo);
+
+        pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
 
         //Hermandad seleccionada
         paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
@@ -72,6 +78,14 @@ public class DetallePasosActivity extends AppCompatActivity {
         //posicionLista = ListaDesordenada.indexOf(herma);
 
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+
+        if (cat_elegida.equalsIgnoreCase("Pasos")){
+            pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
+            titulo.setText("Pasos");
+        }else {
+            pregunta_detalle_escudos.setText("¿A esta es, o no es?");
+            titulo.setText("Llamadores");
+        }
 
         String s=null;
         if(checkAcertado(id_aux)){

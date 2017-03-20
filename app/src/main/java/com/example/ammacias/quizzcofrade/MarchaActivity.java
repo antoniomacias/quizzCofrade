@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
 import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleMarchaActivity;
@@ -24,6 +25,7 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marcha);
+
         /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -40,7 +42,6 @@ public class MarchaActivity extends AppCompatActivity implements ICofrade{
 
     @Override
     public void onClickHermandadDB(HermandadDB h) {
-
     }
 
     @Override
