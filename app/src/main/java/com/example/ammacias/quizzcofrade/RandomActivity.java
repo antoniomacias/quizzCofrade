@@ -324,35 +324,35 @@ public class RandomActivity extends AppCompatActivity{
 
     private void cambiarImg() {
         if (numVidas==4){
-            vida1.setImageResource(R.drawable.star);
-            vida2.setImageResource(R.drawable.star);
-            vida3.setImageResource(R.drawable.star);
-            vida4.setImageResource(R.drawable.star);
-            vida5.setImageResource(R.drawable.emptystar);
+            vida1.setImageResource(R.drawable.vida1);
+            vida2.setImageResource(R.drawable.vida2);
+            vida3.setImageResource(R.drawable.vida3);
+            vida4.setImageResource(R.drawable.vida4);
+            vida5.setImageResource(0);
         }else if(numVidas==3){
-            vida1.setImageResource(R.drawable.star);
-            vida2.setImageResource(R.drawable.star);
-            vida3.setImageResource(R.drawable.star);
-            vida4.setImageResource(R.drawable.emptystar);
-            vida5.setImageResource(R.drawable.emptystar);
+            vida1.setImageResource(R.drawable.vida1);
+            vida2.setImageResource(R.drawable.vida2);
+            vida3.setImageResource(R.drawable.vida3);
+            vida4.setImageResource(0);
+            vida5.setImageResource(0);
         }else if(numVidas==2){
-            vida1.setImageResource(R.drawable.star);
-            vida2.setImageResource(R.drawable.star);
-            vida3.setImageResource(R.drawable.emptystar);
-            vida4.setImageResource(R.drawable.emptystar);
-            vida5.setImageResource(R.drawable.emptystar);
+            vida1.setImageResource(R.drawable.vida1);
+            vida2.setImageResource(R.drawable.vida2);
+            vida3.setImageResource(0);
+            vida4.setImageResource(0);
+            vida5.setImageResource(0);
         }else if(numVidas==1) {
-            vida1.setImageResource(R.drawable.star);
-            vida2.setImageResource(R.drawable.emptystar);
-            vida3.setImageResource(R.drawable.emptystar);
-            vida4.setImageResource(R.drawable.emptystar);
-            vida5.setImageResource(R.drawable.emptystar);
+            vida1.setImageResource(R.drawable.vida1);
+            vida2.setImageResource(0);
+            vida3.setImageResource(0);
+            vida4.setImageResource(0);
+            vida5.setImageResource(0);
         }else if(numVidas==0) {
-            vida1.setImageResource(R.drawable.emptystar);
-            vida2.setImageResource(R.drawable.emptystar);
-            vida3.setImageResource(R.drawable.emptystar);
-            vida4.setImageResource(R.drawable.emptystar);
-            vida5.setImageResource(R.drawable.emptystar);
+            vida1.setImageResource(0);
+            vida2.setImageResource(0);
+            vida3.setImageResource(0);
+            vida4.setImageResource(0);
+            vida5.setImageResource(0);
         }
     }
 
@@ -609,7 +609,7 @@ public class RandomActivity extends AppCompatActivity{
                         rankingDBDao.insertOrReplace(m);
                     }
 
-                    Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
                 }
             }
 

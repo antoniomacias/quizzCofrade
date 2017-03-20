@@ -28,8 +28,8 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pasos);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
         t = (TextView) findViewById(R.id.titulo);
         cat_elegida = ((Application_vars) getApplicationContext()).getCategoriaElegida();
@@ -39,7 +39,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
         }else{
             t.setText("Llamadores");
         }
-
+/*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class PasosActivity extends AppCompatActivity implements ICofrade{
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
     }
 

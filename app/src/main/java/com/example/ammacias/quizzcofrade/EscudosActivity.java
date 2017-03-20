@@ -32,8 +32,8 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_juego);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
 
 
         t = (TextView) findViewById(R.id.titulo);
@@ -45,7 +45,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
             t.setText("Túnicas");
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,7 +53,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
 
 
         //String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();

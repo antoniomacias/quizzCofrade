@@ -37,7 +37,8 @@ public class GeneradorDatabase {
         pasosDB.addIdProperty().autoincrement().primaryKey();
         pasosDB.addStringProperty("nombreHermandad").notNull();
         pasosDB.addStringProperty("nombreTitular").notNull();
-        pasosDB.addStringProperty("foto").notNull();
+        pasosDB.addStringProperty("fotoPaso").notNull();
+        pasosDB.addStringProperty("fotoTitular");
         pasosDB.addStringProperty("colorCirio").notNull();
         pasosDB.addStringProperty("banda").notNull();
         pasosDB.addStringProperty("capataz").notNull();

@@ -25,12 +25,13 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property NombreHermandad = new Property(1, String.class, "nombreHermandad", false, "NOMBRE_HERMANDAD");
         public final static Property NombreTitular = new Property(2, String.class, "nombreTitular", false, "NOMBRE_TITULAR");
-        public final static Property Foto = new Property(3, String.class, "foto", false, "FOTO");
-        public final static Property ColorCirio = new Property(4, String.class, "colorCirio", false, "COLOR_CIRIO");
-        public final static Property Banda = new Property(5, String.class, "banda", false, "BANDA");
-        public final static Property Capataz = new Property(6, String.class, "capataz", false, "CAPATAZ");
-        public final static Property NumCostaleros = new Property(7, String.class, "numCostaleros", false, "NUM_COSTALEROS");
-        public final static Property Llamador = new Property(8, String.class, "llamador", false, "LLAMADOR");
+        public final static Property FotoPaso = new Property(3, String.class, "fotoPaso", false, "FOTO_PASO");
+        public final static Property FotoTitular = new Property(4, String.class, "fotoTitular", false, "FOTO_TITULAR");
+        public final static Property ColorCirio = new Property(5, String.class, "colorCirio", false, "COLOR_CIRIO");
+        public final static Property Banda = new Property(6, String.class, "banda", false, "BANDA");
+        public final static Property Capataz = new Property(7, String.class, "capataz", false, "CAPATAZ");
+        public final static Property NumCostaleros = new Property(8, String.class, "numCostaleros", false, "NUM_COSTALEROS");
+        public final static Property Llamador = new Property(9, String.class, "llamador", false, "LLAMADOR");
     };
 
 
@@ -49,12 +50,13 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NOMBRE_HERMANDAD\" TEXT NOT NULL ," + // 1: nombreHermandad
                 "\"NOMBRE_TITULAR\" TEXT NOT NULL ," + // 2: nombreTitular
-                "\"FOTO\" TEXT NOT NULL ," + // 3: foto
-                "\"COLOR_CIRIO\" TEXT NOT NULL ," + // 4: colorCirio
-                "\"BANDA\" TEXT NOT NULL ," + // 5: banda
-                "\"CAPATAZ\" TEXT NOT NULL ," + // 6: capataz
-                "\"NUM_COSTALEROS\" TEXT NOT NULL ," + // 7: numCostaleros
-                "\"LLAMADOR\" TEXT NOT NULL );"); // 8: llamador
+                "\"FOTO_PASO\" TEXT NOT NULL ," + // 3: fotoPaso
+                "\"FOTO_TITULAR\" TEXT," + // 4: fotoTitular
+                "\"COLOR_CIRIO\" TEXT NOT NULL ," + // 5: colorCirio
+                "\"BANDA\" TEXT NOT NULL ," + // 6: banda
+                "\"CAPATAZ\" TEXT NOT NULL ," + // 7: capataz
+                "\"NUM_COSTALEROS\" TEXT NOT NULL ," + // 8: numCostaleros
+                "\"LLAMADOR\" TEXT NOT NULL );"); // 9: llamador
     }
 
     /** Drops the underlying database table. */
@@ -73,12 +75,17 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         }
         stmt.bindString(2, entity.getNombreHermandad());
         stmt.bindString(3, entity.getNombreTitular());
-        stmt.bindString(4, entity.getFoto());
-        stmt.bindString(5, entity.getColorCirio());
-        stmt.bindString(6, entity.getBanda());
-        stmt.bindString(7, entity.getCapataz());
-        stmt.bindString(8, entity.getNumCostaleros());
-        stmt.bindString(9, entity.getLlamador());
+        stmt.bindString(4, entity.getFotoPaso());
+ 
+        String fotoTitular = entity.getFotoTitular();
+        if (fotoTitular != null) {
+            stmt.bindString(5, fotoTitular);
+        }
+        stmt.bindString(6, entity.getColorCirio());
+        stmt.bindString(7, entity.getBanda());
+        stmt.bindString(8, entity.getCapataz());
+        stmt.bindString(9, entity.getNumCostaleros());
+        stmt.bindString(10, entity.getLlamador());
     }
 
     @Override
@@ -91,12 +98,17 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         }
         stmt.bindString(2, entity.getNombreHermandad());
         stmt.bindString(3, entity.getNombreTitular());
-        stmt.bindString(4, entity.getFoto());
-        stmt.bindString(5, entity.getColorCirio());
-        stmt.bindString(6, entity.getBanda());
-        stmt.bindString(7, entity.getCapataz());
-        stmt.bindString(8, entity.getNumCostaleros());
-        stmt.bindString(9, entity.getLlamador());
+        stmt.bindString(4, entity.getFotoPaso());
+ 
+        String fotoTitular = entity.getFotoTitular();
+        if (fotoTitular != null) {
+            stmt.bindString(5, fotoTitular);
+        }
+        stmt.bindString(6, entity.getColorCirio());
+        stmt.bindString(7, entity.getBanda());
+        stmt.bindString(8, entity.getCapataz());
+        stmt.bindString(9, entity.getNumCostaleros());
+        stmt.bindString(10, entity.getLlamador());
     }
 
     @Override
@@ -110,12 +122,13 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // nombreHermandad
             cursor.getString(offset + 2), // nombreTitular
-            cursor.getString(offset + 3), // foto
-            cursor.getString(offset + 4), // colorCirio
-            cursor.getString(offset + 5), // banda
-            cursor.getString(offset + 6), // capataz
-            cursor.getString(offset + 7), // numCostaleros
-            cursor.getString(offset + 8) // llamador
+            cursor.getString(offset + 3), // fotoPaso
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // fotoTitular
+            cursor.getString(offset + 5), // colorCirio
+            cursor.getString(offset + 6), // banda
+            cursor.getString(offset + 7), // capataz
+            cursor.getString(offset + 8), // numCostaleros
+            cursor.getString(offset + 9) // llamador
         );
         return entity;
     }
@@ -125,12 +138,13 @@ public class PasosDBDao extends AbstractDao<PasosDB, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNombreHermandad(cursor.getString(offset + 1));
         entity.setNombreTitular(cursor.getString(offset + 2));
-        entity.setFoto(cursor.getString(offset + 3));
-        entity.setColorCirio(cursor.getString(offset + 4));
-        entity.setBanda(cursor.getString(offset + 5));
-        entity.setCapataz(cursor.getString(offset + 6));
-        entity.setNumCostaleros(cursor.getString(offset + 7));
-        entity.setLlamador(cursor.getString(offset + 8));
+        entity.setFotoPaso(cursor.getString(offset + 3));
+        entity.setFotoTitular(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setColorCirio(cursor.getString(offset + 5));
+        entity.setBanda(cursor.getString(offset + 6));
+        entity.setCapataz(cursor.getString(offset + 7));
+        entity.setNumCostaleros(cursor.getString(offset + 8));
+        entity.setLlamador(cursor.getString(offset + 9));
      }
     
     @Override
