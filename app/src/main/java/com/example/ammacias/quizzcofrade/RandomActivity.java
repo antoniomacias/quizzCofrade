@@ -151,27 +151,12 @@ public class RandomActivity extends AppCompatActivity{
             });
         }
 
+        // Iniciamos el juego
+        next_escudo(findViewById(android.R.id.content));
 
-
-        //TODO: ¿Esto qué es? No se carga nada al iniciar el activity
-        //imageView =(ImageView)findViewById(R.id.fotoDetalle);
-
-        //Si es 1 -> Hermandad
-        /*if ((int) (Math.random() * 1)== 1 ){
-            Picasso.with(this)
-                    .load(listaH.get(0).getEscudo())
-                    .resize(250, 200)
-                    .into(imageView);
-        }else{
-            Picasso.with(this)
-                    .load(listaP.get(0).getFoto())
-                    .resize(250, 200)
-                    .into(imageView);
-        }*/
     }// Fin onCreate
 
     private void muestradialogo() {
-        //guardarAcierto(hermandadDBDao.load(id_aux).getId());
         //Paramos contador
         mCountDown.stop();
 
