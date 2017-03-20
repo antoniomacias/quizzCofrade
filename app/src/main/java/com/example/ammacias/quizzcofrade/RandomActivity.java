@@ -92,6 +92,8 @@ public class RandomActivity extends AppCompatActivity{
     List<RankingDB>l;
     Retrofit retrofit1;
 
+    TextView pregunta_detalle_escudos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +110,7 @@ public class RandomActivity extends AppCompatActivity{
         vida4= (ImageView)findViewById(R.id.vida4);
         vida5= (ImageView)findViewById(R.id.vida5);
         aciertosImg= (TextView) findViewById(R.id.numAciertos);
+        pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
 
 
         numVidas = 5;
@@ -242,6 +245,7 @@ public class RandomActivity extends AppCompatActivity{
 
             //Cargamos los datos
             if (aux == 0) {
+                pregunta_detalle_escudos.setText("¿A qué hermandad representan?");
                 //Generamos random
                 int randomInt = (int) (Math.random() * listaH.size());
 
@@ -258,6 +262,7 @@ public class RandomActivity extends AppCompatActivity{
                 arg1 = "Escudo";
                 System.out.println("Escudo Respuesta: "+nombreRespuesta);
             } else if (aux == 1) {
+                pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
                 int randomInt = (int) (Math.random() * listaP.size());
                 while (listAux.contains(listaP.get(randomInt).getNombreTitular())){
                     randomInt = (int) (Math.random() * listaP.size());
@@ -271,6 +276,7 @@ public class RandomActivity extends AppCompatActivity{
                 arg1 = "Paso";
                 System.out.println("Paso Respuesta: "+nombreRespuesta);
             } else if (aux == 2){
+                pregunta_detalle_escudos.setText("¿A qué hermandad pertenece?");
                 int randomInt = (int) (Math.random() * listaH.size());
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaH.size());
@@ -284,6 +290,7 @@ public class RandomActivity extends AppCompatActivity{
                 arg1 = "Tunica";
                 System.out.println("Túnica Respuesta: "+nombreRespuesta);
             }else if(aux == 3){
+                pregunta_detalle_escudos.setText("¿A esta es, o no es?");
                 int randomInt = (int) (Math.random() * listaP.size());
                 while (listAux.contains(listaP.get(randomInt).getLlamador())){
                     randomInt = (int) (Math.random() * listaP.size());
@@ -297,6 +304,7 @@ public class RandomActivity extends AppCompatActivity{
                 arg1 = "Llamador";
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
             }else if(aux == 4){
+                pregunta_detalle_escudos.setText("¿Corneta o tambor?");
                 int randomInt = (int) (Math.random() * listaM.size());
                 while (listAux.contains(listaM.get(randomInt).getNombre())){
                     randomInt = (int) (Math.random() * listaM.size());
