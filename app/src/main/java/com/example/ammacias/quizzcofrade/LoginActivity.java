@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.ammacias.quizzcofrade.Clases.Ranking;
 import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     String nombre, apellidos, email, idface, authToken;
+    Usuario current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,17 @@ public class LoginActivity extends AppCompatActivity {
                         email = (String) bFacebookData.get("email");
                         nombre = (String) bFacebookData.get("first_name");
                         apellidos = (String) bFacebookData.get("last_name");
+
+                        current_user = new Usuario(0L, nombre, apellidos, email, idface, authToken);
+                        /*current_user.setNombre(nombre);
+                        current_user.setApellidos(apellidos);
+                        current_user.setEmail(email);
+                        current_user.setIdface(idface);
+                        current_user.setAuthToken(authToken);*/
+
+
+                        ((Application_vars) getApplication()).setU(current_user);
+
 
                         //TODO: Cambiarlo hacia arriba
                         String idSharedPreferences = "";

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
@@ -27,6 +28,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     Boolean recarga;
     TextView t;
     String cat_elegida;
+    Usuario u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +47,17 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
             t.setText("Túnicas");
         }
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        u = ((Application_vars) this.getApplication()).getU();
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Usuario logueado: "+u.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         //String cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
@@ -66,6 +70,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
     @Override
     public void onClickHermandadDB(HermandadDB h/*, List<HermandadDB> l, int pos*/) {
         Toast.makeText(this, ""+h.getNombre(), Toast.LENGTH_SHORT).show();
+
         Intent i = new Intent(EscudosActivity.this, DetalleEscudoActivity.class);
         i.putExtra("IDHermandad", h.getId());
         /*i.putExtra("listaDesordenada", Parcels.wrap(l));
