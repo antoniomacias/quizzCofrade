@@ -1,4 +1,4 @@
-package com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos;
+package com.example.ammacias.quizzcofrade.Recycler;
 
 
 import android.app.DialogFragment;

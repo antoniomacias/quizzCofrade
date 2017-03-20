@@ -8,10 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleEscudoActivity;
-import com.example.ammacias.quizzcofrade.DetalleActivity.DetalleLlamadoresActivity;
 import com.example.ammacias.quizzcofrade.DetalleActivity.DetallePasosActivity;
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
