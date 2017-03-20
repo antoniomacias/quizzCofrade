@@ -426,6 +426,12 @@ public class RandomActivity extends AppCompatActivity{
         mCountDown.stop();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ((DynamicFragmentMarcha)f).pararMarcha();
+    }
+
     private void mostrarDialogoRanking() {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(RandomActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.fragment_ranking, null);
