@@ -376,12 +376,12 @@ public class RandomActivity extends AppCompatActivity{
                         redirect(findViewById(R.id.activity_detalle));
                     }
                 }).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        mostrarDialogoRanking();
-                    }
-                })
+            @Override
+            public void onClick(SweetAlertDialog sDialog) {
+                sDialog.dismissWithAnimation();
+                mostrarDialogoRanking();
+            }
+        })
                 .show();
 
 
@@ -498,84 +498,6 @@ public class RandomActivity extends AppCompatActivity{
         });
     }
 
-<<<<<<< HEAD
-    private void getRankingActual() {
-        haztumagia();
-        Long idUsuario = 0L;
-        String nombre = "", apellidos = "", fecha = "";
-        // idface = idSharedPreferences, numAciertos
-
-        // LO PRIMERO ES COMPARAR LA PUNTUACIÓN ACTUAL CON MI MEJOR REGISTRO LOCAL
-        String idSharedPreferences = "";
-        SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
-        idSharedPreferences = settings.getString("FIRST_LOGIN", "N");
-        // La prefs de face id es: idSharedPreferences);
-
-        RankingDBDao rankingDBDao = DatabaseConnection.getRankingDBDao(RandomActivity.this);
-        List<RankingDB> ran = rankingDBDao.loadAll();
-
-        for (RankingDB r:ran) {
-
-            // Sí existe registro
-            System.out.println("Comparando "+r.getIdface()+" con "+idSharedPreferences);
-            if(r.getIdface().equals(idSharedPreferences)){
-                registro = true;
-                System.out.println("Son iguales");
-                java.util.Date juDate = new Date();
-                // Fri Mar 17 19:11:01 GMT+01:00 2017
-                String[] parts = juDate.toString().split(" ");
-                String dia = parts[0];          // Fri
-                String mes = parts[1];          // Mar
-                String numdia = parts[2];       // 17
-                String hora = parts[3];         // 19:11:01
-                String zonahoraria = parts[4];  // GMT+01:00
-                String year = parts[5];         // 2017
-
-                idUsuario = r.getIdUsuario();
-                nombre = r.getNombre();
-                apellidos = r.getApellidos();
-                // idface = idSharedPreferences
-                // numAciertos
-                fecha = "El "+numdia+" / "+mes+" / "+year+" a las "+hora;
-
-                System.out.println("Estos son los datos: \n"+idUsuario+" \n "+ nombre+" \n "+ apellidos+" \n "
-                        + idSharedPreferences+" \n "+ numAciertos+" \n "+ fecha);
-
-                System.out.println("Comparo ahora el número de aciertos: "+numAciertos+" - "+r.getAciertos());
-                // Si ese registro es mayor estricto q el anterior => UPDATE en la BD
-                if(numAciertos > r.getAciertos()){
-                    System.out.println("Existe registro y acabas de batir récord");
-                    // ¿Lanzar diálogo animación con felicitación?
-                    updateRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
-                }else{ // TODO: No es récord y muestro su posición
-                    System.out.println("No has batido récord y te muestro tu posición");
-
-                }
-
-
-            }
-        } // fin del bucle
-        if(!registro){
-            // No existe registro y hago INSERT si está logueado
-            System.out.println("No existes en el ranking. Compruebo si estás logueado");
-            if (!idSharedPreferences.equals("N")) {
-                insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
-            }else System.out.println("No estás logueado y no hago nada (Traerme el ránking actual)");
-        }
-        //
-        //
-        // ¿Si está en el ranking, mostrar alguna animación? => liquid button?
-
-
-        System.out.println("AHORA ME TRAIGO LOS DATOS, UNA VEZ INSERTADO O ACTUALIZADO");
-
-
-
-
-
-        }
-=======
->>>>>>> de27269f8e42cbdf26e867181099858c6054b1fb
 
     private void haztumagia() {
         //RETROFIT Ranking
