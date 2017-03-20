@@ -19,7 +19,8 @@ public class PasosDB {
     private String nombreTitular;
 
     @NotNull
-    private String foto;
+    private String fotoPaso;
+    private String fotoTitular;
 
     @NotNull
     private String colorCirio;
@@ -45,11 +46,12 @@ public class PasosDB {
     }
 
     @Generated
-    public PasosDB(Long id, String nombreHermandad, String nombreTitular, String foto, String colorCirio, String banda, String capataz, String numCostaleros, String llamador) {
+    public PasosDB(Long id, String nombreHermandad, String nombreTitular, String fotoPaso, String fotoTitular, String colorCirio, String banda, String capataz, String numCostaleros, String llamador) {
         this.id = id;
         this.nombreHermandad = nombreHermandad;
         this.nombreTitular = nombreTitular;
-        this.foto = foto;
+        this.fotoPaso = fotoPaso;
+        this.fotoTitular = fotoTitular;
         this.colorCirio = colorCirio;
         this.banda = banda;
         this.capataz = capataz;
@@ -86,13 +88,21 @@ public class PasosDB {
     }
 
     @NotNull
-    public String getFoto() {
-        return foto;
+    public String getFotoPaso() {
+        return fotoPaso;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setFoto(@NotNull String foto) {
-        this.foto = foto;
+    public void setFotoPaso(@NotNull String fotoPaso) {
+        this.fotoPaso = fotoPaso;
+    }
+
+    public String getFotoTitular() {
+        return fotoTitular;
+    }
+
+    public void setFotoTitular(String fotoTitular) {
+        this.fotoTitular = fotoTitular;
     }
 
     @NotNull

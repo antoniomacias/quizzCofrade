@@ -87,7 +87,7 @@ public class DetallePasosActivity extends AppCompatActivity {
             if(h.getNombre().equals(pasosDBDao.load(id_aux).getNombreHermandad()))hermandad = h;
         }
         Picasso.with(this)
-                .load(pasosDBDao.load(id_aux).getFoto())
+                .load(pasosDBDao.load(id_aux).getFotoPaso())
                 .resize(500, 400)
                 .into(imageView);
         //hermandad =DatabaseConnection.getHermandadDBDao(this).load(pasosDBDao.load(id_aux).getIdHermandad());

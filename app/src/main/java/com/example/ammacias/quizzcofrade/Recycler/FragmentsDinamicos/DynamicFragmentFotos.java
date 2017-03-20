@@ -69,7 +69,7 @@ public class DynamicFragmentFotos extends Fragment {
                 pasosDBDao = DatabaseConnection.getPasosDBDao(getActivity());
                 pasosDB = pasosDBDao.load(index);
                 Picasso.with(getActivity())
-                        .load(pasosDB.getFoto())
+                        .load(pasosDB.getFotoPaso())
                         .resize(250, 200)
                         .into(imageView);
                 break;

@@ -17,9 +17,12 @@ public class Paso {
     @SerializedName("nombreTitular")
     @Expose
     private String nombreTitular;
-    @SerializedName("foto")
+    @SerializedName("fotoPaso")
     @Expose
-    private String foto;
+    private String fotoPaso;
+    @SerializedName("fotoTitular")
+    @Expose
+    private String fotoTitular;
     @SerializedName("color_cirio")
     @Expose
     private String colorCirio;
@@ -60,13 +63,13 @@ public class Paso {
         this.nombreTitular = nombreTitular;
     }
 
-    public String getFoto() {
-        return foto;
-    }
+    public String getFotoPaso() { return fotoPaso; }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+    public void setFotoPaso(String fotoPaso) { this.fotoPaso = fotoPaso; }
+
+    public String getFotoTitular() { return fotoTitular; }
+
+    public void setFotoTitular(String fotoTitular) { this.fotoTitular = fotoTitular; }
 
     public String getColorCirio() {
         return colorCirio;
@@ -112,13 +115,14 @@ public class Paso {
     public String toString() {
         return "Paso{" +
                 "id=" + id +
-                ", nombreHermandad=" + nombreHermandad +
+                ", nombreHermandad='" + nombreHermandad + '\'' +
                 ", nombreTitular='" + nombreTitular + '\'' +
-                ", foto=" + foto +
+                ", fotoPaso='" + fotoPaso + '\'' +
+                ", fotoTitular='" + fotoTitular + '\'' +
                 ", colorCirio='" + colorCirio + '\'' +
                 ", banda='" + banda + '\'' +
                 ", capataz='" + capataz + '\'' +
-                ", numCostaleros=" + numCostaleros +
+                ", numCostaleros='" + numCostaleros + '\'' +
                 ", llamador='" + llamador + '\'' +
                 '}';
     }

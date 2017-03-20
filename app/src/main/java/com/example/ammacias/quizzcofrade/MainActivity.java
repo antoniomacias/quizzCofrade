@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         pasoDB.setId(p.getId());
                         pasoDB.setNombreHermandad(p.getNombreHermandad());
                         pasoDB.setNombreTitular(p.getNombreTitular());
-                        pasoDB.setFoto(p.getFoto());
+                        pasoDB.setFotoPaso(p.getFotoPaso());
                         pasoDB.setColorCirio(p.getColorCirio());
                         pasoDB.setBanda(p.getBanda());
                         pasoDB.setCapataz(p.getCapataz());

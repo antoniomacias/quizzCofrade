@@ -56,14 +56,14 @@ public class MyPasosDBRecyclerViewAdapter extends RecyclerView.Adapter<MyPasosDB
         if (cat_elegida.contains("Pasos")) {
             if(checkAcertado(mValues.get(position))){
                 Picasso.with(ctx)
-                        .load((mValues.get(position).getFoto()))
+                        .load((mValues.get(position).getFotoPaso()))
                         .placeholder(R.drawable.star)
                         .resize(250,200)
                         .transform(new BlurTransformation(ctx, 25, 1))
                         .into(holder.mIdView);
             }else{
                 Picasso.with(ctx)
-                        .load((mValues.get(position).getFoto()))
+                        .load((mValues.get(position).getFotoPaso()))
                         .placeholder(R.drawable.star)
                         .resize(250, 200)
                         .into(holder.mIdView);

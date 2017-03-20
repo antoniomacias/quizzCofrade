@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
         tools:replace="android:icon">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,16 +30,18 @@
             android:name=".EscudosActivity"
             android:label="@string/title_activity_juego"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ammacias.quizzcofrade.MainActivity" />
         </activity>
-        <activity android:name=".DetalleActivity.DetalleEscudoActivity" />
+        <activity
+            android:name=".DetalleActivity.DetalleEscudoActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".PasosActivity"
             android:label="@string/title_activity_pasos"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity android:name=".RandomActivity" />
 
         <service
@@ -49,11 +52,19 @@
         <activity
             android:name=".MarchaActivity"
             android:label="@string/title_activity_marcha"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DetalleActivity.DetalleMarchaActivity" />
-        <activity android:name=".DetalleActivity.DetallePasosActivity" />
-        <activity android:name=".DetalleActivity.DetalleLlamadoresActivity" />
-        <activity android:name=".LoginActivity"></activity>
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".DetalleActivity.DetalleMarchaActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
+        <activity
+            android:name=".DetalleActivity.DetallePasosActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".DetalleActivity.DetalleLlamadoresActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
