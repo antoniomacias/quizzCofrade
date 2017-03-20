@@ -32,6 +32,8 @@ import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
 import com.example.ammacias.quizzcofrade.localdb.RankingDB;
 import com.example.ammacias.quizzcofrade.localdb.RankingDBDao;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
+import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -462,43 +464,6 @@ public class RandomActivity extends AppCompatActivity{
         });
     }
 
-    private void updateRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
-        retrofit1.create(IRetrofit.class).updateRanking(idUsuario,
-                nombre, apellidos, idSharedPreferences, numAciertos, fecha).enqueue(new Callback<Ranking>() {
-
-            @Override
-            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
-                Toast.makeText(RandomActivity.this, "EXITO al actualizar", Toast.LENGTH_SHORT).show();
-                haztumagia();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(RandomActivity.this, "ERROR al actualizar", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-    private void insertRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
-        retrofit1.create(IRetrofit.class).createRanking(idUsuario,
-                nombre, apellidos, idSharedPreferences, this.numAciertos, fecha).enqueue(new Callback<Ranking>() {
-
-            @Override
-            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
-                Toast.makeText(RandomActivity.this, "¡Felicidades por tu primera partida!", Toast.LENGTH_SHORT).show();
-                haztumagia();
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Toast.makeText(RandomActivity.this, "ERROR en tu primera partida", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-    }
-
-
     private void haztumagia() {
         //RETROFIT Ranking
 
@@ -569,10 +534,9 @@ public class RandomActivity extends AppCompatActivity{
                         // No existe registro y hago INSERT si está logueado
                         System.out.println("No existes en el ranking. Compruebo si estás logueado");
                         if (!idSharedPreferences.equals("N")) {
-                            insertRanking(idUsuario, nombre, apellidos, idSharedPreferences, numAciertos, fecha);
+                            insertRanking(idUsuario, idSharedPreferences, fecha);
                         }else System.out.println("No estás logueado y no hago nada (Traerme el ránking actual)");
                     }
-
                     //Toast.makeText(getApplicationContext(), "Para ver si carga antes la API", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -583,6 +547,54 @@ public class RandomActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    private void updateRanking(Long idUsuario, String nombre, String apellidos, String idSharedPreferences, int numAciertos, String fecha) {
+        retrofit1.create(IRetrofit.class).updateRanking(idUsuario,
+                nombre, apellidos, idSharedPreferences, numAciertos, fecha).enqueue(new Callback<Ranking>() {
+
+            @Override
+            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
+                Toast.makeText(RandomActivity.this, "EXITO al actualizar", Toast.LENGTH_SHORT).show();
+                haztumagia();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(RandomActivity.this, "ERROR al actualizar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void insertRanking(Long idUsuario, String idSharedPreferences, String fecha) {
+
+        //TODO: Coger el id de facebook de aplication y buscar el nombre y apellidos en UsuarioDBDao
+        UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(this);
+        List<UsuarioDB> usuarioDB = usuarioDBDao.loadAll();
+
+        for (UsuarioDB u: usuarioDB) {
+            if (u.getIdface().equals(idSharedPreferences)){
+                nombre = u.getNombre();
+                apellidos = u.getApellidos();
+            }
+        }
+
+        retrofit1.create(IRetrofit.class).createRanking(idUsuario,
+                nombre, apellidos, idSharedPreferences, this.numAciertos, fecha).enqueue(new Callback<Ranking>() {
+
+
+            @Override
+            public void onResponse(Response<Ranking> response, Retrofit retrofit) {
+                Toast.makeText(RandomActivity.this, "¡Felicidades por tu primera partida!", Toast.LENGTH_SHORT).show();
+                haztumagia();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Toast.makeText(RandomActivity.this, "ERROR en tu primera partida", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
 
