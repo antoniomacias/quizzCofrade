@@ -18,11 +18,13 @@ import android.widget.Toast;
 
 import com.bcgdv.asia.lib.ticktock.TickTockView;
 import com.example.ammacias.quizzcofrade.Clases.Ranking;
+import com.example.ammacias.quizzcofrade.Clases.Usuario;
 import com.example.ammacias.quizzcofrade.Interfaces.IRetrofit;
 import com.example.ammacias.quizzcofrade.Pojos_API.Rankings;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentFotos;
 import com.example.ammacias.quizzcofrade.Recycler.FragmentsDinamicos.DynamicFragmentMarcha;
 import com.example.ammacias.quizzcofrade.Recycler.RankingAdapter;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
@@ -53,6 +55,7 @@ public class RandomActivity extends AppCompatActivity{
     Long idUsuario = 0L;
     String nombre = "", apellidos = "", fecha = "";
     Rankings ranking = null;
+    Usuario current_user;
 
     List<HermandadDB> listaH;
     List<PasosDB> listaP;
@@ -159,6 +162,9 @@ public class RandomActivity extends AppCompatActivity{
         }
 
         // Iniciamos el juego
+        if(((Application_vars) this.getApplication()).getU() != null){
+            current_user = ((Application_vars) this.getApplication()).getU();
+        }
         next_escudo(findViewById(android.R.id.content));
         registro = false;
     }// Fin onCreate

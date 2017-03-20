@@ -48,7 +48,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
         }
 
 
-        u = ((Application_vars) this.getApplication()).getU();
+        /*u = ((Application_vars) this.getApplication()).getU();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class EscudosActivity extends AppCompatActivity implements ICofrade{
                 Snackbar.make(view, "Usuario logueado: "+u.toString(), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

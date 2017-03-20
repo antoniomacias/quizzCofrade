@@ -93,15 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         nombre = (String) bFacebookData.get("first_name");
                         apellidos = (String) bFacebookData.get("last_name");
 
-                        current_user = new Usuario(0L, nombre, apellidos, email, idface, authToken);
-                        /*current_user.setNombre(nombre);
-                        current_user.setApellidos(apellidos);
-                        current_user.setEmail(email);
-                        current_user.setIdface(idface);
-                        current_user.setAuthToken(authToken);*/
 
-
-                        ((Application_vars) getApplication()).setU(current_user);
 
 
                         //TODO: Cambiarlo hacia arriba
@@ -124,6 +116,8 @@ public class LoginActivity extends AppCompatActivity {
                             for (UsuarioDB us:u) {
                                 if (us.getIdface().equals(idface)){
                                     bandera = true;
+                                    current_user = new Usuario(us.getId(), nombre, apellidos, email, idface, authToken);
+                                    ((Application_vars) getApplication()).setU(current_user);
                                 }
                             }
 
@@ -210,18 +204,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // nombre, apellidos, email, idface, authToken
-    public void crearUsuario(String nombre, String apellidos, String email, String idface, String authToken){
+    public void crearUsuario(final String nombre, final String apellidos, final String email, final String idface, final String authToken){
         Retrofit retrofit1 = new Retrofit.Builder()
                 .baseUrl(IRetrofit.ENDPOINT1)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        Toast.makeText(this, ""+nombre+"\n"+ apellidos+"\n"+ email+"\n"+ idface+"\n"+ authToken, Toast.LENGTH_SHORT).show();
         retrofit1.create(IRetrofit.class).createUser(nombre, apellidos, email, idface, authToken).enqueue(new Callback<Usuario>() {
 
             @Override
             public void onResponse(Response<Usuario> response, Retrofit retrofit) {
                 Toast.makeText(LoginActivity.this, "EXITO al crear el usuario", Toast.LENGTH_SHORT).show();
+                UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+                List<UsuarioDB> u = usuarioDBDao.loadAll();
+
+                //Busco al usuario
+                for (UsuarioDB us:u) {
+                    if (us.getIdface().equals(idface)){
+                        current_user = new Usuario(us.getId(), nombre, apellidos, email, idface, authToken);
+                        ((Application_vars) getApplication()).setU(current_user);
+                    }
+                }
             }
 
             @Override
