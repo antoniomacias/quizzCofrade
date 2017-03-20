@@ -244,7 +244,7 @@ public class RandomActivity extends AppCompatActivity{
             }
 
             //Cargamos los datos
-            if (aux == 0) {
+            if (aux == 0) { // ESCUDOS
                 pregunta_detalle_escudos.setText("¿A qué hermandad representan?");
                 //Generamos random
                 int randomInt = (int) (Math.random() * listaH.size());
@@ -261,21 +261,21 @@ public class RandomActivity extends AppCompatActivity{
                 arg = Long.valueOf(listaH.get(randomInt).getId());
                 arg1 = "Escudo";
                 System.out.println("Escudo Respuesta: "+nombreRespuesta);
-            } else if (aux == 1) {
+            } else if (aux == 1) { // PASO
                 pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
                 int randomInt = (int) (Math.random() * listaP.size());
-                while (listAux.contains(listaP.get(randomInt).getNombreTitular())){
+                while (listAux.contains(listaP.get(randomInt).getNombreHermandad())){
                     randomInt = (int) (Math.random() * listaP.size());
                 }
                 /*Picasso.with(this)
                         .load(listaP.get(randomInt).getFoto())
                         .resize(250, 200)
                         .into(imageView);*/
-                nombreRespuesta = listaP.get(randomInt).getNombreTitular();
+                nombreRespuesta = listaP.get(randomInt).getNombreHermandad();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
                 arg1 = "Paso";
                 System.out.println("Paso Respuesta: "+nombreRespuesta);
-            } else if (aux == 2){
+            } else if (aux == 2){ // TÚNICA
                 pregunta_detalle_escudos.setText("¿A qué hermandad pertenece?");
                 int randomInt = (int) (Math.random() * listaH.size());
                 while (listAux.contains(listaH.get(randomInt).getNombre())){
@@ -289,7 +289,7 @@ public class RandomActivity extends AppCompatActivity{
                 arg = Long.valueOf(listaH.get(randomInt).getId());
                 arg1 = "Tunica";
                 System.out.println("Túnica Respuesta: "+nombreRespuesta);
-            }else if(aux == 3){
+            }else if(aux == 3){ // LLAMADOR
                 pregunta_detalle_escudos.setText("¿A esta es, o no es?");
                 int randomInt = (int) (Math.random() * listaP.size());
                 while (listAux.contains(listaP.get(randomInt).getLlamador())){
@@ -299,11 +299,11 @@ public class RandomActivity extends AppCompatActivity{
                         .load(listaP.get(randomInt).getLlamador())
                         .resize(250, 200)
                         .into(imageView);*/
-                nombreRespuesta = listaP.get(randomInt).getNombreTitular();
+                nombreRespuesta = listaP.get(randomInt).getNombreHermandad();
                 arg = Long.valueOf(listaP.get(randomInt).getId());
                 arg1 = "Llamador";
                 System.out.println("Llamador Respuesta: "+nombreRespuesta);
-            }else if(aux == 4){
+            }else if(aux == 4){ // MARCHA
                 pregunta_detalle_escudos.setText("¿Corneta o tambor?");
                 int randomInt = (int) (Math.random() * listaM.size());
                 while (listAux.contains(listaM.get(randomInt).getNombre())){

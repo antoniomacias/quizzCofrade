@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.example.ammacias.quizzcofrade.Clases.Marcha;
@@ -248,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
             @Override
             public void onFailure(Throwable t) {
+                Toast.makeText(MainActivity.this, "Error al cargar los pasos. Por favor, reinstala", Toast.LENGTH_SHORT).show();
                 System.out.println(t.getMessage());
             }
         });

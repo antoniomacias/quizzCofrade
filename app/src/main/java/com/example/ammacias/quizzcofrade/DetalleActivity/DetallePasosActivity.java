@@ -82,7 +82,7 @@ public class DetallePasosActivity extends AppCompatActivity {
         if (cat_elegida.equalsIgnoreCase("Pasos")){
             pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
             titulo.setText("Pasos");
-        }else {
+        }else { // Llamadores
             pregunta_detalle_escudos.setText("¿A esta es, o no es?");
             titulo.setText("Llamadores");
         }
@@ -100,10 +100,21 @@ public class DetallePasosActivity extends AppCompatActivity {
         for(HermandadDB h:hermandades){
             if(h.getNombre().equals(pasosDBDao.load(id_aux).getNombreHermandad()))hermandad = h;
         }
-        Picasso.with(this)
-                .load(pasosDBDao.load(id_aux).getFotoPaso())
-                .resize(500, 400)
-                .into(imageView);
+
+        if (cat_elegida.equalsIgnoreCase("Pasos")){
+            Picasso.with(this)
+                    .load(pasosDBDao.load(id_aux).getFotoPaso())
+                    .resize(500, 400)
+                    .into(imageView);
+        }else { // Llamadores
+            Picasso.with(this)
+                    .load(pasosDBDao.load(id_aux).getLlamador())
+                    .resize(500, 400)
+                    .into(imageView);
+        }
+
+
+
         //hermandad =DatabaseConnection.getHermandadDBDao(this).load(pasosDBDao.load(id_aux).getIdHermandad());
 
         respuesta.addTextChangedListener(new TextWatcher() {

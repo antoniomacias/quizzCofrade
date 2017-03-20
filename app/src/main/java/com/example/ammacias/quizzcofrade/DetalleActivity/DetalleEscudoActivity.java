@@ -85,7 +85,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
         if (cat_elegida.equalsIgnoreCase("Escudos")){
-            pregunta_detalle_escudos.setText("¿A qué hermandad representan?");
+            pregunta_detalle_escudos.setText("¿De qué hermandad es?");
             titulo.setText("Escudos");
         }else {
             titulo.setText("Túnicas");
