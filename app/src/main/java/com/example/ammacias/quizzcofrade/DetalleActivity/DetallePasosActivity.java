@@ -1,6 +1,8 @@
 package com.example.ammacias.quizzcofrade.DetalleActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,9 +10,11 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.ammacias.quizzcofrade.Clases.Hermandad;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
@@ -130,6 +134,52 @@ public class DetallePasosActivity extends AppCompatActivity {
                     muestradialogo();
                     //System.out.println("Acertaste y guardo");
                 }
+            }
+        });
+
+
+        final ImagePopup imagePopup = new ImagePopup(this);
+        imagePopup.setBackgroundColor(Color.BLACK);
+
+        imagePopup.setHideCloseIcon(false);
+        imagePopup.setImageOnClickClose(true);
+        //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        final Boolean[] grande = {false};
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //DetallePasosActivity.this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                //imageView.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                if(grande[0]) {
+                    if (cat_elegida.equalsIgnoreCase("Pasos")){
+                        Picasso.with(DetallePasosActivity.this)
+                                .load(pasosDBDao.load(id_aux).getFotoPaso())
+                                .resize(500, 400)
+                                .into(imageView);
+                    }else { // Llamadores
+                        Picasso.with(DetallePasosActivity.this)
+                                .load(pasosDBDao.load(id_aux).getLlamador())
+                                .resize(500, 400)
+                                .into(imageView);
+                    }
+                    grande[0] = !grande[0];
+                }else{
+                    if (cat_elegida.equalsIgnoreCase("Pasos")){
+                        Picasso.with(DetallePasosActivity.this)
+                                .load(pasosDBDao.load(id_aux).getFotoPaso())
+                                .resize(1000, 800)
+                                .into(imageView);
+                    }else { // Llamadores
+                        Picasso.with(DetallePasosActivity.this)
+                                .load(pasosDBDao.load(id_aux).getLlamador())
+                                .resize(1000, 800)
+                                .into(imageView);
+                    }
+                    grande[0] = !grande[0];
+                }
+                //imagePopup.initiatePopup(imageView.getDrawable());
             }
         });
     }
