@@ -452,7 +452,9 @@ public class RandomActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ((DynamicFragmentMarcha)f).pararMarcha();
+        if (f instanceof DynamicFragmentMarcha){
+            ((DynamicFragmentMarcha)f).pararMarcha();
+        }
     }
 
     private void mostrarDialogoRanking() {
