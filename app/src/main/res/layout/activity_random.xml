@@ -149,7 +149,7 @@
         android:layout_below="@+id/capipuntos"
         android:id="@+id/fondo1" />
     <com.example.ammacias.quizzcofrade.Utils.CustomTextView
-        android:id="@+id/numAciertos1"
+        android:id="@+id/numAciertosCentenas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -170,7 +170,7 @@
         android:layout_alignTop="@+id/fondo1"
         android:id="@+id/fondo2" />
     <com.example.ammacias.quizzcofrade.Utils.CustomTextView
-        android:id="@+id/numAciertos2"
+        android:id="@+id/numAciertosDecenas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -191,7 +191,7 @@
         android:layout_toRightOf="@+id/fondo2"
         android:layout_toEndOf="@+id/fondo2" />
     <com.example.ammacias.quizzcofrade.Utils.CustomTextView
-        android:id="@+id/numAciertos"
+        android:id="@+id/numAciertosUnidades"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"

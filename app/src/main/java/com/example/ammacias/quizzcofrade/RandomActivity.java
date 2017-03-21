@@ -75,7 +75,7 @@ public class RandomActivity extends AppCompatActivity{
     ImageView vida3;
     ImageView vida4;
     ImageView vida5;
-    TextView aciertosImg;
+    TextView aciertosImgUnidades, aciertosImgDecenas, aciertosImgCentenas;
 
     //CountDown
     com.bcgdv.asia.lib.ticktock.TickTockView mCountDown;
@@ -109,13 +109,18 @@ public class RandomActivity extends AppCompatActivity{
         vida3= (ImageView)findViewById(R.id.vida3);
         vida4= (ImageView)findViewById(R.id.vida4);
         vida5= (ImageView)findViewById(R.id.vida5);
-        aciertosImg= (TextView) findViewById(R.id.numAciertos);
+        aciertosImgUnidades= (TextView) findViewById(R.id.numAciertosUnidades);
+        aciertosImgDecenas= (TextView) findViewById(R.id.numAciertosDecenas);
+        aciertosImgCentenas= (TextView) findViewById(R.id.numAciertosCentenas);
         pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
 
 
         numVidas = 5;
         numAciertos = 0;
-        aciertosImg.setText("0");
+        aciertosImgUnidades.setText("0");
+        aciertosImgDecenas.setText("0");
+        aciertosImgCentenas.setText("0");
+
 
 
         respuesta =(EditText)findViewById(R.id.respuesta_escudo);
@@ -170,12 +175,28 @@ public class RandomActivity extends AppCompatActivity{
     }// Fin onCreate
 
     private void muestradialogo() {
+        String uni = "0", dec = "0", cen = "0";
         //Paramos contador
         mCountDown.stop();
 
         //Aumentamos aciertos y seteamos el contador de Aciertos
         numAciertos++;
-        aciertosImg.setText(""+numAciertos);
+        int unidades = 0,decenas = 0, centenas = 0;
+        if(numAciertos>9){
+            unidades = numAciertos%10;                      // unidades
+            decenas = (numAciertos-unidades)%100;           // decenas
+            centenas = (numAciertos-decenas-unidades)%1000; // centenas
+
+            uni = String.valueOf(unidades).substring(0);
+            dec = String.valueOf(decenas).substring(0, 1);
+            cen = String.valueOf(centenas).substring(0, 1);
+
+            aciertosImgUnidades.setText(""+uni);
+            aciertosImgDecenas.setText(""+dec);
+            aciertosImgCentenas.setText(""+cen);
+        }else{
+            aciertosImgUnidades.setText(""+numAciertos);
+        }
 
         //Guardamos el nombre del Objeto acertado para que no vuelva a repetirse
         listAux.add(nombreRespuesta);
@@ -586,7 +607,6 @@ public class RandomActivity extends AppCompatActivity{
 
     private void insertRanking(Long idUsuario, String idSharedPreferences, String fecha) {
 
-        //TODO: Coger el id de facebook de aplication y buscar el nombre y apellidos en UsuarioDBDao
         UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(this);
         List<UsuarioDB> usuarioDB = usuarioDBDao.loadAll();
 
