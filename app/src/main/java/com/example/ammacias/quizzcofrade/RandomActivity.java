@@ -69,7 +69,7 @@ public class RandomActivity extends AppCompatActivity{
     //Control aciertos/vidas
     int var_global = 16;
     int numVidas, numAciertos;
-    boolean bandera, registro;
+    boolean bandera= true, registro;
     ImageView vida1;
     ImageView vida2;
     ImageView vida3;
@@ -232,8 +232,7 @@ public class RandomActivity extends AppCompatActivity{
 
         if (numVidas==0){
             finJuego();
-        }
-        else {
+        } else {
             cambiarImg();
 
             //Si es 0 -> Escudo
