@@ -617,6 +617,7 @@ public class RandomActivity extends AppCompatActivity{
                 nombre = u.getNombre();
                 apellidos = u.getApellidos();
             }
+            System.out.println("Nombre: "+nombre+ " apellidos"+apellidos);
         }
 
         retrofit1.create(IRetrofit.class).createRanking(idUsuario,
