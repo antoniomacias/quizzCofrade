@@ -17,6 +17,7 @@ import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
 
+import java.sql.SQLOutput;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class EscudosFragmentList extends Fragment {
 
     // TODO: Customize parameters
     private int mColumnCount = 4;
-
+    String cat_elegida;
+    List<HermandadDB> hermandadDBs;
     private ICofrade mListener;
 
     /**
@@ -50,7 +52,7 @@ public class EscudosFragmentList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_escudosdb_list, container, false);
-
+        cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -62,8 +64,25 @@ public class EscudosFragmentList extends Fragment {
             }
 
             //Load Hermandades from DB
-            HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-            List<HermandadDB> hermandadDBs = hermandadDBDao.loadAll();
+            switch (cat_elegida){
+                case "Escudos":
+                    /*HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                   hermandadDBs = hermandadDBDao.loadAll();*/
+                    HermandadDBDao hermandadDBDaoTunicas1 = DatabaseConnection.getHermandadDBTDao(getActivity());
+                    hermandadDBs = hermandadDBDaoTunicas1.loadAll();
+                    break;
+                case "Túnicas":
+                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(getActivity());
+                    hermandadDBs = hermandadDBDaoTunicas.loadAll();
+                    break;
+                default:
+                    HermandadDBDao hermandadDBDaoTunicas2 = DatabaseConnection.getHermandadDBTDao(getActivity());
+                    hermandadDBs = hermandadDBDaoTunicas2.loadAll();
+                    break;
+
+            }
+            System.out.println("DESDE EL FRAGMENT"+hermandadDBs);
+
 
             //Call recycler
             //Ctx -> Picasso

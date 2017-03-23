@@ -24,6 +24,8 @@ import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBT;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBTDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
@@ -51,7 +53,8 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
     HermandadDBDao hermandadDBDao;
     HermandadDB herma;
-    List<HermandadDB> ListaDesordenada;
+    List<HermandadDB> ListaDesordenada; // TODO: cambiar las tunicas
+    List<HermandadDB> ListaDesordenadaT;
     Long id_aux;
     int posicionLista;
     String cat_elegida = "", s ="";
@@ -83,6 +86,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
         //Hermandad seleccionada
         herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
+        //hermaT = DatabaseConnection.getHermandadDBTDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
         id_aux = herma.getId();
         System.out.println("hermandad repe : "+herma.getNombre());
 

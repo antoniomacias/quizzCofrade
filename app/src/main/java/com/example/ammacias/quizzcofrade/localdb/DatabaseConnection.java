@@ -57,8 +57,8 @@ public class DatabaseConnection {
         daoMaster.getDatabase().close();
     }
 
-    public static HermandadDBTDao getHermandadDBTDao(Context ctx) {
+    public static HermandadDBDao getHermandadDBTDao(Context ctx) {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
-        return daoSession.getHermandadDBTDao();
+        return daoSession.getHermandadDBDao();
     }
 }

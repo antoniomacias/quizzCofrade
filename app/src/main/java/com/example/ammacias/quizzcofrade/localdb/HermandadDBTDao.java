@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "HERMANDAD_DBT".
 */
-public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
+public class HermandadDBTDao extends AbstractDao<HermandadDB, Long> {
 
     public static final String TABLENAME = "HERMANDAD_DBT";
 
@@ -62,7 +62,7 @@ public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
     }
 
     @Override
-    protected final void bindValues(DatabaseStatement stmt, HermandadDBT entity) {
+    protected final void bindValues(DatabaseStatement stmt, HermandadDB entity) {
         stmt.clearBindings();
  
         Long id = entity.getId();
@@ -79,7 +79,7 @@ public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
     }
 
     @Override
-    protected final void bindValues(SQLiteStatement stmt, HermandadDBT entity) {
+    protected final void bindValues(SQLiteStatement stmt, HermandadDB entity) {
         stmt.clearBindings();
  
         Long id = entity.getId();
@@ -101,8 +101,8 @@ public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
     }    
 
     @Override
-    public HermandadDBT readEntity(Cursor cursor, int offset) {
-        HermandadDBT entity = new HermandadDBT( //
+    public HermandadDB readEntity(Cursor cursor, int offset) {
+        HermandadDB entity = new HermandadDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // nombre
             cursor.getString(offset + 2), // escudo
@@ -116,7 +116,7 @@ public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
     }
      
     @Override
-    public void readEntity(Cursor cursor, HermandadDBT entity, int offset) {
+    public void readEntity(Cursor cursor, HermandadDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNombre(cursor.getString(offset + 1));
         entity.setEscudo(cursor.getString(offset + 2));
@@ -128,13 +128,13 @@ public class HermandadDBTDao extends AbstractDao<HermandadDBT, Long> {
      }
     
     @Override
-    protected final Long updateKeyAfterInsert(HermandadDBT entity, long rowId) {
+    protected final Long updateKeyAfterInsert(HermandadDB entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
     
     @Override
-    public Long getKey(HermandadDBT entity) {
+    public Long getKey(HermandadDB entity) {
         if(entity != null) {
             return entity.getId();
         } else {

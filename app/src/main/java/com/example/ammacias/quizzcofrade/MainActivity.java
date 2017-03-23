@@ -287,6 +287,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                     for (Hermandad h:result.getData()) {
                         //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
+                        System.out.println("PRIMERA LISTA"+h.getNombre());
                         HermandadDB hermandadDB = new HermandadDB();
                         hermandadDB.setId(h.getId());
                         hermandadDB.setNombre(h.getNombre());
@@ -300,17 +301,17 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
 
-
                     for (Hermandad h: result.getData()){
                         numeroRandom = (int)(Math.random() * listNumerosT.size()-1);
                         h.setId(Long.valueOf(listNumerosT.get(numeroRandom)));
                         listNumerosT.remove(listNumerosT.get(numeroRandom));
                     }
-                    HermandadDBTDao hermandadDBTDao = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
+                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
 
                     for (Hermandad h:result.getData()) {
                         //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        HermandadDBT hermandadDBT = new HermandadDBT();
+                        System.out.println("SEGUNDA LISTA"+h.getNombre());
+                        HermandadDB hermandadDBT = new HermandadDB();
                         hermandadDBT.setId(h.getId());
                         hermandadDBT.setNombre(h.getNombre());
                         hermandadDBT.setEscudo(h.getEscudo());
@@ -320,13 +321,15 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDBT.setNumNazarenos(h.getNumNazarenos());
                         hermandadDBT.setAnyoFundacion(h.getAnyoFundacion());
 
-                        hermandadDBTDao.insertOrReplace(hermandadDBT);
+                        hermandadDBDaoTunicas.insertOrReplace(hermandadDBT);
                     }
+
 
                     System.out.println("**************\n****************\nTODAS LAS HERMANDADES \n***************\n********************");
                     System.out.println(hermandadDBDao.loadAll());
                     System.out.println("**************\n****************\nTODAS LAS HERMANDADES TÚNICAS \n***************\n********************");
-                    System.out.println(hermandadDBTDao.loadAll());
+                    System.out.println(hermandadDBDaoTunicas.loadAll());
+                    
                 }
             }
 

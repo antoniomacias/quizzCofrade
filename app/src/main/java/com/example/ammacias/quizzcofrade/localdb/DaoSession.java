@@ -92,7 +92,7 @@ public class DaoSession extends AbstractDaoSession {
 
         registerDao(UsuarioDB.class, usuarioDBDao);
         registerDao(HermandadDB.class, hermandadDBDao);
-        registerDao(HermandadDBT.class, hermandadDBTDao);
+        registerDao(HermandadDB.class, hermandadDBTDao);
         registerDao(PasosDB.class, pasosDBDao);
         registerDao(PasosDBL.class, pasosDBLDao);
         registerDao(MarchaDB.class, marchaDBDao);
