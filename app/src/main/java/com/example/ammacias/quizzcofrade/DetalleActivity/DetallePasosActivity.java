@@ -3,6 +3,8 @@ package com.example.ammacias.quizzcofrade.DetalleActivity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -61,6 +63,31 @@ public class DetallePasosActivity extends AppCompatActivity {
         titulo = (TextView)findViewById(R.id.titulo);
 
         pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
+
+
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "El paso sale en: "+hermandad.getDia(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Hermandad seleccionada
         paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
