@@ -75,22 +75,29 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
         titulo = (TextView)findViewById(R.id.titulo);
 
-
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
 
+        // EMPIEZA LA FIESTA
+        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
 
+        if (cat_elegida.equalsIgnoreCase("Escudos")){
+            pregunta_detalle_escudos.setText("¿De qué hermandad es?");
+            titulo.setText("Escudos");//Hermandad seleccionada
+            herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
+            ListaDesordenada = DatabaseConnection.getHermandadDBDao(this).loadAll();
 
+        }else {
+            titulo.setText("Túnicas");
+            pregunta_detalle_escudos.setText("¿A qué hermandad pertenece?");//Hermandad seleccionada
+            herma = DatabaseConnection.getHermandadDBTDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
+            ListaDesordenada = DatabaseConnection.getHermandadDBTDao(this).loadAll();
 
-
-        //Hermandad seleccionada
-        herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
+        }
         //hermaT = DatabaseConnection.getHermandadDBTDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
         id_aux = herma.getId();
         System.out.println("hermandad repe : "+herma.getNombre());
 
-        ListaDesordenada = DatabaseConnection.getHermandadDBDao(this).loadAll();
         for(int ii=0;ii<ListaDesordenada.size();ii++){
             if(ListaDesordenada.get(ii).getId().equals(id_aux) || ListaDesordenada.get(ii).getId() == id_aux){
                 posicionLista = ii;
@@ -98,17 +105,6 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         }
 
         //posicionLista = ListaDesordenada.indexOf(herma);
-
-        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
-
-        if (cat_elegida.equalsIgnoreCase("Escudos")){
-            pregunta_detalle_escudos.setText("¿De qué hermandad es?");
-            titulo.setText("Escudos");
-        }else {
-            titulo.setText("Túnicas");
-            pregunta_detalle_escudos.setText("¿A qué hermandad pertenece?");
-        }
-
         String s=null;
         if(checkAcertado(id_aux)){
             s = herma.getNombre();
@@ -150,7 +146,12 @@ public class DetalleEscudoActivity extends AppCompatActivity {
     } // Fin onCreate
 
     public void jugar(final Long id_aux){
-        hermandadDBDao = DatabaseConnection.getHermandadDBDao(this);
+        if (cat_elegida.equalsIgnoreCase("Escudos")){
+            hermandadDBDao = DatabaseConnection.getHermandadDBDao(this);
+        }else{
+            hermandadDBDao = DatabaseConnection.getHermandadDBTDao(this);
+
+        }
         if (cat_elegida.contains("Escudos")) {
             Picasso.with(this)
                     .load(hermandadDBDao.load(id_aux).getEscudo())
