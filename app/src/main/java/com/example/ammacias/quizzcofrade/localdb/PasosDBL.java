@@ -155,4 +155,10 @@ public class PasosDBL {
         this.llamador = llamador;
     }
 
+    @Override
+    public String toString() {
+        return "PasosDBL{" +
+                "nombreHermandad='" + nombreHermandad + '\'' +
+                '}';
+    }
 }

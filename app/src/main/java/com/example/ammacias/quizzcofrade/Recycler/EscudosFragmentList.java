@@ -34,7 +34,6 @@ public class EscudosFragmentList extends Fragment {
     private int mColumnCount = 4;
     String cat_elegida;
     List<HermandadDB> hermandadDBs;
-    List<HermandadDB> hermandadDBsT;
     private ICofrade mListener;
 
     /**
@@ -69,17 +68,11 @@ public class EscudosFragmentList extends Fragment {
             if (cat_elegida.contains("Escudos")){
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
                 hermandadDBs = hermandadDBDao.loadAll();
-                System.out.println("Fragment escudos: "+hermandadDBs);
-
-                recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
             }else{
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBTDao(getActivity());
-                hermandadDBsT = hermandadDBDao.loadAll();
-
-                System.out.println("Fragment tunicas: "+hermandadDBsT);
-
-                recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBsT, mListener));
+                hermandadDBs = hermandadDBDao.loadAll();
             }
+<<<<<<< HEAD
             /*switch (cat_elegida){
                 case "Escudos":
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
@@ -107,6 +100,9 @@ public class EscudosFragmentList extends Fragment {
 
             //Call recycler
             //Ctx -> Picasso
+=======
+            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
+>>>>>>> 3f69a155ee21dd83102c5f47ef6d5c16f5f59020
         }
         return view;
     }

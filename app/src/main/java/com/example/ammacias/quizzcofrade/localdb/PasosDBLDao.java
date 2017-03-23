@@ -13,7 +13,7 @@ import org.greenrobot.greendao.database.DatabaseStatement;
 /** 
  * DAO for table "PASOS_DBL".
 */
-public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
+public class PasosDBLDao extends AbstractDao<PasosDB, Long> {
 
     public static final String TABLENAME = "PASOS_DBL";
 
@@ -66,7 +66,7 @@ public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
     }
 
     @Override
-    protected final void bindValues(DatabaseStatement stmt, PasosDBL entity) {
+    protected final void bindValues(DatabaseStatement stmt, PasosDB entity) {
         stmt.clearBindings();
  
         Long id = entity.getId();
@@ -89,7 +89,7 @@ public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
     }
 
     @Override
-    protected final void bindValues(SQLiteStatement stmt, PasosDBL entity) {
+    protected final void bindValues(SQLiteStatement stmt, PasosDB entity) {
         stmt.clearBindings();
  
         Long id = entity.getId();
@@ -117,8 +117,8 @@ public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
     }    
 
     @Override
-    public PasosDBL readEntity(Cursor cursor, int offset) {
-        PasosDBL entity = new PasosDBL( //
+    public PasosDB readEntity(Cursor cursor, int offset) {
+        PasosDB entity = new PasosDB( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // nombreHermandad
             cursor.getString(offset + 2), // nombreTitular
@@ -134,7 +134,7 @@ public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
     }
      
     @Override
-    public void readEntity(Cursor cursor, PasosDBL entity, int offset) {
+    public void readEntity(Cursor cursor, PasosDB entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNombreHermandad(cursor.getString(offset + 1));
         entity.setNombreTitular(cursor.getString(offset + 2));
@@ -148,13 +148,13 @@ public class PasosDBLDao extends AbstractDao<PasosDBL, Long> {
      }
     
     @Override
-    protected final Long updateKeyAfterInsert(PasosDBL entity, long rowId) {
+    protected final Long updateKeyAfterInsert(PasosDB entity, long rowId) {
         entity.setId(rowId);
         return rowId;
     }
     
     @Override
-    public Long getKey(PasosDBL entity) {
+    public Long getKey(PasosDB entity) {
         if(entity != null) {
             return entity.getId();
         } else {
