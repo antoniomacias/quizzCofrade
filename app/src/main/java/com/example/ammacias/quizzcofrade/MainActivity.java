@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         if (!mboolean) { // do the thing for the first time
 
 
-            System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
             getUsuarios();
             getHermandades();
             getPasos();
@@ -98,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
-        } else { // other time your app loads
-            System.out.println("Ya no descargo");
         }
 
     }
@@ -283,11 +280,14 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
                         listNumeros.remove(listNumeros.get(numeroRandom));
                     }
+
+                    int numeroRandomTunica =0;
+
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
+                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
 
                     for (Hermandad h:result.getData()) {
-                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        System.out.println("PRIMERA LISTA"+h.getNombre());
+
                         HermandadDB hermandadDB = new HermandadDB();
                         hermandadDB.setId(h.getId());
                         hermandadDB.setNombre(h.getNombre());
@@ -299,37 +299,15 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
+
+                        //Cambio la MISMA hermandad con el nuevo ID RANDOM
+                        numeroRandomTunica = (int)(Math.random() * listNumerosT.size()-1);
+                        h.setId(Long.valueOf(listNumerosT.get(numeroRandomTunica)));
+                        listNumerosT.remove(listNumerosT.get(numeroRandomTunica));
+
+                        hermandadDB.setId((long) numeroRandomTunica);
+                        hermandadDBDaoTunicas.insertOrReplace(hermandadDB);
                     }
-
-                    for (Hermandad h: result.getData()){
-                        numeroRandom = (int)(Math.random() * listNumerosT.size()-1);
-                        h.setId(Long.valueOf(listNumerosT.get(numeroRandom)));
-                        listNumerosT.remove(listNumerosT.get(numeroRandom));
-                    }
-                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
-
-                    for (Hermandad h:result.getData()) {
-                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        System.out.println("SEGUNDA LISTA"+h.getNombre());
-                        HermandadDB hermandadDBT = new HermandadDB();
-                        hermandadDBT.setId(h.getId());
-                        hermandadDBT.setNombre(h.getNombre());
-                        hermandadDBT.setEscudo(h.getEscudo());
-                        hermandadDBT.setTunica(h.getTunica());
-                        hermandadDBT.setFotoTunica(h.getFoto_tunica());
-                        hermandadDBT.setDia(h.getDia());
-                        hermandadDBT.setNumNazarenos(h.getNumNazarenos());
-                        hermandadDBT.setAnyoFundacion(h.getAnyoFundacion());
-
-                        hermandadDBDaoTunicas.insertOrReplace(hermandadDBT);
-                    }
-
-
-                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES \n***************\n********************");
-                    System.out.println(hermandadDBDao.loadAll());
-                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES TÚNICAS \n***************\n********************");
-                    System.out.println(hermandadDBDaoTunicas.loadAll());
-                    
                 }
             }
 

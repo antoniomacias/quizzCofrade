@@ -32,7 +32,10 @@ public class DatabaseConnection {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
         return daoSession.getHermandadDBDao();
     }
-
+    public static HermandadDBDao getHermandadDBTDao(Context ctx) {
+        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
+        return daoSession.getHermandadDBTDao();
+    }
     public static PasosDBDao getPasosDBDao (Context ctx) {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
         return daoSession.getPasosDBDao();
@@ -57,8 +60,5 @@ public class DatabaseConnection {
         daoMaster.getDatabase().close();
     }
 
-    public static HermandadDBDao getHermandadDBTDao(Context ctx) {
-        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
-        return daoSession.getHermandadDBDao();
-    }
+
 }
