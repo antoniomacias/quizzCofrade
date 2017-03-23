@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         if (!mboolean) { // do the thing for the first time
 
 
-            System.out.println("*****************************\n****************************\nENTRO POR PRIMERA VEZ");
             getUsuarios();
             getHermandades();
             getPasos();
@@ -98,8 +97,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("FIRST_RUN", true);
             editor.commit();
-        } else { // other time your app loads
-            System.out.println("Ya no descargo");
         }
 
     }
@@ -265,7 +262,57 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         autocompleteList2.enqueue(new Callback<Hermandades>() {
             @Override
             public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
+<<<<<<< HEAD
                 //aqui va tood lo que he borrado
+=======
+                if (response.isSuccess()){
+                    Hermandades result= response.body();
+
+                    //Array auxiliar con indices -> ID's
+                    List<Long> listNumeros = new ArrayList<Long>();
+                    List<Long> listNumerosT = new ArrayList<Long>();
+                    for (int i = 0; i<=result.getData().size();i++){
+                        listNumeros.add(Long.valueOf(i));
+                        listNumerosT.add(Long.valueOf(i));
+                    }
+
+                    int numeroRandom =0;
+                    //Generamos nuevos ID's para cada Hermandad.
+                    for (Hermandad h: result.getData()){
+                        numeroRandom = (int)(Math.random() * listNumeros.size()-1);
+                        h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
+                        listNumeros.remove(listNumeros.get(numeroRandom));
+                    }
+
+                    int numeroRandomTunica =0;
+
+                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
+                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
+
+                    for (Hermandad h:result.getData()) {
+
+                        HermandadDB hermandadDB = new HermandadDB();
+                        hermandadDB.setId(h.getId());
+                        hermandadDB.setNombre(h.getNombre());
+                        hermandadDB.setEscudo(h.getEscudo());
+                        hermandadDB.setTunica(h.getTunica());
+                        hermandadDB.setFotoTunica(h.getFoto_tunica());
+                        hermandadDB.setDia(h.getDia());
+                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
+                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
+
+                        hermandadDBDao.insertOrReplace(hermandadDB);
+
+                        //Cambio la MISMA hermandad con el nuevo ID RANDOM
+                        numeroRandomTunica = (int)(Math.random() * listNumerosT.size()-1);
+                        h.setId(Long.valueOf(listNumerosT.get(numeroRandomTunica)));
+                        listNumerosT.remove(listNumerosT.get(numeroRandomTunica));
+
+                        hermandadDB.setId((long) numeroRandomTunica);
+                        hermandadDBDaoTunicas.insertOrReplace(hermandadDB);
+                    }
+                }
+>>>>>>> 67ef73a6ae090766dba7cc55c8e7a3e14f54ccb0
             }
 
             @Override
