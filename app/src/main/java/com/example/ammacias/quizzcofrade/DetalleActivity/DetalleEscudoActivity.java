@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,7 +54,8 @@ public class DetalleEscudoActivity extends AppCompatActivity {
     List<HermandadDB> ListaDesordenada;
     Long id_aux;
     int posicionLista;
-    String cat_elegida = "";
+    String cat_elegida = "", s ="";
+    FloatingActionButton fab;
 
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
@@ -68,6 +71,15 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
 
         titulo = (TextView)findViewById(R.id.titulo);
+
+
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
+
+
+
+
 
         //Hermandad seleccionada
         herma = DatabaseConnection.getHermandadDBDao(this).load(getIntent().getExtras().getLong("IDHermandad"));
@@ -143,10 +155,27 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
         }else{ // Ha escogido Túnicas
             if(hermandadDBDao.load(id_aux).getFotoTunica().contains("n_")) { // El nazareno va de negro
+                s = "Pertenece a una cofradía que sale en ";
+
+
+
                 if(hermandadDBDao.load(id_aux).getFotoTunica().contains("madruga")) { // El nazareno es de la Madrugá
-                    pregunta.setText("¿A qué hermandad pertenece este nazareno de la "+hermandadDBDao.load(id_aux).getDia()+"?");
-                }else pregunta.setText("¿A qué hermandad pertenece este nazareno del "+hermandadDBDao.load(id_aux).getDia()+"?");
+                    //pregunta.setText("¿A qué hermandad pertenece este nazareno de la "+hermandadDBDao.load(id_aux).getDia()+"?");
+                    s+="la "+hermandadDBDao.load(id_aux).getDia();
+                }else s+="el "+hermandadDBDao.load(id_aux).getDia();//pregunta.setText("¿A qué hermandad pertenece este nazareno del "+hermandadDBDao.load(id_aux).getDia()+"?");
+
+                fab.setVisibility(View.VISIBLE);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Snackbar.make(view, s/*+herma.getDia()*/, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+
             }else{
+                fab.setVisibility(View.GONE);
+
                 pregunta.setText("¿A qué hermandad pertenece?");
             }
 
