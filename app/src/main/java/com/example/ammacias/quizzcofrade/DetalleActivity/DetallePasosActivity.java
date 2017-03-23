@@ -65,9 +65,28 @@ public class DetallePasosActivity extends AppCompatActivity {
 
         pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
 
-        //Hermandad seleccionada
-        paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
+
+        // EMPIEZA LA FIESTA
+        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
+
+        if (cat_elegida.equalsIgnoreCase("Pasos")){
+            pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
+            titulo.setText("Pasos");//Hermandad seleccionada
+            paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
+            ListaDesordenada = DatabaseConnection.getPasosDBDao(this).loadAll();
+
+        }else { // Llamadores
+            pregunta_detalle_escudos.setText("¿A esta es, o no es?");
+            titulo.setText("Llamadores");//Hermandad seleccionada
+            paso = DatabaseConnection.getPasosDBLDao(this).load(getIntent().getExtras().getLong("IDPaso"));
+            ListaDesordenada = DatabaseConnection.getPasosDBLDao(this).loadAll();
+
+        }
+
         id_aux = paso.getId();
+        // Sólo queremos las hermandades para igualar el nombre
         hermandades =DatabaseConnection.getHermandadDBDao(this).loadAll();
         for(HermandadDB h:hermandades){
             if(h.getNombre().equals(paso.getNombreHermandad()))hermandad = h;
@@ -75,26 +94,12 @@ public class DetallePasosActivity extends AppCompatActivity {
         System.out.println("PASO ESCOGIDO : "+paso);
         System.out.println("De la hermandad "+hermandad);
 
-        ListaDesordenada = DatabaseConnection.getPasosDBDao(this).loadAll();
         for(int ii=0;ii<ListaDesordenada.size();ii++){
             if(ListaDesordenada.get(ii).getId().equals(id_aux) || ListaDesordenada.get(ii).getId() == id_aux){
                 posicionLista = ii;
             }
         }
-
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.GONE);
         //posicionLista = ListaDesordenada.indexOf(herma);
-
-        cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
-
-        if (cat_elegida.equalsIgnoreCase("Pasos")){
-            pregunta_detalle_escudos.setText("Al cielo con... ¿cuál?");
-            titulo.setText("Pasos");
-        }else { // Llamadores
-            pregunta_detalle_escudos.setText("¿A esta es, o no es?");
-            titulo.setText("Llamadores");
-        }
 
         String s=null;
         if(checkAcertado(id_aux)){
@@ -105,8 +110,14 @@ public class DetallePasosActivity extends AppCompatActivity {
     } // Fin onCreate
 
     public void jugar(final Long id_aux){
+        if (cat_elegida.equalsIgnoreCase("Pasos")){
+            pasosDBDao = DatabaseConnection.getPasosDBDao(this);
+        }else{ // Llamadores
+            pasosDBDao = DatabaseConnection.getPasosDBLDao(this);
+
+        }
         s = "Pertenece a una cofradía que sale en ";
-        pasosDBDao = DatabaseConnection.getPasosDBDao(this);
+
         for(HermandadDB h:hermandades){
             if(h.getNombre().equals(pasosDBDao.load(id_aux).getNombreHermandad()))hermandad = h;
         }

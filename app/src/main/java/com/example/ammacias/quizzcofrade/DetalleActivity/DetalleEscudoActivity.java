@@ -53,8 +53,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
 
     HermandadDBDao hermandadDBDao;
     HermandadDB herma;
-    List<HermandadDB> ListaDesordenada; // TODO: cambiar las tunicas
-    List<HermandadDB> ListaDesordenadaT;
+    List<HermandadDB> ListaDesordenada;
     Long id_aux;
     int posicionLista;
     String cat_elegida = "", s ="";
