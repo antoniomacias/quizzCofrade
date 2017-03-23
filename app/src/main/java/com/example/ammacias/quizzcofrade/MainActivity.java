@@ -214,8 +214,10 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                     //Array auxiliar con indices -> ID's
                     List<Long> listNumeros = new ArrayList<Long>();
+                    List<Long> listNumerosL = new ArrayList<Long>();
                     for (int i = 0; i<=result.getData().size();i++){
                         listNumeros.add(Long.valueOf(i));
+                        listNumerosL.add(Long.valueOf(i));
                     }
 
                     int numeroRandom =0;
@@ -226,7 +228,11 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         listNumeros.remove(listNumeros.get(numeroRandom));
                     }
 
+
+                    int numeroRandomLlamadores =0;
+
                     PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBDao(MainActivity.this);
+                    PasosDBDao pasosDBDaoLlamadores = DatabaseConnection.getPasosDBLDao(MainActivity.this);
 
                     for (Paso p:result.getData()) {
                         //"id, idHermandad, nombreTitular, foto, colorCirio, banda, capataz, numCostalero, llamador"
@@ -241,7 +247,17 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         pasoDB.setLlamador(p.getLlamador());
                         pasoDB.setNumCostaleros(p.getNumCostaleros());
 
+                        System.out.println("Paso: "+pasoDB);
                         pasosDBDao.insertOrReplace(pasoDB);
+
+                        numeroRandomLlamadores = (int)(Math.random() * listNumerosL.size()-1);
+                        pasoDB.setId(Long.valueOf(listNumerosL.get(numeroRandomLlamadores)));
+                        listNumerosL.remove(listNumerosL.get(numeroRandomLlamadores));
+
+
+                        System.out.println("Llamadores: "+pasoDB);
+                        //System.out.println("Numero random llamadores: "+numeroRandomLlamadores);
+                        pasosDBDaoLlamadores.insertOrReplace(pasoDB);
                     }
                 }
             }
@@ -277,6 +293,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                     //Generamos nuevos ID's para cada Hermandad.
                     for (Hermandad h: result.getData()){
                         numeroRandom = (int)(Math.random() * listNumeros.size()-1);
+                        h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
                         listNumeros.remove(listNumeros.get(numeroRandom));
                     }
 
@@ -304,7 +321,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDB.setId(Long.valueOf(listNumerosT.get(numeroRandomTunica)));
                         listNumerosT.remove(listNumerosT.get(numeroRandomTunica));
 
-                        System.out.println("Numero: "+numeroRandomTunica);
                         hermandadDBDaoTunicas.insertOrReplace(hermandadDB);
                     }
                 }

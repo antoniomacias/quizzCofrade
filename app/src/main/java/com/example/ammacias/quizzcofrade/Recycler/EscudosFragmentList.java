@@ -33,7 +33,6 @@ public class EscudosFragmentList extends Fragment {
     private int mColumnCount = 4;
     String cat_elegida;
     List<HermandadDB> hermandadDBs;
-    List<HermandadDB> hermandadDBsT;
     private ICofrade mListener;
 
     /**
@@ -68,38 +67,11 @@ public class EscudosFragmentList extends Fragment {
             if (cat_elegida.contains("Escudos")){
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
                 hermandadDBs = hermandadDBDao.loadAll();
-                System.out.println("Fragment escudos: "+hermandadDBs);
-
-                recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
             }else{
                 HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBTDao(getActivity());
-                hermandadDBsT = hermandadDBDao.loadAll();
-
-                System.out.println("Fragment tunicas: "+hermandadDBsT);
-
-                recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBsT, mListener));
+                hermandadDBs = hermandadDBDao.loadAll();
             }
-            /*switch (cat_elegida){
-                case "Escudos":
-                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-                   hermandadDBs = hermandadDBDao.loadAll();
-                    HermandadDBDao hermandadDBDaoTunicas1 = DatabaseConnection.getHermandadDBTDao(getActivity());
-                    hermandadDBs = hermandadDBDaoTunicas1.loadAll();
-                    break;
-                case "Túnicas":
-                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(getActivity());
-                    hermandadDBs = hermandadDBDaoTunicas.loadAll();
-                    break;
-                default:
-                    HermandadDBDao hermandadDBDaoTunicas2 = DatabaseConnection.getHermandadDBTDao(getActivity());
-                    hermandadDBs = hermandadDBDaoTunicas2.loadAll();
-                    break;
-
-            }*/
-
-
-            //Call recycler
-            //Ctx -> Picasso
+            recyclerView.setAdapter(new MyEscudosDBRecyclerViewAdapter(getActivity(), hermandadDBs, mListener));
         }
         return view;
     }

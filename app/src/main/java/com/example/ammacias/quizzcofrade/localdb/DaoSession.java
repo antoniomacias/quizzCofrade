@@ -48,7 +48,7 @@ public class DaoSession extends AbstractDaoSession {
     private final HermandadDBDao hermandadDBDao;
     private final HermandadDBDao hermandadDBTDao;
     private final PasosDBDao pasosDBDao;
-    private final PasosDBLDao pasosDBLDao;
+    private final PasosDBDao pasosDBLDao;
     private final MarchaDBDao marchaDBDao;
     private final RankingDBDao rankingDBDao;
     private final UsuariosHermandadesDBDao usuariosHermandadesDBDao;
@@ -85,7 +85,7 @@ public class DaoSession extends AbstractDaoSession {
         hermandadDBDao = new HermandadDBDao(hermandadDBDaoConfig, this);
         hermandadDBTDao = new HermandadDBDao(hermandadDBTDaoConfig, this);
         pasosDBDao = new PasosDBDao(pasosDBDaoConfig, this);
-        pasosDBLDao = new PasosDBLDao(pasosDBLDaoConfig, this);
+        pasosDBLDao = new PasosDBDao(pasosDBLDaoConfig, this);
         marchaDBDao = new MarchaDBDao(marchaDBDaoConfig, this);
         rankingDBDao = new RankingDBDao(rankingDBDaoConfig, this);
         usuariosHermandadesDBDao = new UsuariosHermandadesDBDao(usuariosHermandadesDBDaoConfig, this);
@@ -94,7 +94,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(HermandadDB.class, hermandadDBDao);
         registerDao(HermandadDB.class, hermandadDBTDao);
         registerDao(PasosDB.class, pasosDBDao);
-        registerDao(PasosDBL.class, pasosDBLDao);
+        registerDao(PasosDB.class, pasosDBLDao);
         registerDao(MarchaDB.class, marchaDBDao);
         registerDao(RankingDB.class, rankingDBDao);
         registerDao(UsuariosHermandadesDB.class, usuariosHermandadesDBDao);
@@ -127,7 +127,7 @@ public class DaoSession extends AbstractDaoSession {
         return pasosDBDao;
     }
 
-    public PasosDBLDao getPasosDBLDao() {
+    public PasosDBDao getPasosDBLDao() {
         return pasosDBLDao;
     }
 

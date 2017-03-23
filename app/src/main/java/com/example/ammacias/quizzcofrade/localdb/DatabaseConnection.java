@@ -40,6 +40,10 @@ public class DatabaseConnection {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);
         return daoSession.getPasosDBDao();
     }
+    public static PasosDBDao getPasosDBLDao (Context ctx) {
+        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
+        return daoSession.getPasosDBLDao();
+    }
 
     public static UsuariosHermandadesDBDao getUsuariosHermandadesDBDao (Context ctx) {
         DaoSession daoSession = DatabaseConnection.getConnection(ctx);

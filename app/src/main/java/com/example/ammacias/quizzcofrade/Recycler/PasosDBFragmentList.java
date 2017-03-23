@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
+import com.example.ammacias.quizzcofrade.Utils.Application_vars;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
@@ -29,8 +30,9 @@ public class PasosDBFragmentList extends Fragment {
 
     // TODO: Customize parameters
     private int mColumnCount = 4;
-
+    String cat_elegida;
     private ICofrade mListener;
+    List<PasosDB> pasosDBs;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -49,6 +51,7 @@ public class PasosDBFragmentList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pasosdb_list, container, false);
+        cat_elegida = ((Application_vars) getActivity().getApplication()).getCategoriaElegida();
 
         // Set the adapter
         if (view instanceof RecyclerView) {
@@ -60,9 +63,15 @@ public class PasosDBFragmentList extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
-            List<PasosDB> pasosDBs = pasosDBDao.loadAll();
+            //Load Pasos from DB
+            if (cat_elegida.contains("Pasos")){
+                PasosDBDao pasosDBDao= DatabaseConnection.getPasosDBDao(getActivity());
+                pasosDBs = pasosDBDao.loadAll();
 
+            }else {
+                PasosDBDao pasosDBDao = DatabaseConnection.getPasosDBLDao(getActivity());
+                pasosDBs = pasosDBDao.loadAll();
+            }
             recyclerView.setAdapter(new MyPasosDBRecyclerViewAdapter(getActivity(), pasosDBs, mListener));
         }
         return view;

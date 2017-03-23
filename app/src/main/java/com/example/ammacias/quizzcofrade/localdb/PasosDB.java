@@ -155,4 +155,12 @@ public class PasosDB {
         this.llamador = llamador;
     }
 
+
+    @Override
+    public String toString() {
+        return "PasosDB{" +
+                "id=" + id +
+                ", nombreHermandad='" + nombreHermandad + '\'' +
+                '}';
+    }
 }
