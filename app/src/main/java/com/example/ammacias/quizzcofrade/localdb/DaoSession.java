@@ -10,14 +10,18 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBT;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
+import com.example.ammacias.quizzcofrade.localdb.PasosDBL;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.RankingDB;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDB;
 
 import com.example.ammacias.quizzcofrade.localdb.UsuarioDBDao;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBTDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDBDao;
+import com.example.ammacias.quizzcofrade.localdb.PasosDBLDao;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.RankingDBDao;
 import com.example.ammacias.quizzcofrade.localdb.UsuariosHermandadesDBDao;
@@ -33,14 +37,18 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig usuarioDBDaoConfig;
     private final DaoConfig hermandadDBDaoConfig;
+    private final DaoConfig hermandadDBTDaoConfig;
     private final DaoConfig pasosDBDaoConfig;
+    private final DaoConfig pasosDBLDaoConfig;
     private final DaoConfig marchaDBDaoConfig;
     private final DaoConfig rankingDBDaoConfig;
     private final DaoConfig usuariosHermandadesDBDaoConfig;
 
     private final UsuarioDBDao usuarioDBDao;
     private final HermandadDBDao hermandadDBDao;
+    private final HermandadDBTDao hermandadDBTDao;
     private final PasosDBDao pasosDBDao;
+    private final PasosDBLDao pasosDBLDao;
     private final MarchaDBDao marchaDBDao;
     private final RankingDBDao rankingDBDao;
     private final UsuariosHermandadesDBDao usuariosHermandadesDBDao;
@@ -55,8 +63,14 @@ public class DaoSession extends AbstractDaoSession {
         hermandadDBDaoConfig = daoConfigMap.get(HermandadDBDao.class).clone();
         hermandadDBDaoConfig.initIdentityScope(type);
 
+        hermandadDBTDaoConfig = daoConfigMap.get(HermandadDBTDao.class).clone();
+        hermandadDBTDaoConfig.initIdentityScope(type);
+
         pasosDBDaoConfig = daoConfigMap.get(PasosDBDao.class).clone();
         pasosDBDaoConfig.initIdentityScope(type);
+
+        pasosDBLDaoConfig = daoConfigMap.get(PasosDBLDao.class).clone();
+        pasosDBLDaoConfig.initIdentityScope(type);
 
         marchaDBDaoConfig = daoConfigMap.get(MarchaDBDao.class).clone();
         marchaDBDaoConfig.initIdentityScope(type);
@@ -69,14 +83,18 @@ public class DaoSession extends AbstractDaoSession {
 
         usuarioDBDao = new UsuarioDBDao(usuarioDBDaoConfig, this);
         hermandadDBDao = new HermandadDBDao(hermandadDBDaoConfig, this);
+        hermandadDBTDao = new HermandadDBTDao(hermandadDBTDaoConfig, this);
         pasosDBDao = new PasosDBDao(pasosDBDaoConfig, this);
+        pasosDBLDao = new PasosDBLDao(pasosDBLDaoConfig, this);
         marchaDBDao = new MarchaDBDao(marchaDBDaoConfig, this);
         rankingDBDao = new RankingDBDao(rankingDBDaoConfig, this);
         usuariosHermandadesDBDao = new UsuariosHermandadesDBDao(usuariosHermandadesDBDaoConfig, this);
 
         registerDao(UsuarioDB.class, usuarioDBDao);
         registerDao(HermandadDB.class, hermandadDBDao);
+        registerDao(HermandadDBT.class, hermandadDBTDao);
         registerDao(PasosDB.class, pasosDBDao);
+        registerDao(PasosDBL.class, pasosDBLDao);
         registerDao(MarchaDB.class, marchaDBDao);
         registerDao(RankingDB.class, rankingDBDao);
         registerDao(UsuariosHermandadesDB.class, usuariosHermandadesDBDao);
@@ -85,7 +103,9 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         usuarioDBDaoConfig.getIdentityScope().clear();
         hermandadDBDaoConfig.getIdentityScope().clear();
+        hermandadDBTDaoConfig.getIdentityScope().clear();
         pasosDBDaoConfig.getIdentityScope().clear();
+        pasosDBLDaoConfig.getIdentityScope().clear();
         marchaDBDaoConfig.getIdentityScope().clear();
         rankingDBDaoConfig.getIdentityScope().clear();
         usuariosHermandadesDBDaoConfig.getIdentityScope().clear();
@@ -99,8 +119,16 @@ public class DaoSession extends AbstractDaoSession {
         return hermandadDBDao;
     }
 
+    public HermandadDBTDao getHermandadDBTDao() {
+        return hermandadDBTDao;
+    }
+
     public PasosDBDao getPasosDBDao() {
         return pasosDBDao;
+    }
+
+    public PasosDBLDao getPasosDBLDao() {
+        return pasosDBLDao;
     }
 
     public MarchaDBDao getMarchaDBDao() {

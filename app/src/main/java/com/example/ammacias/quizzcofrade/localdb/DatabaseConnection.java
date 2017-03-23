@@ -3,6 +3,8 @@ package com.example.ammacias.quizzcofrade.localdb;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.ammacias.quizzcofrade.MainActivity;
+
 /**
  * Created by ammacias on 16/02/2017.
  */
@@ -53,5 +55,10 @@ public class DatabaseConnection {
 
     public static void closeConnection(){
         daoMaster.getDatabase().close();
+    }
+
+    public static HermandadDBTDao getHermandadDBTDao(Context ctx) {
+        DaoSession daoSession = DatabaseConnection.getConnection(ctx);
+        return daoSession.getHermandadDBTDao();
     }
 }

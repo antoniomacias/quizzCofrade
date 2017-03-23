@@ -29,6 +29,8 @@ import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBT;
+import com.example.ammacias.quizzcofrade.localdb.HermandadDBTDao;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDB;
 import com.example.ammacias.quizzcofrade.localdb.MarchaDBDao;
 import com.example.ammacias.quizzcofrade.localdb.PasosDB;
@@ -268,8 +270,10 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                     //Array auxiliar con indices -> ID's
                     List<Long> listNumeros = new ArrayList<Long>();
+                    List<Long> listNumerosT = new ArrayList<Long>();
                     for (int i = 0; i<=result.getData().size();i++){
                         listNumeros.add(Long.valueOf(i));
+                        listNumerosT.add(Long.valueOf(i));
                     }
 
                     int numeroRandom =0;
@@ -279,8 +283,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
                         listNumeros.remove(listNumeros.get(numeroRandom));
                     }
-
-
                     HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
 
                     for (Hermandad h:result.getData()) {
@@ -297,6 +299,34 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         hermandadDBDao.insertOrReplace(hermandadDB);
                     }
+
+
+                    for (Hermandad h: result.getData()){
+                        numeroRandom = (int)(Math.random() * listNumerosT.size()-1);
+                        h.setId(Long.valueOf(listNumerosT.get(numeroRandom)));
+                        listNumerosT.remove(listNumerosT.get(numeroRandom));
+                    }
+                    HermandadDBTDao hermandadDBTDao = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
+
+                    for (Hermandad h:result.getData()) {
+                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
+                        HermandadDBT hermandadDBT = new HermandadDBT();
+                        hermandadDBT.setId(h.getId());
+                        hermandadDBT.setNombre(h.getNombre());
+                        hermandadDBT.setEscudo(h.getEscudo());
+                        hermandadDBT.setTunica(h.getTunica());
+                        hermandadDBT.setFotoTunica(h.getFoto_tunica());
+                        hermandadDBT.setDia(h.getDia());
+                        hermandadDBT.setNumNazarenos(h.getNumNazarenos());
+                        hermandadDBT.setAnyoFundacion(h.getAnyoFundacion());
+
+                        hermandadDBTDao.insertOrReplace(hermandadDBT);
+                    }
+
+                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES \n***************\n********************");
+                    System.out.println(hermandadDBDao.loadAll());
+                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES TÚNICAS \n***************\n********************");
+                    System.out.println(hermandadDBTDao.loadAll());
                 }
             }
 

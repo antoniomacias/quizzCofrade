@@ -33,6 +33,17 @@ public class GeneradorDatabase {
         hermandadDB.addStringProperty("anyoFundacion").notNull();
 
         // Definimos las entidades (tablas) de la base de datos
+        Entity hermandadDBT = schema.addEntity("HermandadDBT");
+        hermandadDBT.addIdProperty().autoincrement().primaryKey();
+        hermandadDBT.addStringProperty("nombre").notNull();
+        hermandadDBT.addStringProperty("escudo").notNull();
+        hermandadDBT.addStringProperty("tunica").notNull();
+        hermandadDBT.addStringProperty("fotoTunica").notNull();
+        hermandadDBT.addStringProperty("dia").notNull();
+        hermandadDBT.addIntProperty("numNazarenos").notNull();
+        hermandadDBT.addStringProperty("anyoFundacion").notNull();
+
+        // Definimos las entidades (tablas) de la base de datos
         Entity pasosDB = schema.addEntity("PasosDB");
         pasosDB.addIdProperty().autoincrement().primaryKey();
         pasosDB.addStringProperty("nombreHermandad").notNull();
@@ -44,6 +55,19 @@ public class GeneradorDatabase {
         pasosDB.addStringProperty("capataz").notNull();
         pasosDB.addStringProperty("numCostaleros").notNull();
         pasosDB.addStringProperty("llamador").notNull();
+
+        // Definimos las entidades (tablas) de la base de datos
+        Entity pasosDBL = schema.addEntity("PasosDBL");
+        pasosDBL.addIdProperty().autoincrement().primaryKey();
+        pasosDBL.addStringProperty("nombreHermandad").notNull();
+        pasosDBL.addStringProperty("nombreTitular").notNull();
+        pasosDBL.addStringProperty("fotoPaso").notNull();
+        pasosDBL.addStringProperty("fotoTitular");
+        pasosDBL.addStringProperty("colorCirio").notNull();
+        pasosDBL.addStringProperty("banda").notNull();
+        pasosDBL.addStringProperty("capataz").notNull();
+        pasosDBL.addStringProperty("numCostaleros").notNull();
+        pasosDBL.addStringProperty("llamador").notNull();
 
         // Definimos las entidades (tablas) de la base de datos
         Entity marchaDB = schema.addEntity("MarchaDB");
