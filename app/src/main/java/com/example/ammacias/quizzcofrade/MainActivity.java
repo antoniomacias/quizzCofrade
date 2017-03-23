@@ -265,72 +265,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         autocompleteList2.enqueue(new Callback<Hermandades>() {
             @Override
             public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
-                if (response.isSuccess()){
-                    Hermandades result= response.body();
-
-                    //Array auxiliar con indices -> ID's
-                    List<Long> listNumeros = new ArrayList<Long>();
-                    List<Long> listNumerosT = new ArrayList<Long>();
-                    for (int i = 0; i<=result.getData().size();i++){
-                        listNumeros.add(Long.valueOf(i));
-                        listNumerosT.add(Long.valueOf(i));
-                    }
-
-                    int numeroRandom =0;
-                    //Generamos nuevos ID's para cada Hermandad.
-                    for (Hermandad h: result.getData()){
-                        numeroRandom = (int)(Math.random() * listNumeros.size()-1);
-                        h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
-                        listNumeros.remove(listNumeros.get(numeroRandom));
-                    }
-                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(MainActivity.this);
-
-                    for (Hermandad h:result.getData()) {
-                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        System.out.println("PRIMERA LISTA"+h.getNombre());
-                        HermandadDB hermandadDB = new HermandadDB();
-                        hermandadDB.setId(h.getId());
-                        hermandadDB.setNombre(h.getNombre());
-                        hermandadDB.setEscudo(h.getEscudo());
-                        hermandadDB.setTunica(h.getTunica());
-                        hermandadDB.setFotoTunica(h.getFoto_tunica());
-                        hermandadDB.setDia(h.getDia());
-                        hermandadDB.setNumNazarenos(h.getNumNazarenos());
-                        hermandadDB.setAnyoFundacion(h.getAnyoFundacion());
-
-                        hermandadDBDao.insertOrReplace(hermandadDB);
-                    }
-
-                    for (Hermandad h: result.getData()){
-                        numeroRandom = (int)(Math.random() * listNumerosT.size()-1);
-                        h.setId(Long.valueOf(listNumerosT.get(numeroRandom)));
-                        listNumerosT.remove(listNumerosT.get(numeroRandom));
-                    }
-                    HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(MainActivity.this);
-
-                    for (Hermandad h:result.getData()) {
-                        //"id, nombre, escudo, tunica, foto_tunica, dia, numNazarenos, anyoFundacion"
-                        System.out.println("SEGUNDA LISTA"+h.getNombre());
-                        HermandadDB hermandadDBT = new HermandadDB();
-                        hermandadDBT.setId(h.getId());
-                        hermandadDBT.setNombre(h.getNombre());
-                        hermandadDBT.setEscudo(h.getEscudo());
-                        hermandadDBT.setTunica(h.getTunica());
-                        hermandadDBT.setFotoTunica(h.getFoto_tunica());
-                        hermandadDBT.setDia(h.getDia());
-                        hermandadDBT.setNumNazarenos(h.getNumNazarenos());
-                        hermandadDBT.setAnyoFundacion(h.getAnyoFundacion());
-
-                        hermandadDBDaoTunicas.insertOrReplace(hermandadDBT);
-                    }
-
-
-                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES \n***************\n********************");
-                    System.out.println(hermandadDBDao.loadAll());
-                    System.out.println("**************\n****************\nTODAS LAS HERMANDADES TÚNICAS \n***************\n********************");
-                    System.out.println(hermandadDBDaoTunicas.loadAll());
-                    
-                }
+                //aqui va tood lo que he borrado
             }
 
             @Override

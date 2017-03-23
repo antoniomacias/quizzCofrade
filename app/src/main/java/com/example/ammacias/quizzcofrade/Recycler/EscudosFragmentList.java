@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.ammacias.quizzcofrade.Interfaces.ICofrade;
 import com.example.ammacias.quizzcofrade.R;
@@ -66,14 +67,14 @@ public class EscudosFragmentList extends Fragment {
             //Load Hermandades from DB
             switch (cat_elegida){
                 case "Escudos":
-                    /*HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
-                   hermandadDBs = hermandadDBDao.loadAll();*/
-                    HermandadDBDao hermandadDBDaoTunicas1 = DatabaseConnection.getHermandadDBTDao(getActivity());
-                    hermandadDBs = hermandadDBDaoTunicas1.loadAll();
+                    HermandadDBDao hermandadDBDao = DatabaseConnection.getHermandadDBDao(getActivity());
+                    hermandadDBs = hermandadDBDao.loadAll();
+                    System.out.println("*\n*\n*\n*\n*\n*\n"+hermandadDBs+"*\n*\n*\n*\n*\n*\n");
                     break;
-                case "Túnicas":
+                case "Tunicas":
                     HermandadDBDao hermandadDBDaoTunicas = DatabaseConnection.getHermandadDBTDao(getActivity());
                     hermandadDBs = hermandadDBDaoTunicas.loadAll();
+                    System.out.println("*\n*\n*\n*\n*\n*\n"+hermandadDBs+"*\n*\n*\n*\n*\n*\n");
                     break;
                 default:
                     HermandadDBDao hermandadDBDaoTunicas2 = DatabaseConnection.getHermandadDBTDao(getActivity());
