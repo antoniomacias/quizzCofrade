@@ -47,9 +47,10 @@ public class DetallePasosActivity extends AppCompatActivity {
     HermandadDB hermandad;
     Long id_aux;
     int posicionLista;
-    String cat_elegida = "";
+    String cat_elegida = "", s ="";
     TextView titulo;
     TextView pregunta_detalle_escudos;
+    FloatingActionButton fab;
 
     UsuariosHermandadesDBDao tabla_intermedia=null;
 
@@ -63,31 +64,6 @@ public class DetallePasosActivity extends AppCompatActivity {
         titulo = (TextView)findViewById(R.id.titulo);
 
         pregunta_detalle_escudos = (TextView)findViewById(R.id.pregunta_detalle_escudos);
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "El paso sale en: "+hermandad.getDia(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Hermandad seleccionada
         paso = DatabaseConnection.getPasosDBDao(this).load(getIntent().getExtras().getLong("IDPaso"));
@@ -106,6 +82,8 @@ public class DetallePasosActivity extends AppCompatActivity {
             }
         }
 
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.GONE);
         //posicionLista = ListaDesordenada.indexOf(herma);
 
         cat_elegida = ((Application_vars) this.getApplication()).getCategoriaElegida();
@@ -127,17 +105,28 @@ public class DetallePasosActivity extends AppCompatActivity {
     } // Fin onCreate
 
     public void jugar(final Long id_aux){
+        s = "Pertenece a una cofradía que sale en ";
         pasosDBDao = DatabaseConnection.getPasosDBDao(this);
         for(HermandadDB h:hermandades){
             if(h.getNombre().equals(pasosDBDao.load(id_aux).getNombreHermandad()))hermandad = h;
         }
 
         if (cat_elegida.equalsIgnoreCase("Pasos")){
+            fab.setVisibility(View.GONE);
             Picasso.with(this)
                     .load(pasosDBDao.load(id_aux).getFotoPaso())
                     .resize(500, 400)
                     .into(imageView);
         }else { // Llamadores
+            fab.setVisibility(View.VISIBLE);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, s+hermandad.getDia(), Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+
             Picasso.with(this)
                     .load(pasosDBDao.load(id_aux).getLlamador())
                     .resize(500, 400)
