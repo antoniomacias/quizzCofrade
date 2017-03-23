@@ -277,7 +277,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                     //Generamos nuevos ID's para cada Hermandad.
                     for (Hermandad h: result.getData()){
                         numeroRandom = (int)(Math.random() * listNumeros.size()-1);
-                        h.setId(Long.valueOf(listNumeros.get(numeroRandom)));
                         listNumeros.remove(listNumeros.get(numeroRandom));
                     }
 
@@ -302,10 +301,10 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
                         //Cambio la MISMA hermandad con el nuevo ID RANDOM
                         numeroRandomTunica = (int)(Math.random() * listNumerosT.size()-1);
-                        h.setId(Long.valueOf(listNumerosT.get(numeroRandomTunica)));
+                        hermandadDB.setId(Long.valueOf(listNumerosT.get(numeroRandomTunica)));
                         listNumerosT.remove(listNumerosT.get(numeroRandomTunica));
 
-                        hermandadDB.setId((long) numeroRandomTunica);
+                        System.out.println("Numero: "+numeroRandomTunica);
                         hermandadDBDaoTunicas.insertOrReplace(hermandadDB);
                     }
                 }
