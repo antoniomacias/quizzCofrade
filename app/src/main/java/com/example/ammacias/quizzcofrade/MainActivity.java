@@ -262,9 +262,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         autocompleteList2.enqueue(new Callback<Hermandades>() {
             @Override
             public void onResponse(Response<Hermandades> response, Retrofit retrofit) {
-<<<<<<< HEAD
-                //aqui va tood lo que he borrado
-=======
+
                 if (response.isSuccess()){
                     Hermandades result= response.body();
 
@@ -312,7 +310,6 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
                         hermandadDBDaoTunicas.insertOrReplace(hermandadDB);
                     }
                 }
->>>>>>> 67ef73a6ae090766dba7cc55c8e7a3e14f54ccb0
             }
 
             @Override
