@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.example.ammacias.quizzcofrade.R;
 import com.example.ammacias.quizzcofrade.Utils.Application_vars;
+import com.example.ammacias.quizzcofrade.Utils.RoundedTransformation;
 import com.example.ammacias.quizzcofrade.localdb.DatabaseConnection;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDB;
 import com.example.ammacias.quizzcofrade.localdb.HermandadDBDao;
@@ -154,6 +155,7 @@ public class DetalleEscudoActivity extends AppCompatActivity {
         if (cat_elegida.contains("Escudos")) {
             Picasso.with(this)
                     .load(hermandadDBDao.load(id_aux).getEscudo())
+                    //.transform(new RoundedTransformation(50, 20))
                     .resize(500, 400)
                     .into(imageView);
 
