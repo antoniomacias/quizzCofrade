@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:inputType="textPersonName"
-        android:hint="ESCRIBE EL NOMBRE DE LA COFRADÍA"
+        android:hint="ESCRIBE EL NOMBRE DE LA COFRADÍA COPON"
         android:ems="16"
         android:gravity="center"
         android:textColor="#333333"
@@ -121,6 +121,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         app:srcCompat="@android:drawable/ic_dialog_alert"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintLeft_toRightOf="@+id/fotoDetalle"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta_detalle_escudos" />
  </android.support.constraint.ConstraintLayout>
