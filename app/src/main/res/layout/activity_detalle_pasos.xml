@@ -104,7 +104,8 @@
         android:layout_below="@+id/respuesta_paso"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="next_paso"/>-->
+        android:onClick="next_paso"/>
+        -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -114,4 +115,5 @@
         android:layout_above="@+id/fotoDetalle"
         android:layout_alignRight="@+id/pregunta_detalle_escudos"
         android:layout_alignEnd="@+id/pregunta_detalle_escudos" />
+
 </RelativeLayout>
