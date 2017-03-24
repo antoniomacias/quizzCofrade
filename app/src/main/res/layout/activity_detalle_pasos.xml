@@ -68,23 +68,6 @@
         android:background="@drawable/bg_respuestas"
         />
 
-    <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/boton_anterior"
-        android:id="@+id/anterior_escudo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:onClick="previous_escudo"/>
-
-    <ImageView
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        app:srcCompat="@drawable/boton_siguiente"
-        android:id="@+id/siguiente_escudo"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:onClick="next_escudo"/>
 
     <!--<Button
         android:text="Anterior"
