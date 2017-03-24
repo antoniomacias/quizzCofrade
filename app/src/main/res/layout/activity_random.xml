@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#FFFF99"
-    tools:context="com.example.ammacias.quizzcofrade.RandomActivity">
+    tools:context="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.RandomActivity">
 
     <ImageView
         android:id="@+id/cabecera"
@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"/>
 
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         android:layout_marginBottom="35dp"/>
 
 
-    <com.example.ammacias.quizzcofrade.Utils.CustomEditText
+    <com.gabantdev.quizzcofrade.Utils.CustomEditText
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:inputType="textPersonName"
@@ -108,7 +108,7 @@
         app:tickRingThickness="3dp"
         app:tickCircleDuration="total_time"/>
 
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/pregunta_detalle_escudos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
         app:srcCompat="@drawable/fondo_puntuacion"
         android:layout_below="@+id/capipuntos"
         android:id="@+id/fondo1" />
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertosCentenas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
         android:layout_toRightOf="@+id/fondo1"
         android:layout_alignTop="@+id/fondo1"
         android:id="@+id/fondo2" />
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertosDecenas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
         android:layout_below="@+id/capipuntos"
         android:layout_toRightOf="@+id/fondo2"
         android:layout_toEndOf="@+id/fondo2" />
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/numAciertosUnidades"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

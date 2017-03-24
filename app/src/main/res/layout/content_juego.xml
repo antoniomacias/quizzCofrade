@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#FFFF99"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ammacias.quizzcofrade.EscudosActivity"
+    tools:context="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.EscudosActivity"
     tools:showIn="@layout/activity_juego">
 
     <ImageView
@@ -23,7 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"/>
 
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.ammacias.quizzcofrade.Recycler.EscudosFragmentList"
+        android:name="com.gabantdev.quizzcofrade.Recycler.EscudosFragmentList"
         android:layout_below="@+id/titulo"
         android:id="@+id/fragment2" />
 </RelativeLayout>

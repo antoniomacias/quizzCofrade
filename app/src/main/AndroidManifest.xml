@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.ammacias.quizzcofrade">
+    package="com.gabantdev.quizzcofrade">
 
     <!-- PERMISOS -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -35,7 +35,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.ammacias.quizzcofrade.MainActivity" />
+                android:value="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.MainActivity" />
         </activity>
         <activity
             android:name=".DetalleActivity.DetalleEscudoActivity"
