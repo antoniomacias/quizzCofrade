@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#FFFF99"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ammacias.quizzcofrade.PasosActivity"
+    tools:context="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.PasosActivity"
     tools:showIn="@layout/activity_pasos">
 
 
@@ -24,7 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"/>
 
-    <com.example.ammacias.quizzcofrade.Utils.CustomTextView
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
     <fragment
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.example.ammacias.quizzcofrade.Recycler.PasosDBFragmentList"
+        android:name="com.gabantdev.quizzcofrade.Recycler.PasosDBFragmentList"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/titulo"
         android:id="@+id/fragment3" />
