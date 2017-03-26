@@ -81,4 +81,20 @@
         tools:layout_editor_absoluteY="296dp"
         tools:layout_editor_absoluteX="45dp"
         android:onClick="click_jugar"/>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="129dp"
+        android:layout_height="115dp"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait"
+        app:layout_constraintTop_toTopOf="@+id/foto_face"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/foto_face"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/foto_face"
+        app:layout_constraintBottom_toBottomOf="@+id/foto_face"
+        android:layout_marginBottom="8dp"
+        tools:layout_editor_absoluteY="123dp"
+        tools:layout_editor_absoluteX="24dp" />
 </android.support.constraint.ConstraintLayout>
