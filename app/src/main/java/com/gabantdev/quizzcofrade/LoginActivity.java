@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.gabantdev.quizzcofrade.Clases.Usuario;
 import com.gabantdev.quizzcofrade.Interfaces.IRetrofit;
+import com.gabantdev.quizzcofrade.Pojos_API.Usuarios;
 import com.gabantdev.quizzcofrade.Utils.Application_vars;
 import com.gabantdev.quizzcofrade.localdb.DatabaseConnection;
 import com.gabantdev.quizzcofrade.localdb.UsuarioDB;
@@ -32,6 +33,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit.Call;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Response;
@@ -56,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
-        UsuarioDBDao rankingDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
-        List<UsuarioDB> ran = rankingDBDao.loadAll();
+        getUsuarios();
 
         // Le damos permisos específicos para almacenar su email. La app le avisará automáticamente.
         loginButton.setReadPermissions(Arrays.asList(
@@ -109,12 +110,13 @@ public class LoginActivity extends AppCompatActivity {
                             UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
                             List<UsuarioDB> u = usuarioDBDao.loadAll();
 
-                            //Busco al usuario
+                            //Busco al usuario => TODO: aquí nunca va a entrar
                             for (UsuarioDB us:u) {
                                 if (us.getIdface().equals(idface)){
                                     bandera = true;
                                     current_user = new Usuario(us.getId(), nombre, apellidos, email, idface, authToken);
                                     ((Application_vars) getApplication()).setU(current_user);
+                                    System.out.println("Logueo al usuario: "+current_user);
                                 }
                             }
 
@@ -128,10 +130,29 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = settings.edit();
                             editor.putString("FIRST_LOGIN", idface);
                             editor.commit();
-                        }else{
+
+                        }else{ // No es su primer login
+                            Long id_aux = null;
+
+                            //Busco su id en la BD local
+                            UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+                            List<UsuarioDB> u = usuarioDBDao.loadAll();
+
+                            for (UsuarioDB us:u) {
+                                if (us.getIdface().equals(idface)) {
+                                    id_aux = us.getId();
+                                }
+                            }
+
+                            // Subo el usuario a Application
+                            current_user = new Usuario(id_aux, nombre, apellidos, email, idface, authToken);
+                            ((Application_vars) getApplication()).setU(current_user);
+                            System.out.println("No es tu primer login y vales: "+current_user);
+
                             //Si el id de Facebook es diferente al de las SharedPrefs = Otra persona
                             //if (!idSharedPreferences.equals(idface)){
-                                //Machaco el ID de las SharedPreferences
+
+                            //Machaco el ID de las SharedPreferences
                                 settings = getSharedPreferences("PREFS_FACEBOOK", 0);
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putString("FIRST_LOGIN", idface);
@@ -157,6 +178,52 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    // RETROFIT USUARIOS
+    private void getUsuarios() {
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(IRetrofit.ENDPOINT1)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IRetrofit service1 = retrofit1.create(IRetrofit.class);
+
+        Call<Usuarios> autocompleteList1 = service1.getUsuariosRetrofit();
+
+        autocompleteList1.enqueue(new Callback<Usuarios>() {
+            @Override
+            public void onResponse(Response<Usuarios> response, Retrofit retrofit) {
+                if (response.isSuccess()){
+                    Usuarios result= response.body();
+                    UsuarioDBDao hermandadDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+
+                    for (Usuario h:result.getData()) {
+                        // " id, nick, email "
+                        UsuarioDB usuarioDB = new UsuarioDB();
+                        usuarioDB.setId(h.getId());
+                        usuarioDB.setNombre(h.getNombre());
+                        usuarioDB.setApellidos(h.getApellidos());
+                        usuarioDB.setEmail(h.getEmail());
+                        usuarioDB.setIdface(h.getIdface());
+                        usuarioDB.setAuthToken(h.getAuthToken());
+
+                        hermandadDBDao.insertOrReplace(usuarioDB);
+
+                        if (h.getIdface().equals(idface)){
+                            current_user = new Usuario(h.getId(), nombre, apellidos, email, idface, authToken);
+                            System.out.println("CREO AL USUARIO"+current_user);
+                            ((Application_vars) getApplication()).setU(current_user);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -211,17 +278,23 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Response<Usuario> response, Retrofit retrofit) {
-                Toast.makeText(LoginActivity.this, "EXITO al crear el usuario", Toast.LENGTH_SHORT).show();
-                UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
+                Toast.makeText(LoginActivity.this, "¡Bienvenido a QuizzCofrade!", Toast.LENGTH_LONG).show();
+                // AHORA NECESITO SU ID PARA GUARDARLO EN LOCAL
+                // Puedo llamar a getUsuarios() y cuando recorra el que es, lo inserto en Application
+                getUsuarios();
+
+                /*UsuarioDBDao usuarioDBDao = DatabaseConnection.getUsuarioDBDao(LoginActivity.this);
                 List<UsuarioDB> u = usuarioDBDao.loadAll();
 
                 //Busco al usuario
                 for (UsuarioDB us:u) {
                     if (us.getIdface().equals(idface)){
+                        // TODO: Estoy guardando en Application un usuario sin ID
                         current_user = new Usuario(us.getId(), nombre, apellidos, email, idface, authToken);
+                        System.out.println("CREO AL USUARIO"+current_user);
                         ((Application_vars) getApplication()).setU(current_user);
                     }
-                }
+                }*/
             }
 
             @Override

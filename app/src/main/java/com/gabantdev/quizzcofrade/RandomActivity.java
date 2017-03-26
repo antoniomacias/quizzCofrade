@@ -168,9 +168,12 @@ public class RandomActivity extends AppCompatActivity{
         }
 
         // Iniciamos el juego
-        if(((Application_vars) this.getApplication()).getU() != null){
+        current_user = ((Application_vars) this.getApplication()).getU();
+        if(current_user != null){
             current_user = ((Application_vars) this.getApplication()).getU();
+            Toast.makeText(this, "TUS VALORES: "+current_user.getId(), Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, ""+current_user, Toast.LENGTH_SHORT).show();
         next_escudo(findViewById(android.R.id.content));
         registro = false;
     }// Fin onCreate
