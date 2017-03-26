@@ -10,7 +10,7 @@
     tools:context="com.gabantdev.quizzcofrade.EscudosActivity"
     tools:showIn="@layout/activity_escudo">
 
-    
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="342dp"
@@ -32,7 +32,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
-        android:text="Marchas"
+        android:text="Escudos"
         android:textSize="50dp"
         android:textColor="#000"
         app:layout_constraintLeft_toLeftOf="parent"
