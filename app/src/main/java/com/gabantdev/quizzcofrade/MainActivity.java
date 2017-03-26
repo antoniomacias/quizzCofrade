@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     public void click_random(View view) {
         ((Application_vars) this.getApplication()).setCategoriaElegida("Random");
-        i = new Intent(MainActivity.this, RandomActivity.class);
+        i = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(i);
     }
 

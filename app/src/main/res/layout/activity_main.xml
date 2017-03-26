@@ -160,7 +160,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:onClick="click_pasos" />
-    <!--
+
     <com.gabantdev.quizzcofrade.Utils.CustomTextView
         android:id="@+id/pasos_textview"
         android:layout_width="wrap_content"
@@ -173,5 +173,5 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="@+id/pasos_img"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="@+id/pasos_img" />-->
+        app:layout_constraintLeft_toLeftOf="@+id/pasos_img" />
 </android.support.constraint.ConstraintLayout>
