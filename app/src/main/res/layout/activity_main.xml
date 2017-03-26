@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
@@ -9,208 +9,169 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="#FFFF99"
-    tools:context="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.MainActivity">
+    tools:context="com.gabantdev.quizzcofrade.MainActivity">
 
-
- <ImageView
-     android:id="@+id/cabecera"
-     android:layout_width="wrap_content"
-     android:layout_height="90dp"
-     app:srcCompat="@drawable/cabecera"
-     android:layout_alignParentTop="true"
-     android:layout_alignParentLeft="true"
-     android:layout_alignParentRight="true"
-     android:layout_marginBottom="40dp"/>
-
-
-    <RelativeLayout
-        android:id="@+id/primer_relative"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:gravity="center_vertical"
-        android:layout_below="@id/cabecera"
-        >
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_alignParentLeft="true"
-            >
-
-            <ImageView
-                android:id="@+id/escudo_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_escudos"
-                android:src="@drawable/escudos"
-                >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/escudo_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:text="Escudos"
-                android:textSize="30dp"
-                android:textColor="#000"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            >
-
-            <ImageView
-                android:id="@+id/tunica_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_tunicas"
-                android:src="@drawable/tunicas" >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tunica_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:text="Túnicas"
-                android:textSize="30dp"
-                android:textColor="#000"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:id="@+id/paso_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_pasos"
-                android:src="@drawable/pasos" >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/paso_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:textSize="30dp"
-                android:text="Pasos"
-                android:textColor="#000" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical"
-        android:layout_below="@id/primer_relative">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_alignParentLeft="true"
-            >
-
-            <ImageView
-                android:id="@+id/marcha_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_marchas"
-                android:src="@drawable/marchas"
-                >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/marcha_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:text="Marchas"
-                android:textSize="30dp"
-                android:textColor="#000"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            >
-
-            <ImageView
-                android:id="@+id/llamador_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_llamadores"
-                android:src="@drawable/llamadores" >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/llamador_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:text="Llamador"
-                android:textSize="30dp"
-                android:textColor="#000"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_alignParentRight="true">
-
-            <ImageView
-                android:id="@+id/aleatorio_img"
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:background="@null"
-                android:onClick="click_random"
-                android:src="@drawable/pasos" >
-            </ImageView>
-
-            <com.gabantdev.quizzcofrade.Utils.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/aleatorio_img"
-                android:layout_centerInParent="true"
-                android:clickable="false"
-                android:textSize="30dp"
-                android:text="Aleatorio"
-                android:textColor="#000" />
-        </RelativeLayout>
-    </RelativeLayout>
 
     <ImageView
-        android:id="@+id/registro_img"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="40dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/registro"
-        android:onClick="click_login"/>
-    
+        android:id="@+id/imageView4"
+        android:layout_width="342dp"
+        android:layout_height="78dp"
+        app:srcCompat="@drawable/cabecera2"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/escudo_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/escudos"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="click_escudos"/>
+
+    <ImageView
+        android:id="@+id/tunica_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/tunicas"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="click_tunicas" />
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/escudos_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Escudos"
+        android:textSize="30dp"
+        android:textColor="#000"
+        app:layout_constraintLeft_toLeftOf="@+id/escudo_img"
+        app:layout_constraintRight_toRightOf="@+id/escudo_img"
+        app:layout_constraintTop_toBottomOf="@+id/escudo_img" />
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/tunicas_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Túnicas"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tunica_img"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/tunica_img"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/tunica_img" />
+
+    <ImageView
+        android:id="@+id/llamadores_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/llamadores"
+        android:layout_marginTop="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/escudos_textview"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="click_llamadores" />
+
+    <ImageView
+        android:id="@+id/marchas_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/marchas"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tunicas_textview"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="click_marchas" />
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/marchas_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marchas"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/marchas_img"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/marchas_img"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/marchas_img" />
+
+    <ImageView
+        android:id="@+id/aleatorio_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/tos_por_igual"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/marchas_textview"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:onClick="click_random"/>
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/aleatorio_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="`Tos´ por igual"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/aleatorio_img"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/aleatorio_img"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintTop_toBottomOf="@+id/aleatorio_img"
+        app:layout_constraintHorizontal_bias="0.607" />
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/llamadores_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Llamadores"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/llamadores_img"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/llamadores_img"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/llamadores_img" />
+
+    <ImageView
+        android:id="@+id/pasos_img"
+        android:layout_width="134dp"
+        android:layout_height="108dp"
+        app:srcCompat="@drawable/pasos"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/llamadores_textview"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="click_pasos" />
+
+    <com.gabantdev.quizzcofrade.Utils.CustomTextView
+        android:id="@+id/pasos_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pasos"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/pasos_img"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="@+id/pasos_img"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/pasos_img" />
+</android.support.constraint.ConstraintLayout>

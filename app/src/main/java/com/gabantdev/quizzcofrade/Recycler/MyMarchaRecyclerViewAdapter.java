@@ -42,6 +42,24 @@ public class MyMarchaRecyclerViewAdapter extends RecyclerView.Adapter<MyMarchaRe
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
 
+        int numero = (int) (Math.random() * 4) + 1;
+        switch (numero){
+            case 1:
+                holder.imageViewAudio.setImageResource(R.drawable.marcha1);
+                break;
+            case 2:
+                holder.imageViewAudio.setImageResource(R.drawable.marcha2);
+                break;
+            case 3:
+                holder.imageViewAudio.setImageResource(R.drawable.marcha3);
+                break;
+            case 4:
+                holder.imageViewAudio.setImageResource(R.drawable.marcha4);
+                break;
+            default:
+                holder.imageViewAudio.setImageResource(R.drawable.marcha1);
+                break;
+        }
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

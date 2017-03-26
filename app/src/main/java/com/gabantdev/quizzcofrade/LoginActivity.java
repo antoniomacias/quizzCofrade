@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -304,5 +305,11 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void click_jugar(View view) {
+        ((Application_vars) this.getApplication()).setCategoriaElegida("Login");
+        Intent i = new Intent(LoginActivity.this, RandomActivity.class);
+        startActivity(i);
     }
 }

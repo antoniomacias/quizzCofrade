@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:name=".Utils.Application_vars"
         android:allowBackup="true"
@@ -15,12 +14,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.Light.NoActionBar"
-        tools:replace="android:icon"
-        >
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait">
+        tools:replace="android:icon">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,23 +29,24 @@
             android:name=".EscudosActivity"
             android:label="@string/title_activity_juego"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.MainActivity" />
         </activity>
         <activity
             android:name=".DetalleActivity.DetalleEscudoActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".PasosActivity"
             android:label="@string/title_activity_pasos"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RandomActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".RandomActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Service.MyReproductor"
@@ -57,21 +56,24 @@
         <activity
             android:name=".MarchaActivity"
             android:label="@string/title_activity_marcha"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".DetalleActivity.DetalleMarchaActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".DetalleActivity.DetallePasosActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
     </application>
 

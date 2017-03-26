@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#FFFF99"
-    tools:context="com.example.ammacias.quizzcofrade.com.com.gabantdev.quizzcofrade.RandomActivity">
+    tools:context="com.gabantdev.quizzcofrade.RandomActivity">
 
     <ImageView
         android:id="@+id/cabecera"

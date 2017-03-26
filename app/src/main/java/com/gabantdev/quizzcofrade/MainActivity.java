@@ -49,7 +49,7 @@ import retrofit.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements ICofrade{
     Intent i;
-    ImageView escudos, tunicas, pasos, marchas, aleatorio;
+    //ImageView escudos, tunicas, pasos, marchas, aleatorio;
 
     static IRetrofit service1;
 
@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        escudos = (ImageView)findViewById(R.id.escudo_img);
-        tunicas = (ImageView)findViewById(R.id.tunica_img);
-        pasos = (ImageView)findViewById(R.id.paso_img);
+        //escudos = (ImageView)findViewById(R.id.escudo_img);
+        //tunicas = (ImageView)findViewById(R.id.tunica_img);
+        //pasos = (ImageView)findViewById(R.id.paso_img);
         //marchas = (ImageView)findViewById(R.id.marcha_img);
         //aleatorio = (ImageView)findViewById(R.id.aleatorio_img);
 
@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements ICofrade{
 
     public void click_random(View view) {
         ((Application_vars) this.getApplication()).setCategoriaElegida("Random");
-        i = new Intent(MainActivity.this, RandomActivity.class);
+        i = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(i);
     }
 
