@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-=======
     android:background="#FFFF99"
->>>>>>> a4603fa69420aa7e8181b940bf3f2bf89635b30a
     tools:context="com.gabantdev.quizzcofrade.LoginActivity">
 
     <ImageView
@@ -86,7 +83,7 @@
         android:onClick="click_jugar"/>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/foto_usuario"
         android:layout_width="129dp"
         android:layout_height="115dp"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_portrait"

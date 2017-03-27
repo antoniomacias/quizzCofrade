@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.gabantdev.quizzcofrade.Clases.Usuario;
 import com.gabantdev.quizzcofrade.Interfaces.IRetrofit;
 import com.gabantdev.quizzcofrade.Pojos_API.Usuarios;
 import com.gabantdev.quizzcofrade.Utils.Application_vars;
+import com.gabantdev.quizzcofrade.Utils.RoundedTransformation;
 import com.gabantdev.quizzcofrade.localdb.DatabaseConnection;
 import com.gabantdev.quizzcofrade.localdb.UsuarioDB;
 import com.gabantdev.quizzcofrade.localdb.UsuarioDBDao;
@@ -25,6 +27,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +51,10 @@ public class LoginActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     String nombre, apellidos, email, idface, authToken;
     Usuario current_user;
+    String foto_usua;
+
+    ImageView foto_usuario;
+    com.gabantdev.quizzcofrade.Utils.CustomTextView nombre_face;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +63,23 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_login);
+        foto_usuario = (ImageView) findViewById(R.id.foto_usuario);
+        nombre_face = (com.gabantdev.quizzcofrade.Utils.CustomTextView) findViewById(R.id.nombre_face);
 
         info = (TextView)findViewById(R.id.info);
         loginButton = (LoginButton)findViewById(R.id.login_button);
         getUsuarios();
+
+        current_user = ((Application_vars) this.getApplication()).getU();
+        foto_usua = ((Application_vars) this.getApplication()).getFoto_user();
+        if(current_user != null){
+            nombre_face.setText(current_user.getNombre()+" \n"+current_user.getApellidos());
+            Picasso.with(getApplicationContext())
+                    .load(foto_usua)
+                    .transform(new RoundedTransformation(50, 20))
+                    .resize(500, 400)
+                    .into(foto_usuario);
+        }
 
         // Le damos permisos específicos para almacenar su email. La app le avisará automáticamente.
         loginButton.setReadPermissions(Arrays.asList(
@@ -92,9 +112,6 @@ public class LoginActivity extends AppCompatActivity {
                         nombre = (String) bFacebookData.get("first_name");
                         apellidos = (String) bFacebookData.get("last_name");
 
-
-
-
                         //TODO: Cambiarlo hacia arriba
                         String idSharedPreferences = "";
                         SharedPreferences settings = getSharedPreferences("PREFS_FACEBOOK", 0);
@@ -117,6 +134,8 @@ public class LoginActivity extends AppCompatActivity {
                                     bandera = true;
                                     current_user = new Usuario(us.getId(), nombre, apellidos, email, idface, authToken);
                                     ((Application_vars) getApplication()).setU(current_user);
+                                    ((Application_vars) getApplication()).setFoto_user((String) bFacebookData.get("profile_pic"));
+                                    foto_usua = (String) bFacebookData.get("profile_pic");
                                     System.out.println("Logueo al usuario: "+current_user);
                                 }
                             }
@@ -148,7 +167,18 @@ public class LoginActivity extends AppCompatActivity {
                             // Subo el usuario a Application
                             current_user = new Usuario(id_aux, nombre, apellidos, email, idface, authToken);
                             ((Application_vars) getApplication()).setU(current_user);
+                            foto_usua = (String) bFacebookData.get("profile_pic");
+                            ((Application_vars) getApplication()).setFoto_user((String) bFacebookData.get("profile_pic"));
                             System.out.println("No es tu primer login y vales: "+current_user);
+
+                            nombre_face.setText(current_user.getNombre()+" \n"+current_user.getApellidos());
+                            Picasso.with(getApplicationContext())
+                                    .load(foto_usua)
+                                    .transform(new RoundedTransformation(50, 20))
+                                    .resize(500, 400)
+                                    .into(foto_usuario);
+
+
 
                             //Si el id de Facebook es diferente al de las SharedPrefs = Otra persona
                             //if (!idSharedPreferences.equals(idface)){
@@ -178,7 +208,8 @@ public class LoginActivity extends AppCompatActivity {
                 info.setText("Login attempt failed.\n" + e.getMessage() + "\n" +e.getCause());
             }
         });
-    }
+    } // FIN DEL CREATE
+
     // RETROFIT USUARIOS
     private void getUsuarios() {
         Retrofit retrofit1 = new Retrofit.Builder()
@@ -213,6 +244,9 @@ public class LoginActivity extends AppCompatActivity {
                             current_user = new Usuario(h.getId(), nombre, apellidos, email, idface, authToken);
                             System.out.println("CREO AL USUARIO"+current_user);
                             ((Application_vars) getApplication()).setU(current_user);
+                            ((Application_vars) getApplication()).setFoto_user(foto_usua);
+
+                            //nombre_face.setText(current_user.getNombre());
                         }
                     }
                 }
@@ -237,7 +271,7 @@ public class LoginActivity extends AppCompatActivity {
             String id = object.getString("id");
 
             try {
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture");//?width=200&height=150
                 Log.i("profile_pic", profile_pic + "");
                 bundle.putString("profile_pic", profile_pic.toString());
 
