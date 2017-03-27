@@ -12,7 +12,7 @@
             android:id="@+id/ipv"
             android:layout_width="230dp"
             android:layout_height="230dp"
-            app:imageCover="@drawable/kiko"
+            app:imageCover="@drawable/fondo_reproductor"
             app:emptyColor="#aaffffff"
             app:loadedColor="#fff44336"
             android:layout_centerHorizontal="true"
