@@ -245,8 +245,6 @@ public class LoginActivity extends AppCompatActivity {
                             System.out.println("CREO AL USUARIO"+current_user);
                             ((Application_vars) getApplication()).setU(current_user);
                             ((Application_vars) getApplication()).setFoto_user(foto_usua);
-
-                            //nombre_face.setText(current_user.getNombre());
                         }
                     }
                 }
