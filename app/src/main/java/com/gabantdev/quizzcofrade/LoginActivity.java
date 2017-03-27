@@ -269,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
             String id = object.getString("id");
 
             try {
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture");//?width=200&height=150
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");//
                 Log.i("profile_pic", profile_pic + "");
                 bundle.putString("profile_pic", profile_pic.toString());
 
